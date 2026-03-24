@@ -72,9 +72,6 @@ class AttachmentSeeder extends Seeder
             // Генерируем имя без расширения для alt и description
             $nameWithoutExt = pathinfo($file, PATHINFO_FILENAME);
 
-            // Удаляем старую запись, если есть
-            Attachment::where('original_name', $file)->delete();
-
             $uploadedFile = new UploadedFile(
                 $filePath,
                 $file,
