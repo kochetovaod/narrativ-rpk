@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Акриловые буквы с торцевой LED-подсветкой — купить на заказ — Нарратив</title>
+    <meta name="description" content="Акриловые объёмные буквы с торцевой LED-подсветкой на заказ. Молочный или цветной акрил, любой шрифт и размер. От 1 800 ₽/буква. Срок 5–7 дней.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inner-pages.css">
+    <style>
+        /* ── Product main layout ── */
+        .product-page-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* ── Gallery ── */
+        .product-gallery {
+            position: sticky;
+            top: 100px;
+        }
+
+        .product-gallery__main {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(184,134,11,0.15);
+            aspect-ratio: 4/3;
+            background: #0d0d0d;
+            position: relative;
+            margin-bottom: 12px;
+            cursor: zoom-in;
+        }
+
+        .product-gallery__main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-gallery__main:hover img { transform: scale(1.04); }
+
+        .product-gallery__badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .gallery-badge {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 100px;
+        }
+
+        .gallery-badge--popular { background: rgba(184,134,11,0.9); color: #000; }
+        .gallery-badge--guarantee { background: rgba(0,196,184,0.15); color: var(--color-primary); border: 1px solid rgba(0,196,184,0.3); }
+
+        .product-gallery__thumbs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .product-thumb {
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s;
+            background: #0d0d0d;
+        }
+
+        .product-thumb.active { border-color: var(--color-primary); }
+        .product-thumb:hover { border-color: rgba(184,134,11,0.5); }
+
+        .product-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .product-thumb:hover img { transform: scale(1.08); }
+
+        /* ── Product info (right col) ── */
+        .product-info__cat {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .product-info__sku {
+            color: rgba(255,255,255,0.2);
+            font-weight: 400;
+        }
+
+        .product-info__title {
+            font-size: clamp(22px, 2.5vw, 32px);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .product-rating__stars {
+            color: #b8860b;
+            font-size: 16px;
+            letter-spacing: 2px;
+        }
+
+        .product-rating__count {
+            font-size: 13px;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .product-rating__reviews {
+            font-size: 13px;
+            color: var(--color-primary);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .product-price-block {
+            padding: 24px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(184,134,11,0.15);
+            border-radius: 10px;
+            margin-bottom: 24px;
+        }
+
+        .product-price__from {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 6px;
+        }
+
+        .product-price__val {
+            font-size: 36px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .product-price__unit {
+            font-size: 14px;
+            color: rgba(255,255,255,0.3);
+            margin-left: 4px;
+        }
+
+        .product-price__note {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            margin-top: 8px;
+        }
+
+        /* ── Options ── */
+        .product-options { margin-bottom: 24px; }
+
+        .option-group { margin-bottom: 20px; }
+
+        .option-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .option-label span {
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        .option-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .option-chip {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.2s;
+            background: transparent;
+            font-family: inherit;
+        }
+
+        .option-chip:hover {
+            border-color: rgba(184,134,11,0.4);
+            color: #fff;
+        }
+
+        .option-chip.active {
+            background: rgba(0,196,184,0.1);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .option-chip.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+
+        /* Color swatches */
+        .color-swatches {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .color-swatch.active {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(0,196,184,0.2);
+        }
+
+        .color-swatch::after {
+            content: attr(title);
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.85);
+            color: #fff;
+            font-size: 11px;
+            white-space: nowrap;
+            padding: 4px 8px;
+            border-radius: 4px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .color-swatch:hover::after { opacity: 1; }
+
+        /* Size selector */
+        .size-input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .size-input-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .size-input-label {
+            font-size: 11px;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .size-input {
+            padding: 10px 14px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(184,134,11,0.2);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .size-input:focus { border-color: var(--color-primary); }
+        .size-input::placeholder { color: rgba(255,255,255,0.2); }
+
+        /* ── CTAs ── */
+        .product-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .product-cta .btn { justify-content: center; }
+
+        /* ── Delivery info ── */
+        .product-delivery {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 18px 20px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .delivery-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .delivery-item__icon {
+            color: var(--color-primary);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .delivery-item__text { color: rgba(255,255,255,0.55); line-height: 1.5; }
+        .delivery-item__text strong { color: #fff; font-weight: 600; }
+
+        /* ── Main content tabs ── */
+        .product-tabs {
+            margin-top: 80px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 14px 24px;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.4);
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: all 0.25s;
+        }
+
+        .tab-btn:hover { color: #fff; }
+        .tab-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* Description */
+        .product-desc h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin: 32px 0 12px;
+        }
+
+        .product-desc h3:first-child { margin-top: 0; }
+
+        .product-desc p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.85;
+            margin-bottom: 18px;
+        }
+
+        .product-desc ul {
+            margin: 0 0 20px;
+            padding: 0;
+        }
+
+        .product-desc ul li {
+            padding: 8px 0 8px 22px;
+            position: relative;
+            font-size: 14px;
+            color: rgba(255,255,255,0.55);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .product-desc ul li:last-child { border-bottom: none; }
+        .product-desc ul li::before { content: '–'; position: absolute; left: 0; color: var(--color-primary); }
+
+        /* Specs table */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specs-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+        .specs-table td {
+            padding: 13px 18px;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .specs-table td:first-child {
+            color: rgba(255,255,255,0.4);
+            width: 40%;
+            font-weight: 500;
+        }
+
+        .specs-table td:last-child { color: #fff; }
+
+        /* Reviews tab */
+        .reviews-summary {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            padding: 32px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(184,134,11,0.12);
+            border-radius: 10px;
+            margin-bottom: 32px;
+        }
+
+        .reviews-big-rating {
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .reviews-big-rating__num {
+            font-size: 64px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .reviews-big-rating__stars {
+            font-size: 20px;
+            color: #b8860b;
+            letter-spacing: 2px;
+            margin: 8px 0;
+        }
+
+        .reviews-big-rating__count {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .reviews-bars {
+            flex: 1;
+        }
+
+        .reviews-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .reviews-bar-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            white-space: nowrap;
+            width: 32px;
+        }
+
+        .reviews-bar-track {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .reviews-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--color-primary), #b8860b);
+        }
+
+        .reviews-bar-count {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            width: 20px;
+            text-align: right;
+        }
+
+        /* Review cards */
+        .product-review {
+            padding: 24px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(184,134,11,0.1);
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .product-review__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 12px;
+        }
+
+        .product-review__author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pr-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0,196,184,0.1);
+            border: 1.5px solid rgba(0,196,184,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-primary);
+            flex-shrink: 0;
+        }
+
+        .pr-name { font-size: 14px; font-weight: 600; color: #fff; }
+        .pr-date { font-size: 12px; color: rgba(255,255,255,0.3); }
+        .pr-stars { color: #b8860b; font-size: 14px; letter-spacing: 2px; }
+        .pr-text { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+        @media (max-width: 1024px) {
+            .product-page-layout { grid-template-columns: 1fr; }
+            .product-gallery { position: static; }
+        }
+
+        @media (max-width: 600px) {
+            .product-gallery__thumbs { grid-template-columns: repeat(4, 1fr); }
+            .size-input-group { grid-template-columns: 1fr; }
+            .reviews-summary { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header" id="header">
+    <div class="header__container">
+        <div class="header__logo">
+            <a href="index.html"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></a>
+        </div>
+        <nav class="header__nav">
+            <ul class="nav__menu">
+                <li><a href="index.html" class="nav__link">Главная</a></li>
+                <li class="nav__dropdown">
+                    <a href="uslugi.html" class="nav__link">Услуги <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="service.html">Изготовление вывесок</a></li>
+                        <li><a href="#">Фрезеровка</a></li>
+                        <li><a href="#">Лазерная резка</a></li>
+                    </ul>
+                </li>
+                <li class="nav__dropdown">
+                    <a href="catalog.html" class="nav__link" style="color:var(--color-primary)">Продукция <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="catalog-cat.html">Объемные буквы</a></li>
+                        <li><a href="#">Световые короба</a></li>
+                    </ul>
+                </li>
+                <li><a href="portfolio.html" class="nav__link">Портфолио</a></li>
+                <li class="nav__dropdown">
+                    <a href="about.html" class="nav__link">О компании <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="equipment.html">Оборудование</a></li>
+                    </ul>
+                </li>
+                <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="header__contacts">
+            <a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a>
+            <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+        </div>
+        <button class="burger" id="burger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-menu__nav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="uslugi.html">Услуги</a></li>
+            <li><a href="catalog.html">Продукция</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="about.html">О компании</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+        <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+    </nav>
+</div>
+
+<!-- Breadcrumb -->
+<div style="padding: 120px 0 0;">
+    <div class="container">
+        <div class="page-hero__breadcrumb">
+            <a href="index.html">Главная</a><span>›</span>
+            <a href="catalog.html">Каталог</a><span>›</span>
+            <a href="catalog-cat.html">Объёмные буквы</a><span>›</span>
+            <span>Акриловые с торцевой LED</span>
+        </div>
+    </div>
+</div>
+
+<!-- Product section -->
+<section class="section section--dark" style="padding-top: 32px;">
+    <div class="container">
+        <div class="product-page-layout">
+
+            <!-- Gallery -->
+            <div class="product-gallery">
+                <div class="product-gallery__main" onclick="zoomMainImg()">
+                    <img id="mainImg" src="Продукция/Объемные буквы.jpeg" alt="Акриловые буквы с торцевой LED-подсветкой" onerror="this.parentElement.style.background='#111'">
+                    <div class="product-gallery__badge">
+                        <span class="gallery-badge gallery-badge--popular">Популярный товар</span>
+                        <span class="gallery-badge gallery-badge--guarantee">Гарантия 1 год</span>
+                    </div>
+                </div>
+                <div class="product-gallery__thumbs">
+                    <div class="product-thumb active" onclick="setMainImg(this, 'Продукция/Объемные буквы.jpeg')">
+                        <img src="Продукция/Объемные буквы.jpeg" alt="" onerror="this.parentElement.style.background='#111'">
+                    </div>
+                    <div class="product-thumb" onclick="setMainImg(this, 'мост/Реализация.png')">
+                        <img src="мост/Реализация.png" alt="" onerror="this.parentElement.style.background='#111'">
+                    </div>
+                    <div class="product-thumb" onclick="setMainImg(this, 'Продукция/Объемные буквы.jpeg')">
+                        <img src="Продукция/Объемные буквы.jpeg" alt="" style="filter:hue-rotate(40deg)" onerror="this.parentElement.style.background='#111'">
+                    </div>
+                    <div class="product-thumb" onclick="setMainImg(this, 'мост/Чертеж.png')">
+                        <img src="мост/Чертеж.png" alt="" onerror="this.parentElement.style.background='#111'">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product info -->
+            <div>
+                <div class="product-info__cat">
+                    Объёмные буквы
+                    <span class="product-info__sku">арт. OB-ACRL-001</span>
+                </div>
+
+                <h1 class="product-info__title">Акриловые объёмные буквы с торцевой LED-подсветкой</h1>
+
+                <div class="product-rating">
+                    <div class="product-rating__stars">★★★★★</div>
+                    <div class="product-rating__count">4.9</div>
+                    <div class="product-rating__reviews" onclick="switchTab('reviews')">47 отзывов</div>
+                </div>
+
+                <!-- Price -->
+                <div class="product-price-block">
+                    <div class="product-price__from">Стоимость</div>
+                    <div>
+                        <span class="product-price__val" id="priceDisplay">1 800</span>
+                        <span class="product-price__unit">₽ / буква</span>
+                    </div>
+                    <div class="product-price__note">Точная стоимость зависит от размера и шрифта. Расчёт — бесплатно.</div>
+                </div>
+
+                <!-- Options -->
+                <div class="product-options">
+                    <!-- Материал -->
+                    <div class="option-group">
+                        <div class="option-label">Материал акрила <span id="matLabel">Молочный (2800к)</span></div>
+                        <div class="option-chips">
+                            <button class="option-chip active" onclick="selectChip(this, 'matLabel', 'Молочный (2800К)', 1800)">Молочный</button>
+                            <button class="option-chip" onclick="selectChip(this, 'matLabel', 'Прозрачный', 1800)">Прозрачный</button>
+                            <button class="option-chip" onclick="selectChip(this, 'matLabel', 'Цветной (RAL)', 2200)">Цветной RAL</button>
+                            <button class="option-chip" onclick="selectChip(this, 'matLabel', 'Флуоресцентный', 2600)">Флуоресцентный</button>
+                        </div>
+                    </div>
+
+                    <!-- Цвет подсветки -->
+                    <div class="option-group">
+                        <div class="option-label">Цвет LED <span id="ledLabel">Холодный белый 6000К</span></div>
+                        <div class="color-swatches">
+                            <div class="color-swatch active" style="background:#e8f4ff;" title="Холодный белый 6000К" onclick="selectSwatch(this, 'ledLabel', 'Холодный белый 6000К')"></div>
+                            <div class="color-swatch" style="background:#fff5e6;" title="Тёплый белый 3000К" onclick="selectSwatch(this, 'ledLabel', 'Тёплый белый 3000К')"></div>
+                            <div class="color-swatch" style="background:#ff3333;" title="Красный" onclick="selectSwatch(this, 'ledLabel', 'Красный')"></div>
+                            <div class="color-swatch" style="background:#3399ff;" title="Синий" onclick="selectSwatch(this, 'ledLabel', 'Синий')"></div>
+                            <div class="color-swatch" style="background:#33ff99;" title="Зелёный" onclick="selectSwatch(this, 'ledLabel', 'Зелёный')"></div>
+                            <div class="color-swatch" style="background:#ff9933;" title="Янтарный" onclick="selectSwatch(this, 'ledLabel', 'Янтарный')"></div>
+                            <div class="color-swatch" style="background:linear-gradient(135deg,#ff33cc,#3399ff,#33ff99);" title="RGB (управляемый)" onclick="selectSwatch(this, 'ledLabel', 'RGB управляемый')"></div>
+                        </div>
+                    </div>
+
+                    <!-- Толщина -->
+                    <div class="option-group">
+                        <div class="option-label">Толщина буквы <span id="thickLabel">50 мм</span></div>
+                        <div class="option-chips">
+                            <button class="option-chip" onclick="selectChip(this, 'thickLabel', '30 мм', 1600)">30 мм</button>
+                            <button class="option-chip active" onclick="selectChip(this, 'thickLabel', '50 мм', 1800)">50 мм</button>
+                            <button class="option-chip" onclick="selectChip(this, 'thickLabel', '70 мм', 2100)">70 мм</button>
+                            <button class="option-chip" onclick="selectChip(this, 'thickLabel', '100 мм', 2500)">100 мм</button>
+                        </div>
+                    </div>
+
+                    <!-- Размер -->
+                    <div class="option-group">
+                        <div class="option-label">Высота букв</div>
+                        <div class="size-input-group">
+                            <div class="size-input-wrap">
+                                <span class="size-input-label">Высота (мм)</span>
+                                <input type="number" class="size-input" placeholder="200" min="50" max="2000" id="letterHeight" oninput="recalcPrice()">
+                            </div>
+                            <div class="size-input-wrap">
+                                <span class="size-input-label">Кол-во букв</span>
+                                <input type="number" class="size-input" placeholder="7" min="1" max="200" id="letterCount" oninput="recalcPrice()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="product-cta">
+                    <button class="btn btn--primary btn--large" onclick="openCallbackModal()">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style="margin-right:8px;"><path d="M9 3v12M3 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        Получить точный расчёт
+                    </button>
+                    <a href="tel:+74951234567" class="btn btn--outline btn--large" style="text-align:center;">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style="margin-right:8px;"><path d="M4.11 1.5a.76.76 0 00-1.14-.07L1.81 2.59c-.54.54-.74 1.31-.5 1.99a19.77 19.77 0 004.69 7.43 19.77 19.77 0 007.43 4.69c.68.24 1.45.04 1.99-.5l1.16-1.16a.76.76 0 00-.07-1.14L14 11.77a.76.76 0 00-.65-.14l-2.46.62a1.96 1.96 0 01-1.86-.52L6.29 9a1.96 1.96 0 01-.52-1.86l.62-2.46a.76.76 0 00-.14-.65L4.11 1.5z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+                        +7 (495) 123-45-67
+                    </a>
+                </div>
+
+                <!-- Delivery info -->
+                <div class="product-delivery">
+                    <div class="delivery-item">
+                        <span class="delivery-item__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+                        <span class="delivery-item__text"><strong>Срок изготовления:</strong> 5–7 рабочих дней (от подписания договора)</span>
+                    </div>
+                    <div class="delivery-item">
+                        <span class="delivery-item__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 10l3-7h6l3 7H2zM5 10v2a1 1 0 002 0v-2M9 10v2a1 1 0 002 0v-2" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></span>
+                        <span class="delivery-item__text"><strong>Монтаж:</strong> в Москве и МО — нашей бригадой. Доставка по РФ — транспортными компаниями.</span>
+                    </div>
+                    <div class="delivery-item">
+                        <span class="delivery-item__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.5 3 3.5.5-2.5 2.4.6 3.4L8 9.25 4.9 10.8l.6-3.4-2.5-2.4L6.5 4.5 8 1.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></span>
+                        <span class="delivery-item__text"><strong>Гарантия 1 год</strong> на конструкцию и LED-подсветку</span>
+                    </div>
+                    <div class="delivery-item">
+                        <span class="delivery-item__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        <span class="delivery-item__text"><strong>Оплата:</strong> 50% предоплата, 50% после монтажа и подписания акта</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tabs -->
+        <div class="product-tabs">
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab('description', this)">Описание</button>
+                <button class="tab-btn" onclick="switchTab('specs', this)">Характеристики</button>
+                <button class="tab-btn" onclick="switchTab('reviews', this)">Отзывы (47)</button>
+                <button class="tab-btn" onclick="switchTab('faq', this)">Вопросы и ответы</button>
+            </div>
+
+            <!-- Description -->
+            <div id="tab-description" class="tab-panel active">
+                <div class="product-desc">
+                    <p>Акриловые объёмные буквы с торцевой LED-подсветкой — наиболее популярный вид рекламных вывесок. Буква светится по всему периметру торца, создавая мягкое, привлекательное свечение. Отлично читается как днём, так и в ночное время.</p>
+
+                    <h3>Конструкция</h3>
+                    <p>Каждая буква состоит из нескольких компонентов:</p>
+                    <ul>
+                        <li>Лицевая панель — литой акрил 5–8 мм. Молочный рассеивает свет равномерно, прозрачный даёт более яркий эффект.</li>
+                        <li>Борта — нержавеющая сталь 1,5 мм или алюминий 1,2 мм. Обеспечивают жёсткость и долговечность конструкции.</li>
+                        <li>LED-лента — Samsung 2835, 12V DC, плотность 60–120 диодов/метр. Стабильная яркость на протяжении всего срока службы.</li>
+                        <li>Блок питания — Meanwell или аналог промышленного класса. Защита от перегрева, короткого замыкания, влаги (IP67 для наружных).</li>
+                        <li>Задняя стенка — пенопластовый компаунд или алюминиевый лист. Защищает LED от пыли и влаги.</li>
+                    </ul>
+
+                    <h3>Технология изготовления</h3>
+                    <p>Лицевые панели вырезаются лазером с точностью ±0,05 мм — это обеспечивает идеально ровный, полированный торец без необходимости дополнительной обработки. Именно это качество критично для торцевой подсветки: любая шероховатость создаёт тёмные пятна.</p>
+                    <p>Борта фрезеруются или вырезаются лазером, гнутся на вальцах. Соединения выполняются точечной сваркой или клёпкой — без видимых швов.</p>
+
+                    <h3>Сферы применения</h3>
+                    <ul>
+                        <li>Наружные фасадные вывески магазинов, ресторанов, офисов</li>
+                        <li>Интерьерные надписи — ресепшн, зоны ожидания, переговорные</li>
+                        <li>Навигационные системы торговых центров</li>
+                        <li>Брендирование стендов на выставках</li>
+                        <li>Фотозоны и декоративные инсталляции</li>
+                    </ul>
+
+                    <h3>Уход и обслуживание</h3>
+                    <p>Протирать мягкой тканью, смоченной водой или нейтральным моющим средством. Не использовать абразивы, растворители, спирт. Раз в 12–18 месяцев рекомендуется очистка от пыли внутри конструкции (гарантийный осмотр).</p>
+                </div>
+            </div>
+
+            <!-- Specs -->
+            <div id="tab-specs" class="tab-panel">
+                <table class="specs-table">
+                    <tr><td>Материал лицевой панели</td><td>Литой акрил 5–8 мм (Plexiglas, Altuglas)</td></tr>
+                    <tr><td>Материал бортов</td><td>Нержавеющая сталь 1,5 мм / алюминий 1,2 мм</td></tr>
+                    <tr><td>Технология резки</td><td>Лазерная резка ±0,05 мм</td></tr>
+                    <tr><td>Тип подсветки</td><td>Торцевая LED</td></tr>
+                    <tr><td>LED-лента</td><td>Samsung 2835, 12V DC, 60–120 LED/м</td></tr>
+                    <tr><td>Цветовая температура</td><td>3000К, 4000К, 6000К или RGB</td></tr>
+                    <tr><td>Блок питания</td><td>Meanwell (промышленный класс)</td></tr>
+                    <tr><td>Защита блока питания</td><td>IP67 (наружное) / IP40 (интерьерное)</td></tr>
+                    <tr><td>Толщина буквы (глубина)</td><td>30 / 50 / 70 / 100 мм</td></tr>
+                    <tr><td>Минимальная высота буквы</td><td>50 мм</td></tr>
+                    <tr><td>Максимальная высота буквы</td><td>до 2000 мм</td></tr>
+                    <tr><td>Срок службы LED</td><td>50 000 часов (≈ 17 лет при 8 ч/сутки)</td></tr>
+                    <tr><td>Гарантия</td><td>12 месяцев</td></tr>
+                    <tr><td>Срок изготовления</td><td>5–7 рабочих дней</td></tr>
+                    <tr><td>Монтаж</td><td>Дюбель-анкеры в стену / шпильки для алюминиевого фасада</td></tr>
+                    <tr><td>Напряжение питания</td><td>220V AC (через блок питания)</td></tr>
+                </table>
+            </div>
+
+            <!-- Reviews -->
+            <div id="tab-reviews" class="tab-panel">
+                <div class="reviews-summary">
+                    <div class="reviews-big-rating">
+                        <div class="reviews-big-rating__num">4.9</div>
+                        <div class="reviews-big-rating__stars">★★★★★</div>
+                        <div class="reviews-big-rating__count">47 отзывов</div>
+                    </div>
+                    <div class="reviews-bars">
+                        <div class="reviews-bar-row"><span class="reviews-bar-label">5 ★</span><div class="reviews-bar-track"><div class="reviews-bar-fill" style="width:88%"></div></div><span class="reviews-bar-count">41</span></div>
+                        <div class="reviews-bar-row"><span class="reviews-bar-label">4 ★</span><div class="reviews-bar-track"><div class="reviews-bar-fill" style="width:8%"></div></div><span class="reviews-bar-count">4</span></div>
+                        <div class="reviews-bar-row"><span class="reviews-bar-label">3 ★</span><div class="reviews-bar-track"><div class="reviews-bar-fill" style="width:2%"></div></div><span class="reviews-bar-count">1</span></div>
+                        <div class="reviews-bar-row"><span class="reviews-bar-label">2 ★</span><div class="reviews-bar-track"><div class="reviews-bar-fill" style="width:2%"></div></div><span class="reviews-bar-count">1</span></div>
+                        <div class="reviews-bar-row"><span class="reviews-bar-label">1 ★</span><div class="reviews-bar-track"><div class="reviews-bar-fill" style="width:0%"></div></div><span class="reviews-bar-count">0</span></div>
+                    </div>
+                </div>
+
+                <div class="product-review">
+                    <div class="product-review__header">
+                        <div class="product-review__author">
+                            <div class="pr-avatar">НС</div>
+                            <div><div class="pr-name">Наталья Смирнова</div><div class="pr-date">14 февраля 2026</div></div>
+                        </div>
+                        <div class="pr-stars">★★★★★</div>
+                    </div>
+                    <p class="pr-text">Заказывали буквы для нашего медицинского центра. Молочный акрил 70 мм, тёплый белый. Свет распределяется идеально, буквы видно с дороги даже в яркий день. Монтажники аккуратные, справились за полдня. Очень довольны.</p>
+                </div>
+
+                <div class="product-review">
+                    <div class="product-review__header">
+                        <div class="product-review__author">
+                            <div class="pr-avatar">АК</div>
+                            <div><div class="pr-name">Андрей Козлов</div><div class="pr-date">3 февраля 2026</div></div>
+                        </div>
+                        <div class="pr-stars">★★★★★</div>
+                    </div>
+                    <p class="pr-text">Брали буквы из цветного акрила (RAL 7016 антрацит) для барбершопа. Выглядят очень дорого, как раз то, что хотели. Дизайн согласовали быстро, всё сделали за 6 дней. Рекомендую.</p>
+                </div>
+
+                <div class="product-review">
+                    <div class="product-review__header">
+                        <div class="product-review__author">
+                            <div class="pr-avatar">ЕМ</div>
+                            <div><div class="pr-name">Елена Морозова</div><div class="pr-date">22 января 2026</div></div>
+                        </div>
+                        <div class="pr-stars">★★★★☆</div>
+                    </div>
+                    <p class="pr-text">Хорошее качество, буквы ровные, подсветка работает. Единственный минус — немного задержали на 2 дня, но предупредили заранее. В целом — рекомендую.</p>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div id="tab-faq" class="tab-panel">
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                    <div class="faq-item" onclick="this.classList.toggle('open')">
+                        <div class="faq-question">
+                            <span class="faq-question__text">Можно ли сделать буквы по нашему логотипу?</span>
+                            <span class="faq-question__arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+                        </div>
+                        <div class="faq-answer">Да, это стандартная задача. Пришлите нам логотип в векторном формате (AI, EPS, SVG, PDF) — мы переведём его в производственные файлы. Если логотипа в векторе нет — оцифруем растровое изображение за 1 500–3 000 ₽.</div>
+                    </div>
+                    <div class="faq-item" onclick="this.classList.toggle('open')">
+                        <div class="faq-question">
+                            <span class="faq-question__text">Какой минимальный размер буквы?</span>
+                            <span class="faq-question__arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+                        </div>
+                        <div class="faq-answer">Минимальная высота объёмной буквы с подсветкой — 50 мм. При меньших размерах внутрь не помещается LED-лента. Для мелких надписей рекомендуем гравировку или плоттерную резку — дешевле и аккуратнее.</div>
+                    </div>
+                    <div class="faq-item" onclick="this.classList.toggle('open')">
+                        <div class="faq-question">
+                            <span class="faq-question__text">Как часто нужно менять светодиоды?</span>
+                            <span class="faq-question__arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+                        </div>
+                        <div class="faq-answer">Срок службы LED-ленты Samsung 2835 — не менее 50 000 часов. При работе вывески 12 часов в сутки это более 11 лет. В течение гарантийного срока (1 год) при снижении яркости более чем на 30% — бесплатная замена.</div>
+                    </div>
+                    <div class="faq-item" onclick="this.classList.toggle('open')">
+                        <div class="faq-question">
+                            <span class="faq-question__text">Буквы выдержат дождь и мороз?</span>
+                            <span class="faq-question__arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+                        </div>
+                        <div class="faq-answer">Да. Для наружного применения используем герметик по всему периметру, блок питания с защитой IP67, нержавеющий крепёж. Рабочий диапазон температур: -40°C до +60°C. Акрил не трескается и не желтеет при правильной эксплуатации до 10–15 лет.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related products -->
+<section class="section section--gray">
+    <div class="container">
+        <div class="section-label">Смотрите также</div>
+        <h2 class="section-title">Похожие товары</h2>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
+            <a href="product.html" style="text-decoration:none;">
+                <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(184,134,11,0.12);border-radius:10px;overflow:hidden;transition:all .3s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+                    <div style="aspect-ratio:4/3;overflow:hidden;background:#111;"><img src="Продукция/Объемные буквы.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='#111'"></div>
+                    <div style="padding:20px 22px;">
+                        <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--color-primary);margin-bottom:6px;">Нержавеющая сталь</div>
+                        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">Буквы из нержавейки с гало-подсветкой</div>
+                        <div style="font-size:14px;font-weight:700;color:#fff;">от 4 200 ₽<span style="font-size:12px;color:rgba(255,255,255,.3);font-weight:400;">/буква</span></div>
+                    </div>
+                </div>
+            </a>
+            <a href="product.html" style="text-decoration:none;">
+                <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(184,134,11,0.12);border-radius:10px;overflow:hidden;transition:all .3s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+                    <div style="aspect-ratio:4/3;overflow:hidden;background:#111;"><img src="Продукция/Световые короба.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='#111'"></div>
+                    <div style="padding:20px 22px;">
+                        <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--color-primary);margin-bottom:6px;">Световой короб</div>
+                        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">Лайтбокс с натяжной тканью</div>
+                        <div style="font-size:14px;font-weight:700;color:#fff;">от 8 000 ₽<span style="font-size:12px;color:rgba(255,255,255,.3);font-weight:400;">/шт.</span></div>
+                    </div>
+                </div>
+            </a>
+            <a href="product.html" style="text-decoration:none;">
+                <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(184,134,11,0.12);border-radius:10px;overflow:hidden;transition:all .3s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''">
+                    <div style="aspect-ratio:4/3;overflow:hidden;background:#111;"><img src="Продукция/Неоновые вывески.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='#111'"></div>
+                    <div style="padding:20px 22px;">
+                        <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--color-primary);margin-bottom:6px;">Неон</div>
+                        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">LED-неон любой формы</div>
+                        <div style="font-size:14px;font-weight:700;color:#fff;">от 12 000 ₽<span style="font-size:12px;color:rgba(255,255,255,.3);font-weight:400;">/изделие</span></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__column footer__column--brand">
+                <div class="footer__logo"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></div>
+                <p class="footer__description">Производство наружной и интерьерной рекламы. Полный цикл — от идеи до монтажа.</p>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Услуги</h4>
+                <ul class="footer__links">
+                    <li><a href="service.html">Изготовление вывесок</a></li>
+                    <li><a href="#">Фрезеровка</a></li>
+                    <li><a href="#">Лазерная резка</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Продукция</h4>
+                <ul class="footer__links">
+                    <li><a href="catalog-cat.html">Объемные буквы</a></li>
+                    <li><a href="#">Световые короба</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Компания</h4>
+                <ul class="footer__links">
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="portfolio.html">Портфолио</a></li>
+                    <li><a href="blog.html">Блог</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Контакты</h4>
+                <ul class="footer__contacts">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z" stroke="currentColor" fill="none"/></svg><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 5.5l5.5 3.5 5.5-3.5M3 13h10a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0013 3H3a1.5 1.5 0 00-1.5 1.5v7A1.5 1.5 0 003 13z" stroke="currentColor" fill="none"/></svg><a href="mailto:info@narrativ.ru">info@narrativ.ru</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="footer__copyright">© 2026 Нарратив. Все права защищены.</div>
+            <div class="footer__legal">
+                <a href="privacy.html">Политика конфиденциальности</a>
+                <span class="footer__separator">•</span>
+                <a href="#">Карта сайта</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Zoom modal -->
+<div id="zoomModal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.95);align-items:center;justify-content:center;cursor:zoom-out;" onclick="document.getElementById('zoomModal').style.display='none';document.body.style.overflow=''">
+    <img id="zoomedImg" src="" style="max-width:92vw;max-height:92vh;object-fit:contain;border-radius:8px;">
+</div>
+
+<div class="modal" id="callbackModal">
+    <div class="modal__overlay" onclick="closeCallbackModal()"></div>
+    <div class="modal__content">
+        <button class="modal__close" onclick="closeCallbackModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <h3 class="modal__title">Получить расчёт</h3>
+        <p class="modal__subtitle">Оставьте номер — менеджер свяжется в течение 15 минут и рассчитает стоимость.</p>
+        <form class="form" onsubmit="submitCallback(event)">
+            <div class="form__group"><input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required></div>
+            <div class="form__group"><input type="text" class="form__input" placeholder="Что хотите сделать?"></div>
+            <div class="form__checkbox">
+                <input type="checkbox" id="agree-modal" required>
+                <label for="agree-modal">Согласен на обработку персональных данных</label>
+            </div>
+            <button type="submit" class="btn btn--primary btn--large">Получить расчёт</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    let basePrice = 1800;
+
+    function setMainImg(thumb, src) {
+        document.getElementById('mainImg').src = src;
+        document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+    }
+
+    function zoomMainImg() {
+        const src = document.getElementById('mainImg').src;
+        document.getElementById('zoomedImg').src = src;
+        const modal = document.getElementById('zoomModal');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function selectChip(el, labelId, labelText, price) {
+        const group = el.closest('.option-chips');
+        group.querySelectorAll('.option-chip').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById(labelId).textContent = labelText;
+        basePrice = price;
+        recalcPrice();
+    }
+
+    function selectSwatch(el, labelId, labelText) {
+        el.parentElement.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById(labelId).textContent = labelText;
+    }
+
+    function recalcPrice() {
+        const h = parseInt(document.getElementById('letterHeight').value) || 0;
+        const count = parseInt(document.getElementById('letterCount').value) || 1;
+        let price = basePrice;
+        if (h > 500) price = Math.round(price * 1.5);
+        else if (h > 300) price = Math.round(price * 1.25);
+        const total = price * count;
+        document.getElementById('priceDisplay').textContent = count > 1
+            ? price.toLocaleString('ru') + ' (итого: ' + total.toLocaleString('ru') + ')'
+            : price.toLocaleString('ru');
+    }
+
+    function switchTab(name, btn) {
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + name).classList.add('active');
+        if (btn) btn.classList.add('active');
+        else {
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                if (b.getAttribute('onclick').includes("'" + name + "'")) b.classList.add('active');
+            });
+        }
+    }
+</script>
+</body>
+</html>

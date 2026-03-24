@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Политика конфиденциальности — Нарратив</title>
+    <meta name="description" content="Политика конфиденциальности ООО Нарратив — порядок сбора, хранения и использования персональных данных.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inner-pages.css">
+    <style>
+        .privacy-toc {
+            position: sticky;
+            top: 100px;
+            padding: 28px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(184,134,11,0.15);
+            border-radius: 8px;
+        }
+        .privacy-toc__title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 16px;
+        }
+        .privacy-toc__list { display: flex; flex-direction: column; gap: 6px; }
+        .privacy-toc__item a {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            transition: color 0.3s;
+            display: block;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .privacy-toc__item:last-child a { border-bottom: none; }
+        .privacy-toc__item a:hover { color: var(--color-primary); }
+        .privacy-layout {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 60px;
+            align-items: start;
+        }
+        @media (max-width: 1024px) {
+            .privacy-layout { grid-template-columns: 1fr; }
+            .privacy-toc { position: static; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header" id="header">
+    <div class="header__container">
+        <div class="header__logo">
+            <a href="index.html"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></a>
+        </div>
+        <nav class="header__nav">
+            <ul class="nav__menu">
+                <li><a href="index.html" class="nav__link">Главная</a></li>
+                <li class="nav__dropdown">
+                    <a href="uslugi.html" class="nav__link">Услуги <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="#">Изготовление вывесок</a></li>
+                        <li><a href="#">Фрезеровка</a></li>
+                        <li><a href="#">Лазерная резка</a></li>
+                        <li><a href="#">Монтажные работы</a></li>
+                    </ul>
+                </li>
+                <li class="nav__dropdown">
+                    <a href="catalog.html" class="nav__link">Продукция <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="#">Объемные буквы</a></li>
+                        <li><a href="#">Световые короба</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav__link">Портфолио</a></li>
+                <li class="nav__dropdown">
+                    <a href="about.html" class="nav__link">О компании <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="equipment.html">Оборудование</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </li>
+                <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="header__contacts">
+            <a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a>
+            <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+        </div>
+        <button class="burger" id="burger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-menu__nav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="uslugi.html">Услуги</a></li>
+            <li><a href="catalog.html">Продукция</a></li>
+            <li><a href="about.html">О компании</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+        <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+    </nav>
+</div>
+
+<section class="page-hero" style="padding:140px 0 60px;">
+    <div class="container">
+        <div class="page-hero__breadcrumb">
+            <a href="index.html">Главная</a>
+            <span>›</span>
+            <span>Политика конфиденциальности</span>
+        </div>
+        <h1 class="page-hero__title" style="font-size:42px;">Политика конфиденциальности</h1>
+    </div>
+</section>
+
+<section class="section section--dark">
+    <div class="container">
+        <div class="privacy-layout">
+            <div class="privacy-content">
+
+                <div class="privacy-meta">
+                    <div class="privacy-meta__item"><label>Версия</label><span>1.2</span></div>
+                    <div class="privacy-meta__item"><label>Вступила в силу</label><span>1 января 2026 г.</span></div>
+                    <div class="privacy-meta__item"><label>Обновлено</label><span>19 февраля 2026 г.</span></div>
+                    <div class="privacy-meta__item"><label>Оператор</label><span>ООО «Нарратив»</span></div>
+                </div>
+
+                <h2 id="s1">1. Общие положения</h2>
+                <p>Настоящая Политика конфиденциальности (далее — «Политика») регулирует порядок обработки ООО «Нарратив» (ОГРН 1127746123456, ИНН 7712345678, далее — «Оператор») персональных данных пользователей сайта narrativ.ru и связанных с ним сервисов.</p>
+                <p>Оператор обрабатывает персональные данные в соответствии с требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» и иными применимыми нормативными актами Российской Федерации.</p>
+                <p>Используя сайт или направляя нам свои данные через форму обратной связи, вы подтверждаете, что ознакомились с настоящей Политикой и даёте согласие на обработку ваших персональных данных на изложенных в ней условиях.</p>
+
+                <h2 id="s2">2. Какие данные мы собираем</h2>
+                <p>В зависимости от способа взаимодействия с нами мы можем собирать следующие категории данных:</p>
+                <h3>2.1. Данные, которые вы предоставляете нам самостоятельно</h3>
+                <ul>
+                    <li>Имя и фамилия — при заполнении форм обратной связи и заявок.</li>
+                    <li>Номер телефона — для обратного звонка и уточнения деталей заказа.</li>
+                    <li>Адрес электронной почты — для переписки и отправки коммерческих предложений.</li>
+                    <li>Содержание сообщений — описание проектов, пожеланий, вложенные файлы.</li>
+                    <li>Адрес объекта — для выезда на замер и монтаж.</li>
+                </ul>
+                <h3>2.2. Данные, собираемые автоматически</h3>
+                <ul>
+                    <li>IP-адрес и геолокация на уровне города.</li>
+                    <li>Данные о браузере, операционной системе, разрешении экрана.</li>
+                    <li>Страницы сайта, которые вы посещали, время визита, источник перехода.</li>
+                    <li>Cookie-файлы в соответствии с нашей политикой использования куки.</li>
+                    <li>Данные аналитических сервисов (Яндекс.Метрика, Google Analytics).</li>
+                </ul>
+
+                <h2 id="s3">3. Цели обработки персональных данных</h2>
+                <p>Мы используем собранные данные исключительно в следующих целях:</p>
+                <ul>
+                    <li>Обработка входящих заявок и запросов на расчёт стоимости.</li>
+                    <li>Организация обратного звонка или консультации специалиста.</li>
+                    <li>Исполнение договорных обязательств по изготовлению и монтажу рекламных конструкций.</li>
+                    <li>Направление коммерческих предложений и новостей компании (с вашего согласия).</li>
+                    <li>Улучшение работы сайта и качества обслуживания клиентов.</li>
+                    <li>Соблюдение требований действующего законодательства РФ.</li>
+                </ul>
+
+                <h2 id="s4">4. Правовые основания обработки</h2>
+                <p>Обработка персональных данных осуществляется на следующих правовых основаниях:</p>
+                <ul>
+                    <li>Согласие субъекта персональных данных (ст. 6, п. 1, пп. 1 Закона № 152-ФЗ).</li>
+                    <li>Исполнение договора, стороной которого является субъект персональных данных (ст. 6, п. 1, пп. 5 Закона № 152-ФЗ).</li>
+                    <li>Реализация законных интересов Оператора (ст. 6, п. 1, пп. 7 Закона № 152-ФЗ).</li>
+                    <li>Исполнение обязанности, предусмотренной законодательством (ст. 6, п. 1, пп. 2 Закона № 152-ФЗ).</li>
+                </ul>
+
+                <h2 id="s5">5. Хранение и защита данных</h2>
+                <p>Оператор принимает все необходимые организационные и технические меры для защиты персональных данных от несанкционированного доступа, изменения, раскрытия или уничтожения:</p>
+                <ul>
+                    <li>Данные хранятся на защищённых серверах, расположенных на территории РФ.</li>
+                    <li>Передача данных осуществляется по зашифрованным каналам (SSL/TLS).</li>
+                    <li>Доступ к персональным данным имеет ограниченный круг сотрудников, принявших обязательства о конфиденциальности.</li>
+                    <li>Системы защиты проходят регулярный аудит и обновление.</li>
+                </ul>
+                <p>Персональные данные хранятся в течение срока, необходимого для достижения целей обработки, либо до момента отзыва согласия, но не более 5 лет с даты последнего взаимодействия.</p>
+
+                <h2 id="s6">6. Передача данных третьим лицам</h2>
+                <p>Оператор не продаёт и не передаёт персональные данные третьим лицам в коммерческих целях. Передача данных допускается только в следующих случаях:</p>
+                <ul>
+                    <li>Партнёрам и подрядчикам, участвующим в исполнении заказа (курьерские службы, монтажные бригады) — в объёме, необходимом для выполнения конкретной задачи.</li>
+                    <li>Поставщикам аналитических и маркетинговых инструментов (Яндекс, Google) — в обезличенном виде.</li>
+                    <li>Государственным органам — в случаях, предусмотренных законодательством РФ.</li>
+                </ul>
+
+                <h2 id="s7">7. Использование cookie-файлов</h2>
+                <p>Наш сайт использует файлы cookie для улучшения пользовательского опыта и сбора аналитики. Мы используем следующие категории cookie:</p>
+                <ul>
+                    <li><strong style="color:#fff;">Необходимые</strong> — обеспечивают работу базовых функций сайта и не могут быть отключены.</li>
+                    <li><strong style="color:#fff;">Аналитические</strong> — собирают статистику посещаемости в анонимном виде (Яндекс.Метрика, Google Analytics).</li>
+                    <li><strong style="color:#fff;">Маркетинговые</strong> — используются для ремаркетинга и персонализации рекламы. Вы можете отключить их в настройках браузера.</li>
+                </ul>
+
+                <h2 id="s8">8. Права субъектов персональных данных</h2>
+                <p>В соответствии с действующим законодательством вы имеете право:</p>
+                <ul>
+                    <li>Получить информацию об обработке ваших персональных данных.</li>
+                    <li>Потребовать уточнения, блокирования или удаления данных, если они являются неполными, устаревшими или незаконно полученными.</li>
+                    <li>Отозвать согласие на обработку данных в любой момент.</li>
+                    <li>Обратиться с жалобой в Роскомнадзор (rkn.gov.ru).</li>
+                </ul>
+                <p>Для реализации указанных прав направьте обращение по адресу: г. Москва, ул. Производственная, д. 15, стр. 2 или по e-mail: <a href="mailto:privacy@narrativ.ru">privacy@narrativ.ru</a>. Срок рассмотрения — 30 дней.</p>
+
+                <h2 id="s9">9. Дети</h2>
+                <p>Наш сайт не предназначен для лиц, не достигших 18 лет. Мы не собираем намеренно персональные данные несовершеннолетних. Если вам стало известно о таком случае, пожалуйста, сообщите нам для удаления данных.</p>
+
+                <h2 id="s10">10. Изменения в Политике</h2>
+                <p>Оператор оставляет за собой право вносить изменения в настоящую Политику. Актуальная редакция всегда доступна на данной странице. При существенных изменениях мы уведомим пользователей, предоставивших контактные данные.</p>
+
+                <h2 id="s11">11. Контакты оператора</h2>
+                <ul>
+                    <li>Юридический адрес: г. Москва, ул. Производственная, д. 15, стр. 2, офис 301</li>
+                    <li>Телефон: <a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+                    <li>E-mail: <a href="mailto:privacy@narrativ.ru">privacy@narrativ.ru</a></li>
+                </ul>
+            </div>
+
+            <!-- TOC sidebar -->
+            <aside>
+                <div class="privacy-toc">
+                    <div class="privacy-toc__title">Содержание</div>
+                    <ul class="privacy-toc__list">
+                        <li class="privacy-toc__item"><a href="#s1">1. Общие положения</a></li>
+                        <li class="privacy-toc__item"><a href="#s2">2. Какие данные мы собираем</a></li>
+                        <li class="privacy-toc__item"><a href="#s3">3. Цели обработки</a></li>
+                        <li class="privacy-toc__item"><a href="#s4">4. Правовые основания</a></li>
+                        <li class="privacy-toc__item"><a href="#s5">5. Хранение и защита</a></li>
+                        <li class="privacy-toc__item"><a href="#s6">6. Передача третьим лицам</a></li>
+                        <li class="privacy-toc__item"><a href="#s7">7. Cookie-файлы</a></li>
+                        <li class="privacy-toc__item"><a href="#s8">8. Права пользователей</a></li>
+                        <li class="privacy-toc__item"><a href="#s9">9. Дети</a></li>
+                        <li class="privacy-toc__item"><a href="#s10">10. Изменения в политике</a></li>
+                        <li class="privacy-toc__item"><a href="#s11">11. Контакты</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__column footer__column--brand">
+                <div class="footer__logo"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></div>
+                <p class="footer__description">Производство наружной и интерьерной рекламы. Полный цикл — от идеи до монтажа.</p>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Услуги</h4>
+                <ul class="footer__links">
+                    <li><a href="#">Изготовление вывесок</a></li>
+                    <li><a href="#">Фрезеровка</a></li>
+                    <li><a href="#">Лазерная резка</a></li>
+                    <li><a href="#">Монтажные работы</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Продукция</h4>
+                <ul class="footer__links">
+                    <li><a href="#">Объемные буквы</a></li>
+                    <li><a href="#">Световые короба</a></li>
+                    <li><a href="#">Световые панели</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Компания</h4>
+                <ul class="footer__links">
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="#">Портфолио</a></li>
+                    <li><a href="blog.html">Блог</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Контакты</h4>
+                <ul class="footer__contacts">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z" stroke="currentColor" fill="none"/></svg><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 5.5l5.5 3.5 5.5-3.5M3 13h10a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0013 3H3a1.5 1.5 0 00-1.5 1.5v7A1.5 1.5 0 003 13z" stroke="currentColor" fill="none"/></svg><a href="mailto:info@narrativ.ru">info@narrativ.ru</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="footer__copyright">© 2026 Нарратив. Все права защищены.</div>
+            <div class="footer__legal">
+                <a href="privacy.html" style="color:var(--color-primary)">Политика конфиденциальности</a>
+                <span class="footer__separator">•</span>
+                <a href="#">Карта сайта</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div class="modal" id="callbackModal">
+    <div class="modal__overlay" onclick="closeCallbackModal()"></div>
+    <div class="modal__content">
+        <button class="modal__close" onclick="closeCallbackModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <h3 class="modal__title">Заказать звонок</h3>
+        <p class="modal__subtitle">Оставьте свой номер, и мы перезвоним вам в течение 15 минут</p>
+        <form class="form" onsubmit="submitCallback(event)">
+            <div class="form__group"><input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required></div>
+            <div class="form__checkbox">
+                <input type="checkbox" id="agree-modal" required>
+                <label for="agree-modal">Согласен на обработку персональных данных</label>
+            </div>
+            <button type="submit" class="btn btn--primary btn--large">Заказать звонок</button>
+        </form>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

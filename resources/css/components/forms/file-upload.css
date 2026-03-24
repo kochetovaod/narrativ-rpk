@@ -1,0 +1,147 @@
+/* ==========================================
+   File Upload
+   ========================================== */
+.file-upload {
+    position: relative;
+}
+
+.file-upload__input {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.file-upload__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 24px;
+    background: rgba(255, 255, 255, .02);
+    border: 2px dashed rgba(184, 134, 11, .25);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.file-upload__label:hover {
+    border-color: var(--color-primary);
+    background: rgba(0, 196, 184, .03);
+}
+
+.file-upload__icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 196, 184, .1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+}
+
+.file-upload__text {
+    font-size: 14px;
+    color: #fff;
+    text-align: left;
+}
+
+.file-upload__text span {
+    display: block;
+    font-size: 12px;
+    color: var(--color-text-dim);
+    margin-top: 4px;
+}
+
+/* Uploaded files list */
+.file-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, .02);
+    border: 1px solid rgba(184, 134, 11, .1);
+    border-radius: 8px;
+}
+
+.file-item__icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 196, 184, .1);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.file-item__name {
+    flex: 1;
+    font-size: 13px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-item__remove {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, .3);
+    cursor: pointer;
+    transition: color .2s;
+}
+
+.file-item__remove:hover {
+    color: #ff4444;
+}
+
+/* Drag & drop zone */
+.file-dropzone {
+    border: 2px dashed rgba(184, 134, 11, .3);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    transition: all .3s;
+}
+
+.file-dropzone.dragover {
+    border-color: var(--color-primary);
+    background: rgba(0, 196, 184, .05);
+}
+
+.file-dropzone__icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+    background: rgba(0, 196, 184, .08);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+}
+
+.file-dropzone__text {
+    font-size: 15px;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.file-dropzone__hint {
+    font-size: 13px;
+    color: var(--color-text-dim);
+}

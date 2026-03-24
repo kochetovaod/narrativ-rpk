@@ -1,0 +1,76 @@
+.icon-cards-grid {
+    display: grid;
+    gap: 2px;
+    border-radius: 8px;
+}
+
+.columns3 {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.columns4 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.icon-card-item {
+    background: rgba(19, 19, 19, 0.45);
+    border: 1px solid rgba(184, 134, 11, 0.15);
+    border-radius: 8px;
+    transition: all 0.3s;
+    padding: 36px 28px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.icon-card-item:hover {
+    background: rgba(0, 196, 184, 0.03);
+    border-color: rgba(184, 134, 11, 0.4);
+    transform: translateY(-4px);
+}
+
+.icon-card-item__icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(0, 196, 184, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-primary);
+}
+
+.icon-card-item__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+}
+
+.icon-card-item__text {
+    font-size: 13px;
+    color: var(--color-text-dim);
+    line-height: 1.6;
+
+}
+
+.icon-card-item__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    justify-content: left;
+    margin-top: 18px;
+}
+
+.icon-card-item__tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(0, 196, 184, 0.7);
+    background: rgba(0, 196, 184, 0.08);
+    padding: 3px 8px;
+    border-radius: 100px;
+}

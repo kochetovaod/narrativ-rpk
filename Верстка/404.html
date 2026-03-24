@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Страница не найдена — Нарратив</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inner-pages.css">
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative background number */
+        .error-page__bg-num {
+            position: absolute;
+            font-size: clamp(200px, 35vw, 480px);
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(184, 134, 11, 0.07);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            line-height: 1;
+            user-select: none;
+            pointer-events: none;
+            letter-spacing: -20px;
+        }
+
+        /* Floating particles */
+        .error-page__particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            animation: float-particle linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes float-particle {
+            0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+            10%  { opacity: 0.6; }
+            90%  { opacity: 0.3; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        .error-page__content {
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+        }
+
+        .error-page__code {
+            font-size: clamp(80px, 15vw, 160px);
+            font-weight: 900;
+            line-height: 1;
+            color: transparent;
+            background: linear-gradient(135deg, var(--color-primary) 0%, #b8860b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .error-page__headline {
+            font-size: clamp(20px, 3vw, 32px);
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+            animation: fadeInUp 0.9s ease both;
+        }
+
+        .error-page__text {
+            font-size: 16px;
+            color: var(--color-text-dim);
+            line-height: 1.7;
+            margin-bottom: 48px;
+            animation: fadeInUp 1s ease both;
+        }
+
+        .error-page__search {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 48px;
+            max-width: 460px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1.1s ease both;
+        }
+
+        .error-page__search input {
+            flex: 1;
+            padding: 14px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(184,134,11,0.3);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .error-page__search input:focus {
+            border-color: var(--color-primary);
+        }
+
+        .error-page__search input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .error-page__divider {
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            margin-bottom: 40px;
+            animation: fadeInUp 1.2s ease both;
+        }
+
+        .error-page__links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            animation: fadeInUp 1.3s ease both;
+        }
+
+        .error-page__link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 22px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(184,134,11,0.15);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-dim);
+            transition: all 0.3s;
+        }
+
+        .error-page__link:hover {
+            background: rgba(0,196,184,0.06);
+            border-color: rgba(184,134,11,0.4);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .error-page__link svg {
+            color: var(--color-primary);
+            flex-shrink: 0;
+        }
+
+        /* Best works mini-gallery */
+        .error-works {
+            margin-top: 80px;
+            text-align: left;
+        }
+
+        .error-works__title {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .error-works__grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .error-works__item {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            display: block;
+            cursor: pointer;
+        }
+
+        .error-works__item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .error-works__item:hover img {
+            transform: scale(1.08);
+        }
+
+        .error-works__item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            transition: background 0.3s;
+        }
+
+        .error-works__item:hover::after {
+            background: rgba(0,196,184,0.1);
+            box-shadow: inset 0 0 0 2px rgba(184,134,11,0.5);
+        }
+
+        @media (max-width: 600px) {
+            .error-page__search { flex-direction: column; }
+            .error-works__grid { grid-template-columns: repeat(2, 1fr); }
+            .error-page__links { gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header" id="header">
+    <div class="header__container">
+        <div class="header__logo">
+            <a href="index.html"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></a>
+        </div>
+        <nav class="header__nav">
+            <ul class="nav__menu">
+                <li><a href="index.html" class="nav__link">Главная</a></li>
+                <li class="nav__dropdown">
+                    <a href="uslugi.html" class="nav__link">Услуги <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="#">Изготовление вывесок</a></li>
+                        <li><a href="#">Фрезеровка</a></li>
+                        <li><a href="#">Лазерная резка</a></li>
+                        <li><a href="#">Монтажные работы</a></li>
+                    </ul>
+                </li>
+                <li class="nav__dropdown">
+                    <a href="catalog.html" class="nav__link">Продукция <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="catalog-cat.html">Объемные буквы</a></li>
+                        <li><a href="#">Световые короба</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav__link">Портфолио</a></li>
+                <li class="nav__dropdown">
+                    <a href="about.html" class="nav__link">О компании <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="equipment.html">Оборудование</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </li>
+                <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="header__contacts">
+            <a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a>
+            <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+        </div>
+        <button class="burger" id="burger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-menu__nav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="uslugi.html">Услуги</a></li>
+            <li><a href="catalog.html">Продукция</a></li>
+            <li><a href="about.html">О компании</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+        <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+    </nav>
+</div>
+
+<!-- 404 Content -->
+<main class="error-page">
+
+    <!-- Background big number -->
+    <div class="error-page__bg-num">404</div>
+
+    <!-- Floating particles -->
+    <div class="error-page__particles" id="particles"></div>
+
+    <div class="error-page__content">
+        <div class="error-page__code">404</div>
+        <h1 class="error-page__headline">Страница куда-то исчезла</h1>
+        <p class="error-page__text">Возможно, вы перешли по устаревшей ссылке, опечатались в адресе или страница была перемещена. Не переживайте — найти нужное можно прямо здесь.</p>
+
+        <!-- Search -->
+        <div class="error-page__search">
+            <input type="text" placeholder="Найти услугу или товар..." id="errorSearch" onkeydown="handleSearch(event)">
+            <button class="btn btn--primary" onclick="doSearch()" style="white-space:nowrap;">Найти</button>
+        </div>
+
+        <div class="error-page__divider">или перейдите в один из разделов</div>
+
+        <div class="error-page__links">
+            <a href="index.html" class="error-page__link">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8.5L8 3l6 5.5M4 7v6h3v-4h2v4h3V7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Главная
+            </a>
+            <a href="uslugi.html" class="error-page__link">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.4"/></svg>
+                Все услуги
+            </a>
+            <a href="catalog.html" class="error-page__link">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 2H3a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V3a1 1 0 00-1-1zM5 6h6M5 9h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                Каталог
+            </a>
+            <a href="about.html" class="error-page__link">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="2.5" stroke="currentColor" stroke-width="1.4"/><path d="M2.5 14c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                О компании
+            </a>
+            <a href="blog.html" class="error-page__link">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3h10a1 1 0 011 1v7a1 1 0 01-1 1H5l-3 2V4a1 1 0 011-1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                Блог
+            </a>
+            <a href="contacts.html" class="error-page__link">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z" stroke="currentColor" fill="none"/></svg>
+                Контакты
+            </a>
+        </div>
+    </div>
+
+    <!-- Best works -->
+    <div class="error-works container" style="width:100%; max-width:900px;">
+        <div class="error-works__title">Пока ищете — посмотрите наши лучшие работы</div>
+        <div class="error-works__grid">
+            <a href="#" class="error-works__item">
+                <img src="Продукция/Объемные буквы.jpeg" alt="Объёмные буквы" loading="lazy" onerror="this.parentElement.style.background='#111'">
+            </a>
+            <a href="#" class="error-works__item">
+                <img src="Продукция/Световые короба.jpeg" alt="Световые короба" loading="lazy" onerror="this.parentElement.style.background='#111'">
+            </a>
+            <a href="#" class="error-works__item">
+                <img src="мост/Реализация.png" alt="Реализация" loading="lazy" onerror="this.parentElement.style.background='#111'">
+            </a>
+            <a href="#" class="error-works__item">
+                <img src="Продукция/Тонкие световые панели.jpeg" alt="Световые панели" loading="lazy" onerror="this.parentElement.style.background='#111'">
+            </a>
+        </div>
+        <div style="text-align:center; margin-top:24px;">
+            <a href="#" class="btn btn--outline">Смотреть всё портфолио →</a>
+        </div>
+    </div>
+
+</main>
+
+<!-- Modal -->
+<div class="modal" id="callbackModal">
+    <div class="modal__overlay" onclick="closeCallbackModal()"></div>
+    <div class="modal__content">
+        <button class="modal__close" onclick="closeCallbackModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <h3 class="modal__title">Заказать звонок</h3>
+        <p class="modal__subtitle">Оставьте свой номер, и мы перезвоним вам в течение 15 минут</p>
+        <form class="form" onsubmit="submitCallback(event)">
+            <div class="form__group"><input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required></div>
+            <div class="form__checkbox">
+                <input type="checkbox" id="agree-modal" required>
+                <label for="agree-modal">Согласен на обработку персональных данных</label>
+            </div>
+            <button type="submit" class="btn btn--primary btn--large">Заказать звонок</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    // Generate floating particles
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 25; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.cssText = `
+            left: ${Math.random() * 100}%;
+            width: ${Math.random() * 3 + 1}px;
+            height: ${Math.random() * 3 + 1}px;
+            animation-duration: ${Math.random() * 12 + 8}s;
+            animation-delay: ${Math.random() * 10}s;
+            opacity: 0;
+        `;
+        container.appendChild(p);
+    }
+
+    function handleSearch(e) {
+        if (e.key === 'Enter') doSearch();
+    }
+
+    function doSearch() {
+        const q = document.getElementById('errorSearch').value.trim();
+        if (q) {
+            // In a real site this would search. For demo, redirect to homepage.
+            window.location.href = 'index.html';
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+/* ==========================================
+   Buttons
+   ========================================== */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 4px;
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+}
+
+.btn--primary {
+    background: var(--color-primary);
+    color: var(--color-bg-dark);
+}
+
+.btn--primary:hover {
+    background: #d4a017;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(184, 134, 11, 0.3);
+}
+
+.btn--outline {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.btn--outline:hover {
+    background: var(--color-primary);
+    color: var(--color-bg-dark);
+}
+
+.btn--small {
+    padding: 8px 20px;
+    font-size: 13px;
+}
+
+.btn--large {
+    padding: 16px 40px;
+    font-size: 16px;
+    width: 100%;
+}
+
+/* Landing page buttons */
+.btn-primary {
+    padding: 11px 24px;
+    background: var(--color-primary);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background .25s, transform .2s;
+    white-space: nowrap;
+}
+
+.btn-primary:hover {
+    background: #00b3a8;
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    padding: 11px 24px;
+    background: transparent;
+    color: var(--color-primary);
+    border: 1.5px solid rgba(0, 196, 184, .4);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .25s;
+    white-space: nowrap;
+}
+
+.btn-outline:hover {
+    border-color: var(--color-primary);
+    background: rgba(0, 196, 184, .08);
+}

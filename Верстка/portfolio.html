@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио — наши работы — Нарратив</title>
+    <meta name="description" content="Портфолио рекламно-производственной компании Нарратив: объёмные буквы, световые короба, вывески, интерьерная реклама. Более 500 реализованных проектов.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inner-pages.css">
+    <style>
+        /* ── Filter tabs ── */
+        .portfolio-filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .pf-btn {
+            padding: 10px 22px;
+            border-radius: 100px;
+            border: 1px solid rgba(184,134,11,0.2);
+            background: transparent;
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .pf-btn:hover {
+            border-color: rgba(184,134,11,0.5);
+            color: #fff;
+        }
+
+        .pf-btn.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: #000;
+        }
+
+        /* ── Masonry-like grid ── */
+        .portfolio-grid {
+            columns: 3;
+            column-gap: 20px;
+        }
+
+        .portfolio-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+
+        .portfolio-item:hover { transform: scale(1.01); }
+
+        .portfolio-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img { transform: scale(1.06); }
+
+        /* tall items */
+        .portfolio-item--tall img { aspect-ratio: 3/4; object-fit: cover; }
+        .portfolio-item--wide img { aspect-ratio: 16/9; object-fit: cover; }
+        .portfolio-item--sq img   { aspect-ratio: 1;    object-fit: cover; }
+
+        .portfolio-item__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 55%);
+            opacity: 0;
+            transition: opacity 0.35s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px 22px;
+        }
+
+        .portfolio-item:hover .portfolio-item__overlay { opacity: 1; }
+
+        .portfolio-item__cat {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 6px;
+        }
+
+        .portfolio-item__title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-item__meta {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .portfolio-item__zoom {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 36px;
+            height: 36px;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid rgba(184,134,11,0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .portfolio-item:hover .portfolio-item__zoom { opacity: 1; }
+
+        /* ── Stats bar ── */
+        .portfolio-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            background: rgba(184,134,11,0.1);
+            border: 1px solid rgba(184,134,11,0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 60px;
+        }
+
+        .portfolio-stat {
+            padding: 36px 28px;
+            text-align: center;
+            border-right: 1px solid rgba(184,134,11,0.1);
+        }
+
+        .portfolio-stat:last-child { border-right: none; }
+
+        .portfolio-stat__num {
+            font-size: 48px;
+            font-weight: 700;
+            color: transparent;
+            background: linear-gradient(135deg, var(--color-primary), #b8860b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .portfolio-stat__label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ── Lightbox ── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox.open { display: flex; align-items: center; justify-content: center; }
+
+        .lightbox__close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: #fff;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 2;
+        }
+
+        .lightbox__close:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .lightbox__prev, .lightbox__next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: #fff;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 2;
+        }
+
+        .lightbox__prev { left: 20px; }
+        .lightbox__next { right: 20px; }
+        .lightbox__prev:hover, .lightbox__next:hover {
+            background: rgba(0,196,184,0.15);
+            border-color: rgba(184,134,11,0.5);
+        }
+
+        .lightbox__content {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 0;
+            width: 90%;
+            max-width: 1100px;
+            max-height: 90vh;
+            background: #0d0d0d;
+            border: 1px solid rgba(184,134,11,0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .lightbox__img {
+            overflow: hidden;
+            background: #111;
+        }
+
+        .lightbox__img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lightbox__info {
+            padding: 40px 36px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lightbox__cat {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .lightbox__title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.25;
+            margin-bottom: 16px;
+        }
+
+        .lightbox__desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.75;
+            margin-bottom: 28px;
+            flex: 1;
+        }
+
+        .lightbox__specs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .lb-spec {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-size: 13px;
+        }
+
+        .lb-spec:last-child { border-bottom: none; }
+        .lb-spec__label { color: rgba(255,255,255,0.35); }
+        .lb-spec__val { color: #fff; font-weight: 600; text-align: right; }
+
+        .lightbox__counter {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            z-index: 2;
+        }
+
+        /* ── Load more ── */
+        .load-more-wrap {
+            text-align: center;
+            margin-top: 52px;
+        }
+
+        .load-more-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .load-more-btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+
+        .load-more-btn:hover::after { transform: translateX(100%); }
+
+        /* ── Hidden items for "load more" ── */
+        .portfolio-item.hidden { display: none; }
+
+        @media (max-width: 1024px) {
+            .portfolio-grid { columns: 2; }
+            .portfolio-stats { grid-template-columns: repeat(2, 1fr); }
+            .portfolio-stat:nth-child(2) { border-right: none; }
+            .lightbox__content { grid-template-columns: 1fr; max-height: 95vh; }
+            .lightbox__img { min-height: 280px; }
+            .lightbox__info { padding: 28px 24px; }
+        }
+
+        @media (max-width: 600px) {
+            .portfolio-grid { columns: 1; }
+            .portfolio-filters { gap: 6px; }
+            .pf-btn { padding: 8px 16px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header" id="header">
+    <div class="header__container">
+        <div class="header__logo">
+            <a href="index.html"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></a>
+        </div>
+        <nav class="header__nav">
+            <ul class="nav__menu">
+                <li><a href="index.html" class="nav__link">Главная</a></li>
+                <li class="nav__dropdown">
+                    <a href="uslugi.html" class="nav__link">Услуги <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="service.html">Изготовление вывесок</a></li>
+                        <li><a href="#">Фрезеровка</a></li>
+                        <li><a href="#">Лазерная резка</a></li>
+                        <li><a href="#">Монтажные работы</a></li>
+                    </ul>
+                </li>
+                <li class="nav__dropdown">
+                    <a href="catalog.html" class="nav__link">Продукция <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="catalog-cat.html">Объемные буквы</a></li>
+                        <li><a href="#">Световые короба</a></li>
+                    </ul>
+                </li>
+                <li><a href="portfolio.html" class="nav__link" style="color:var(--color-primary)">Портфолио</a></li>
+                <li class="nav__dropdown">
+                    <a href="about.html" class="nav__link">О компании <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="equipment.html">Оборудование</a></li>
+                    </ul>
+                </li>
+                <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="header__contacts">
+            <a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a>
+            <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+        </div>
+        <button class="burger" id="burger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-menu__nav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="uslugi.html">Услуги</a></li>
+            <li><a href="catalog.html">Продукция</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="about.html">О компании</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+        <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+    </nav>
+</div>
+
+<!-- Hero -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero__breadcrumb">
+            <a href="index.html">Главная</a><span>›</span>
+            <span>Портфолио</span>
+        </div>
+        <div class="section-label">Наши работы</div>
+        <h1 class="page-hero__title">Портфолио</h1>
+        <p class="page-hero__subtitle">Более 500 реализованных проектов для малого бизнеса, торговых сетей и корпоративных клиентов по всей России.</p>
+    </div>
+</section>
+
+<!-- Stats -->
+<section class="section section--dark" style="padding-bottom: 0;">
+    <div class="container">
+        <div class="portfolio-stats">
+            <div class="portfolio-stat">
+                <div class="portfolio-stat__num">500+</div>
+                <div class="portfolio-stat__label">Реализованных проектов</div>
+            </div>
+            <div class="portfolio-stat">
+                <div class="portfolio-stat__num">15+</div>
+                <div class="portfolio-stat__label">Лет на рынке</div>
+            </div>
+            <div class="portfolio-stat">
+                <div class="portfolio-stat__num">40</div>
+                <div class="portfolio-stat__label">Городов присутствия</div>
+            </div>
+            <div class="portfolio-stat">
+                <div class="portfolio-stat__num">98%</div>
+                <div class="portfolio-stat__label">Довольных клиентов</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery -->
+<section class="section section--dark">
+    <div class="container">
+        <!-- Filters -->
+        <div class="portfolio-filters">
+            <button class="pf-btn active" onclick="filterPortfolio('all', this)">Все работы</button>
+            <button class="pf-btn" onclick="filterPortfolio('letters', this)">Объёмные буквы</button>
+            <button class="pf-btn" onclick="filterPortfolio('lightbox', this)">Световые короба</button>
+            <button class="pf-btn" onclick="filterPortfolio('sign', this)">Вывески</button>
+            <button class="pf-btn" onclick="filterPortfolio('interior', this)">Интерьерная</button>
+            <button class="pf-btn" onclick="filterPortfolio('neon', this)">Неон</button>
+            <button class="pf-btn" onclick="filterPortfolio('facade', this)">Фасадное</button>
+        </div>
+
+        <!-- Masonry grid -->
+        <div class="portfolio-grid" id="portfolioGrid">
+
+            <div class="portfolio-item portfolio-item--wide" data-cat="letters" onclick="openLightbox(0)">
+                <img src="мост/Реализация.png" alt="Объёмные буквы для кофейни" onerror="this.style.background='#1a1a1a'">
+                <div class="portfolio-item__overlay">
+                    <div class="portfolio-item__cat">Объёмные буквы</div>
+                    <div class="portfolio-item__title">Вывеска для сети кофеен «Бодрость»</div>
+                    <div class="portfolio-item__meta"><span>Москва</span><span>2025</span></div>
+                </div>
+                <div class="portfolio-item__zoom"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2h4v4M6 10L14 2M6 14H2v-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+
+            <div class="portfolio-item portfolio-item--sq" data-cat="lightbox" onclick="openLightbox(1)">
+                <img src="Продукция/Световые короба.jpeg" alt="Световой короб" onerror="this.style.background='#1a1a1a'">
+                <div class="portfolio-item__overlay">
+                    <div class="portfolio-item__cat">Световые короба</div>
+                    <div class="portfolio-item__title">Лайтбокс для медицинского центра</div>
+                    <div class="portfolio-item__meta"><span>СПб</span><span>2025</span></div>
+                </div>
+                <div class="portfolio-item__zoom"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2h4v4M6 10L14 2M6 14H2v-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+
+            <div class="portfolio-item portfolio-item--tall" data-cat="neon" onclick="openLightbox(2)">
+                <img src="Продукция/Неоновые вывески.jpeg" alt="Неон" onerror="this.style.background='#1a1a1a'">
+                <div class="portfolio-item__overlay">
+                    <div class="portfolio-item__cat">Неон / LED-неон</div>
+                    <div class="portfolio-item__title">Неоновая инсталляция для барного пространства</div>
+                    <div class="portfolio-item__meta"><span>Москва</span><span>2025</span></div>
+                </div>
+                <div class="portfolio-item__zoom"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2h4v4M6 10L14 2M6 14H2v-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+
+            <div class="portfolio-item portfolio-item--sq" data-cat="sign" onclick="openLightbox(3)">
+                <img src="Продукция/Объемные буквы.jpeg" alt="Вывеска" onerror="this.style.background='#1a1a1a'">
+                <div class="portfolio-item__overlay">
+                    <div class="portfolio-item__cat">Вывески</div>
+                    <div class="portfolio-item__title">Комплексное оформление магазина одежды</div>
+                    <div class="portfolio-item__meta"><span>Казань</span><span>2024</span></div>
+                </div>
+                <div class="portfolio-item__zoom"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2h4v4M6 10L14 2M6 14H2v-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+
+            <div class="portfolio-item portfolio-item--wide" data-cat="facade" onclick="openLightbox(4)">
+                <img src="мост/Чертеж.png" alt="Фасадное оформление" onerror="this.style.background='#1a1a1a'">
+                <div class="portfolio-item__overlay">
+                    <div class="portfolio-item__cat">Фасадное оформление</div>
+                    <div class="portfolio-item__title">Полное фасадное оформление бизнес-центра</div>
+                    <div class="portfolio-item__meta"><span>Москва</span><span>2024</span></div>
+                </div>
+                <div class="portfolio-item__zoom"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2h4v4M6 10L14 2M6 14H2v-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+
+            <div class="portfolio-item portfolio-item--sq" data-cat="interior" onclick="openLightbox(5)">
+                <img src="Продукция/Тонкие световые панели.jpeg" alt="Интерьерная реклама" onerror="this.style.background='#1a1a1a'">
+                <div class="portfolio-item__overlay">
+                    <div class="portfolio-item__cat">Интерьерная реклама</div>
+                    <div class="portfolio-item__title">Навигационная система для ТЦ «Горизонт»</div>
+                    <div class="portfolio-item__meta"><span>Ростов-на-Дону</span><span>2024</span></div>
+                </div>
+                <div class="portfolio-item__zoom"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2h4v4M6 10L14 2M6 14H2v-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+
+            <div class="portfolio-item portfolio-item--tall" data-cat="letters" onclick="openLightbox(6)">
+                <img src="Продукция/Объемные буквы.jpeg" alt="Объёмные буквы" onerror="this.style.background='#1a1a1a'" style="filter:hue-rotate(40deg)">
+                <div class="portfolio-item__overlay">
+                    <div class="portfolio-item__cat">Объёмные буквы</div>
+                    <div class="portfolio-item__title">Буквы из нержавейки с гало-подсветкой для банка</div>
+                    <div class="portfolio-item__meta"><span>Москва</span><span>2025</span></div>
+                </div>
+                <div class="portfolio-item__zoom"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2h4v4M6 10L14 2M6 14H2v-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+
+            <div class="portfolio-item portfolio-item--sq" data-cat="lightbox" onclick="openLightbox(7)">
+                <img src="Продукция/Световые короба.jpeg" alt="Световой короб" onerror="this.style.background='#1a1a1a'" style="filter:brightness(0.9) hue-rotate(20deg)">
+                <div class="portfolio-item__overlay">
+                    <div class="portfolio-item__cat">Световые короба</div>
+                    <div class="portfolio-item__title">Двусторонние лайтбоксы для аптечной сети</div>
+                    <div class="portfolio-item__meta"><span>Новосибирск</span><span>2024</span></div>
+                </div>
+                <div class="portfolio-item__zoom"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2h4v4M6 10L14 2M6 14H2v-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+
+            <div class="portfolio-item portfolio-item--wide hidden" data-cat="sign" onclick="openLightbox(8)">
+                <img src="мост/Реализация.png" alt="Вывеска" onerror="this.style.background='#1a1a1a'" style="filter:brightness(0.8)">
+                <div class="portfolio-item__overlay">
+                    <div class="portfolio-item__cat">Вывески</div>
+                    <div class="portfolio-item__title">Фасадная вывеска для ресторана «Берег»</div>
+                    <div class="portfolio-item__meta"><span>Сочи</span><span>2025</span></div>
+                </div>
+                <div class="portfolio-item__zoom"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2h4v4M6 10L14 2M6 14H2v-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+
+            <div class="portfolio-item portfolio-item--sq hidden" data-cat="interior" onclick="openLightbox(9)">
+                <img src="Продукция/Тонкие световые панели.jpeg" alt="Интерьер" onerror="this.style.background='#1a1a1a'" style="filter:hue-rotate(200deg)">
+                <div class="portfolio-item__overlay">
+                    <div class="portfolio-item__cat">Интерьерная реклама</div>
+                    <div class="portfolio-item__title">Брендирование офиса IT-компании Softline</div>
+                    <div class="portfolio-item__meta"><span>Москва</span><span>2025</span></div>
+                </div>
+                <div class="portfolio-item__zoom"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2h4v4M6 10L14 2M6 14H2v-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+
+            <div class="portfolio-item portfolio-item--tall hidden" data-cat="neon" onclick="openLightbox(10)">
+                <img src="Продукция/Неоновые вывески.jpeg" alt="Неон" onerror="this.style.background='#1a1a1a'" style="filter:hue-rotate(120deg)">
+                <div class="portfolio-item__overlay">
+                    <div class="portfolio-item__cat">Неон</div>
+                    <div class="portfolio-item__title">LED-неон для фотозоны свадебного агентства</div>
+                    <div class="portfolio-item__meta"><span>Краснодар</span><span>2024</span></div>
+                </div>
+                <div class="portfolio-item__zoom"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2h4v4M6 10L14 2M6 14H2v-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+
+            <div class="portfolio-item portfolio-item--sq hidden" data-cat="facade" onclick="openLightbox(11)">
+                <img src="мост/Чертеж.png" alt="Фасад" onerror="this.style.background='#1a1a1a'" style="filter:brightness(0.7)">
+                <div class="portfolio-item__overlay">
+                    <div class="portfolio-item__cat">Фасадное</div>
+                    <div class="portfolio-item__title">Комплексное оформление супермаркета</div>
+                    <div class="portfolio-item__meta"><span>Екатеринбург</span><span>2024</span></div>
+                </div>
+                <div class="portfolio-item__zoom"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2h4v4M6 10L14 2M6 14H2v-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+
+        </div>
+
+        <!-- Load more -->
+        <div class="load-more-wrap">
+            <button class="btn btn--outline btn--large load-more-btn" onclick="loadMore(this)">
+                Показать ещё работы
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style="margin-left:8px;"><path d="M9 3v12M3 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section section--gray">
+    <div class="container">
+        <div class="cta-block">
+            <div class="cta-block__label">Хотите такой же результат?</div>
+            <h2 class="cta-block__title">Обсудим ваш проект</h2>
+            <p class="cta-block__subtitle">Расскажите нам о задаче — предложим оптимальное решение и рассчитаем стоимость за 1 рабочий день.</p>
+            <div class="cta-block__btns">
+                <button class="btn btn--primary btn--large" style="width:auto;" onclick="openCallbackModal()">Заказать проект</button>
+                <a href="contacts.html" class="btn btn--outline btn--large" style="width:auto;">Написать нам</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__column footer__column--brand">
+                <div class="footer__logo"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></div>
+                <p class="footer__description">Производство наружной и интерьерной рекламы. Полный цикл — от идеи до монтажа.</p>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Услуги</h4>
+                <ul class="footer__links">
+                    <li><a href="service.html">Изготовление вывесок</a></li>
+                    <li><a href="#">Фрезеровка</a></li>
+                    <li><a href="#">Лазерная резка</a></li>
+                    <li><a href="#">Монтажные работы</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Продукция</h4>
+                <ul class="footer__links">
+                    <li><a href="catalog-cat.html">Объемные буквы</a></li>
+                    <li><a href="#">Световые короба</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Компания</h4>
+                <ul class="footer__links">
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="portfolio.html" style="color:var(--color-primary)">Портфолио</a></li>
+                    <li><a href="blog.html">Блог</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Контакты</h4>
+                <ul class="footer__contacts">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z" stroke="currentColor" fill="none"/></svg><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 5.5l5.5 3.5 5.5-3.5M3 13h10a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0013 3H3a1.5 1.5 0 00-1.5 1.5v7A1.5 1.5 0 003 13z" stroke="currentColor" fill="none"/></svg><a href="mailto:info@narrativ.ru">info@narrativ.ru</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="footer__copyright">© 2026 Нарратив. Все права защищены.</div>
+            <div class="footer__legal">
+                <a href="privacy.html">Политика конфиденциальности</a>
+                <span class="footer__separator">•</span>
+                <a href="#">Карта сайта</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox__close" onclick="closeLightbox()">×</button>
+    <button class="lightbox__prev" onclick="shiftLightbox(-1)">‹</button>
+    <button class="lightbox__next" onclick="shiftLightbox(1)">›</button>
+    <div class="lightbox__content">
+        <div class="lightbox__img">
+            <img id="lbImg" src="" alt="">
+        </div>
+        <div class="lightbox__info">
+            <div class="lightbox__cat" id="lbCat"></div>
+            <h2 class="lightbox__title" id="lbTitle"></h2>
+            <p class="lightbox__desc" id="lbDesc"></p>
+            <div class="lightbox__specs">
+                <div class="lb-spec"><span class="lb-spec__label">Город</span><span class="lb-spec__val" id="lbCity"></span></div>
+                <div class="lb-spec"><span class="lb-spec__label">Год</span><span class="lb-spec__val" id="lbYear"></span></div>
+                <div class="lb-spec"><span class="lb-spec__label">Материал</span><span class="lb-spec__val" id="lbMat"></span></div>
+                <div class="lb-spec"><span class="lb-spec__label">Срок производства</span><span class="lb-spec__val" id="lbTime"></span></div>
+            </div>
+            <a id="lbLink" href="portfolio-project.html" class="btn btn--primary">Открыть проект →</a>
+        </div>
+    </div>
+    <div class="lightbox__counter" id="lbCounter"></div>
+</div>
+
+<!-- Callback modal -->
+<div class="modal" id="callbackModal">
+    <div class="modal__overlay" onclick="closeCallbackModal()"></div>
+    <div class="modal__content">
+        <button class="modal__close" onclick="closeCallbackModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <h3 class="modal__title">Заказать звонок</h3>
+        <p class="modal__subtitle">Оставьте свой номер, и мы перезвоним вам в течение 15 минут</p>
+        <form class="form" onsubmit="submitCallback(event)">
+            <div class="form__group"><input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required></div>
+            <div class="form__checkbox">
+                <input type="checkbox" id="agree-modal" required>
+                <label for="agree-modal">Согласен на обработку персональных данных</label>
+            </div>
+            <button type="submit" class="btn btn--primary btn--large">Заказать звонок</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    const projects = [
+        { cat:'Объёмные буквы', title:'Вывеска для сети кофеен «Бодрость»', desc:'Акриловые объёмные буквы с торцевой подсветкой, смонтированные на фасаде 12 точек по Москве и МО. Единый стиль для всей сети.', city:'Москва', year:'2025', mat:'Акрил + нержавейка', time:'14 дней', src:'мост/Реализация.png' },
+        { cat:'Световые короба', title:'Лайтбокс для медицинского центра', desc:'Двусторонний световой короб 2400×800 мм с натяжной тканью и LED-подсветкой. Срочный монтаж за выходные.', city:'Санкт-Петербург', year:'2025', mat:'Алюминий + ткань', time:'5 дней', src:'Продукция/Световые короба.jpeg' },
+        { cat:'Неон / LED-неон', title:'Неоновая инсталляция для барного пространства', desc:'Гибкий LED-неон в форме авторского логотипа и декоративных элементов. Цветовые переходы через контроллер.', city:'Москва', year:'2025', mat:'Гибкий LED-неон', time:'7 дней', src:'Продукция/Неоновые вывески.jpeg' },
+        { cat:'Вывески', title:'Комплексное оформление магазина одежды', desc:'Полный комплекс: наружная вывеска, интерьерные знаки навигации, ценникодержатели, оформление кассовой зоны.', city:'Казань', year:'2024', mat:'Акрил, ПВХ, металл', time:'10 дней', src:'Продукция/Объемные буквы.jpeg' },
+        { cat:'Фасадное оформление', title:'Полное фасадное оформление бизнес-центра', desc:'Разработка и монтаж системы фасадной навигации, логотипа на фасаде, указателей въезда, таблички у ресепшн.', city:'Москва', year:'2024', mat:'Алюминий, акрил, нержавейка', time:'21 день', src:'мост/Чертеж.png' },
+        { cat:'Интерьерная реклама', title:'Навигационная система для ТЦ «Горизонт»', desc:'300+ навигационных элементов: подвесные указатели, напольные стойки, световые панели в зонах торговли.', city:'Ростов-на-Дону', year:'2024', mat:'Акрил, ПВХ, МДФ', time:'30 дней', src:'Продукция/Тонкие световые панели.jpeg' },
+        { cat:'Объёмные буквы', title:'Буквы из нержавейки с гало-подсветкой для банка', desc:'Полированная нержавейка с контражурной LED-подсветкой. Ореол 3000K. Буквы высотой 400 мм, монтаж на стеновую панель.', city:'Москва', year:'2025', mat:'Нержавеющая сталь', time:'12 дней', src:'Продукция/Объемные буквы.jpeg' },
+        { cat:'Световые короба', title:'Двусторонние лайтбоксы для аптечной сети', desc:'18 лайтбоксов формата 600×400 мм для федеральной аптечной сети. Единовременная партия с доставкой по регионам.', city:'Новосибирск', year:'2024', mat:'Алюминий + акрил', time:'18 дней', src:'Продукция/Световые короба.jpeg' },
+        { cat:'Вывески', title:'Фасадная вывеска для ресторана «Берег»', desc:'Объёмное название ресторана из шлифованного алюминия + декоративный логотип с прямой LED-подсветкой.', city:'Сочи', year:'2025', mat:'Алюминий шлифованный', time:'8 дней', src:'мост/Реализация.png' },
+        { cat:'Интерьерная реклама', title:'Брендирование офиса IT-компании Softline', desc:'Объёмный логотип на ресепшн, зонирование open-space световыми панелями, навигация на этажах.', city:'Москва', year:'2025', mat:'Акрил, МДФ, металл', time:'15 дней', src:'Продукция/Тонкие световые панели.jpeg' },
+        { cat:'Неон', title:'LED-неон для фотозоны свадебного агентства', desc:'Авторская надпись «Always & Forever» из гибкого LED-неона цвета warm-white. Деревянный задник с покраской.', city:'Краснодар', year:'2024', mat:'Гибкий LED-неон, дерево', time:'5 дней', src:'Продукция/Неоновые вывески.jpeg' },
+        { cat:'Фасадное', title:'Комплексное оформление супермаркета', desc:'Фасадная вывеска, система тотемов на парковке, оформление входной группы, брендирование тележек.', city:'Екатеринбург', year:'2024', mat:'Алюминий, акрил, ПВХ', time:'25 дней', src:'мост/Чертеж.png' },
+    ];
+
+    let currentIndex = 0;
+
+    function openLightbox(idx) {
+        currentIndex = idx;
+        renderLightbox();
+        document.getElementById('lightbox').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function renderLightbox() {
+        const p = projects[currentIndex];
+        document.getElementById('lbImg').src = p.src;
+        document.getElementById('lbCat').textContent = p.cat;
+        document.getElementById('lbTitle').textContent = p.title;
+        document.getElementById('lbDesc').textContent = p.desc;
+        document.getElementById('lbCity').textContent = p.city;
+        document.getElementById('lbYear').textContent = p.year;
+        document.getElementById('lbMat').textContent = p.mat;
+        document.getElementById('lbTime').textContent = p.time;
+        document.getElementById('lbCounter').textContent = (currentIndex + 1) + ' / ' + projects.length;
+    }
+
+    function shiftLightbox(dir) {
+        currentIndex = (currentIndex + dir + projects.length) % projects.length;
+        renderLightbox();
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') shiftLightbox(-1);
+        if (e.key === 'ArrowRight') shiftLightbox(1);
+    });
+
+    function filterPortfolio(cat, btn) {
+        document.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const items = document.querySelectorAll('.portfolio-item');
+        items.forEach(item => {
+            const match = cat === 'all' || item.dataset.cat === cat;
+            item.style.display = match ? 'block' : 'none';
+        });
+    }
+
+    function loadMore(btn) {
+        const hidden = document.querySelectorAll('.portfolio-item.hidden');
+        hidden.forEach(item => item.classList.remove('hidden'));
+        btn.style.display = 'none';
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оставить заявку — Нарратив</title>
+    <meta name="description" content="Заполните подробную заявку на изготовление вывески, объёмных букв или рекламной конструкции. Мы свяжемся с вами в течение 15 минут.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inner-pages.css">
+    <style>
+        /* ── Layout ── */
+        .request-layout {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* ── Form shell ── */
+        .request-form {
+            background: rgba(255,255,255,.02);
+            border: 1px solid rgba(184,134,11,.15);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        /* Step tabs at top */
+        .form-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .form-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 24px;
+            border-right: 1px solid rgba(255,255,255,.06);
+            cursor: pointer;
+            transition: background .25s;
+        }
+
+        .form-step:last-child { border-right: none; }
+        .form-step:hover { background: rgba(255,255,255,.02); }
+
+        .form-step.active { background: rgba(0,196,184,.04); }
+
+        .form-step__num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(255,255,255,.35);
+            flex-shrink: 0;
+            transition: all .3s;
+        }
+
+        .form-step.active .form-step__num {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            background: rgba(0,196,184,.1);
+        }
+
+        .form-step.done .form-step__num {
+            border-color: rgba(34,197,94,.6);
+            color: #22c55e;
+            background: rgba(34,197,94,.08);
+        }
+
+        .form-step__label {
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,.3);
+            line-height: 1.3;
+            transition: color .25s;
+        }
+
+        .form-step.active .form-step__label { color: #fff; }
+
+        /* Progress bar */
+        .form-progress {
+            height: 2px;
+            background: rgba(255,255,255,.04);
+            position: relative;
+        }
+
+        .form-progress__fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), #b8860b);
+            transition: width .5s ease;
+            width: 33%;
+        }
+
+        /* Form body */
+        .form-body {
+            padding: 40px 40px 36px;
+        }
+
+        /* Field groups */
+        .field-section {
+            margin-bottom: 36px;
+        }
+
+        .field-section:last-child { margin-bottom: 0; }
+
+        .field-section__title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.3);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .field-section__title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,.06);
+        }
+
+        .fields-row {
+            display: grid;
+            gap: 16px;
+        }
+
+        .fields-row--2 { grid-template-columns: 1fr 1fr; }
+        .fields-row--3 { grid-template-columns: 1fr 1fr 1fr; }
+
+        /* Field */
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,.4);
+            letter-spacing: .3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .field-label .req {
+            color: var(--color-primary);
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .field-hint {
+            font-size: 11px;
+            color: rgba(255,255,255,.2);
+            font-weight: 400;
+        }
+
+        .field-input, .field-select, .field-textarea {
+            padding: 14px 18px;
+            background: rgba(255,255,255,.03);
+            border: 1.5px solid rgba(184,134,11,.18);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color .3s, background .3s, box-shadow .3s;
+            width: 100%;
+        }
+
+        .field-input:hover, .field-select:hover { border-color: rgba(184,134,11,.35); }
+
+        .field-input:focus, .field-select:focus, .field-textarea:focus {
+            border-color: var(--color-primary);
+            background: rgba(0,196,184,.03);
+            box-shadow: 0 0 0 3px rgba(0,196,184,.07);
+        }
+
+        .field-input::placeholder, .field-textarea::placeholder {
+            color: rgba(255,255,255,.2);
+        }
+
+        .field-input.error, .field-select.error {
+            border-color: rgba(239,68,68,.5);
+            box-shadow: 0 0 0 3px rgba(239,68,68,.08);
+        }
+
+        .field-error-msg {
+            font-size: 11px;
+            color: #ef4444;
+            display: none;
+        }
+
+        .field-input.error ~ .field-error-msg,
+        .field-select.error ~ .field-error-msg { display: block; }
+
+        .field-select option { background: #111; }
+        .field-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M2 5l5 5 5-5' stroke='rgba(255,255,255,0.3)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 44px; cursor: pointer; }
+
+        .field-textarea {
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.65;
+        }
+
+        /* Contact preference checkboxes */
+        .contact-chips {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .contact-chip {
+            position: relative;
+        }
+
+        .contact-chip input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .contact-chip__label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border: 1.5px solid rgba(255,255,255,.1);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255,255,255,.45);
+            cursor: pointer;
+            transition: all .25s;
+            user-select: none;
+            background: transparent;
+        }
+
+        .contact-chip__label:hover {
+            border-color: rgba(184,134,11,.4);
+            color: #fff;
+        }
+
+        .contact-chip input:checked + .contact-chip__label {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            background: rgba(0,196,184,.08);
+        }
+
+        .contact-chip__icon { font-size: 16px; }
+
+        /* Service checkboxes (multi) */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .service-check {
+            position: relative;
+        }
+
+        .service-check input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .service-check__label {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            border: 1.5px solid rgba(184,134,11,.12);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all .25s;
+            background: rgba(255,255,255,.01);
+        }
+
+        .service-check__label:hover {
+            border-color: rgba(184,134,11,.35);
+            background: rgba(255,255,255,.03);
+        }
+
+        .service-check input:checked + .service-check__label {
+            border-color: var(--color-primary);
+            background: rgba(0,196,184,.06);
+        }
+
+        .service-check__box {
+            width: 20px;
+            height: 20px;
+            border: 1.5px solid rgba(255,255,255,.18);
+            border-radius: 5px;
+            flex-shrink: 0;
+            margin-top: 1px;
+            transition: all .25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-check input:checked + .service-check__label .service-check__box {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .service-check input:checked + .service-check__label .service-check__box::after {
+            content: '';
+            width: 5px;
+            height: 9px;
+            border: 2px solid #000;
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg) translateY(-1px);
+        }
+
+        .service-check__name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+
+        .service-check__desc {
+            font-size: 11px;
+            color: rgba(255,255,255,.3);
+            line-height: 1.4;
+        }
+
+        /* Budget range */
+        .budget-slider {
+            padding: 4px 0 12px;
+        }
+
+        .budget-slider input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,.08);
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        .budget-slider input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            cursor: pointer;
+            box-shadow: 0 0 0 3px rgba(0,196,184,.2);
+        }
+
+        .budget-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: rgba(255,255,255,.3);
+        }
+
+        .budget-current {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            margin-top: 8px;
+        }
+
+        /* File upload */
+        .file-upload {
+            border: 2px dashed rgba(184,134,11,.2);
+            border-radius: 10px;
+            padding: 28px;
+            text-align: center;
+            cursor: pointer;
+            transition: all .3s;
+            position: relative;
+        }
+
+        .file-upload:hover {
+            border-color: rgba(0,196,184,.4);
+            background: rgba(0,196,184,.03);
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-upload__icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(0,196,184,.08);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+            color: var(--color-primary);
+        }
+
+        .file-upload__title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .file-upload__desc {
+            font-size: 12px;
+            color: rgba(255,255,255,.3);
+            line-height: 1.6;
+        }
+
+        .file-upload__list {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: rgba(0,196,184,.06);
+            border: 1px solid rgba(0,196,184,.2);
+            border-radius: 6px;
+            font-size: 12px;
+            color: rgba(255,255,255,.6);
+        }
+
+        .file-item__name { flex: 1; }
+        .file-item__remove { color: rgba(255,255,255,.3); cursor: pointer; font-size: 16px; line-height: 1; transition: color .2s; }
+        .file-item__remove:hover { color: #ef4444; }
+
+        /* Agreement */
+        .agreement-block {
+            padding: 20px 0;
+            border-top: 1px solid rgba(255,255,255,.06);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+            margin-bottom: 28px;
+        }
+
+        .agree-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .agree-item:last-child { margin-bottom: 0; }
+
+        .agree-item input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 1.5px solid rgba(255,255,255,.18);
+            border-radius: 5px;
+            background: transparent;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 1px;
+            transition: all .25s;
+            position: relative;
+        }
+
+        .agree-item input:checked {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .agree-item input:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 6px;
+            height: 10px;
+            border: 2px solid #000;
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+        }
+
+        .agree-item label {
+            font-size: 13px;
+            color: rgba(255,255,255,.4);
+            line-height: 1.6;
+            cursor: pointer;
+        }
+
+        .agree-item a { color: var(--color-primary); }
+
+        /* Submit button */
+        .form-submit-btn {
+            width: 100%;
+            padding: 18px 32px;
+            background: var(--color-primary);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all .3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .form-submit-btn:hover {
+            background: #00b3a8;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0,196,184,.3);
+        }
+
+        .form-submit-btn:disabled {
+            background: rgba(0,196,184,.4);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Success state */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .form-success.visible { display: block; }
+        .form-success__icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(34,197,94,.1);
+            border: 2px solid rgba(34,197,94,.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        /* ── Sidebar ── */
+        .request-sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-card {
+            padding: 28px;
+            background: rgba(255,255,255,.02);
+            border: 1px solid rgba(184,134,11,.15);
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-card:last-child { margin-bottom: 0; }
+
+        .sidebar-card__title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.3);
+            margin-bottom: 20px;
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,.05);
+        }
+
+        .benefit-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .benefit-item:first-child { padding-top: 0; }
+
+        .benefit-item__icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 7px;
+            background: rgba(0,196,184,.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            flex-shrink: 0;
+        }
+
+        .benefit-item__title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+
+        .benefit-item__text {
+            font-size: 12px;
+            color: rgba(255,255,255,.35);
+            line-height: 1.5;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,.05);
+        }
+
+        .contact-card:last-child { border-bottom: none; padding-bottom: 0; }
+        .contact-card:first-child { padding-top: 0; }
+
+        .contact-card__icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(0,196,184,.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            flex-shrink: 0;
+        }
+
+        .contact-card__label {
+            font-size: 11px;
+            color: rgba(255,255,255,.3);
+        }
+
+        .contact-card__val {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        @media (max-width: 1100px) {
+            .request-layout { grid-template-columns: 1fr; }
+            .request-sidebar { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+            .sidebar-card { margin-bottom: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .form-steps { grid-template-columns: 1fr; }
+            .form-step { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); }
+            .form-step:last-child { border-bottom: none; }
+            .form-body { padding: 28px 20px; }
+            .fields-row--2, .fields-row--3 { grid-template-columns: 1fr; }
+            .service-grid { grid-template-columns: 1fr; }
+            .contact-chips { gap: 8px; }
+            .request-sidebar { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header" id="header">
+    <div class="header__container">
+        <div class="header__logo">
+            <a href="index.html"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></a>
+        </div>
+        <nav class="header__nav">
+            <ul class="nav__menu">
+                <li><a href="index.html" class="nav__link">Главная</a></li>
+                <li class="nav__dropdown"><a href="uslugi.html" class="nav__link">Услуги <span class="arrow">▼</span></a><ul class="dropdown__menu"><li><a href="service.html">Изготовление вывесок</a></li><li><a href="#">Фрезеровка</a></li><li><a href="#">Лазерная резка</a></li></ul></li>
+                <li class="nav__dropdown"><a href="catalog.html" class="nav__link">Продукция <span class="arrow">▼</span></a><ul class="dropdown__menu"><li><a href="catalog-cat.html">Объемные буквы</a></li><li><a href="#">Световые короба</a></li></ul></li>
+                <li><a href="portfolio.html" class="nav__link">Портфолио</a></li>
+                <li class="nav__dropdown"><a href="about.html" class="nav__link">О компании <span class="arrow">▼</span></a><ul class="dropdown__menu"><li><a href="about.html">О нас</a></li><li><a href="contacts.html">Контакты</a></li></ul></li>
+            </ul>
+        </nav>
+        <div class="header__contacts">
+            <a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a>
+            <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+        </div>
+        <button class="burger" id="burger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-menu__nav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="uslugi.html">Услуги</a></li>
+            <li><a href="catalog.html">Продукция</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+        <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+    </nav>
+</div>
+
+<!-- Hero -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero__breadcrumb">
+            <a href="index.html">Главная</a><span>›</span><span>Оставить заявку</span>
+        </div>
+        <div class="section-label">Подробная заявка</div>
+        <h1 class="page-hero__title">Расскажите о вашем проекте</h1>
+        <p class="page-hero__subtitle">Чем подробнее вы опишете задачу, тем точнее мы рассчитаем стоимость и сроки. Менеджер свяжется с вами в течение 15 минут в рабочее время.</p>
+    </div>
+</section>
+
+<section class="section section--dark" style="padding-top: 40px;">
+    <div class="container">
+        <div class="request-layout">
+
+            <!-- FORM -->
+            <div>
+                <div class="request-form" id="requestForm">
+                    <!-- Steps -->
+                    <div class="form-steps">
+                        <div class="form-step active" id="step1tab">
+                            <div class="form-step__num">1</div>
+                            <div class="form-step__label">Контактные данные</div>
+                        </div>
+                        <div class="form-step" id="step2tab">
+                            <div class="form-step__num">2</div>
+                            <div class="form-step__label">Услуга и детали</div>
+                        </div>
+                        <div class="form-step" id="step3tab">
+                            <div class="form-step__num">3</div>
+                            <div class="form-step__label">Файлы и отправка</div>
+                        </div>
+                    </div>
+                    <div class="form-progress">
+                        <div class="form-progress__fill" id="progressFill"></div>
+                    </div>
+
+                    <!-- Step 1 -->
+                    <div class="form-body" id="formStep1">
+                        <div class="field-section">
+                            <div class="field-section__title">Ваши данные</div>
+                            <div class="fields-row fields-row--2">
+                                <div class="field">
+                                    <label class="field-label">Имя <span class="req">*</span></label>
+                                    <input type="text" class="field-input" id="fieldName" placeholder="Александр" autocomplete="given-name">
+                                    <span class="field-error-msg">Пожалуйста, введите имя</span>
+                                </div>
+                                <div class="field">
+                                    <label class="field-label">Компания <span class="field-hint">(необязательно)</span></label>
+                                    <input type="text" class="field-input" id="fieldCompany" placeholder="ООО «Ваша компания»" autocomplete="organization">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field-section">
+                            <div class="field-section__title">Контакты</div>
+                            <div class="fields-row fields-row--2">
+                                <div class="field">
+                                    <label class="field-label">Телефон <span class="req">*</span></label>
+                                    <input type="tel" class="field-input" id="fieldPhone" placeholder="+7 (495) 000-00-00" autocomplete="tel">
+                                    <span class="field-error-msg">Введите корректный номер телефона</span>
+                                </div>
+                                <div class="field">
+                                    <label class="field-label">Email <span class="req">*</span></label>
+                                    <input type="email" class="field-input" id="fieldEmail" placeholder="mail@example.com" autocomplete="email">
+                                    <span class="field-error-msg">Введите корректный email</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field-section">
+                            <div class="field-section__title">Предпочтительный способ связи</div>
+                            <div class="contact-chips">
+                                <label class="contact-chip">
+                                    <input type="checkbox" name="contact_way" value="phone" checked>
+                                    <span class="contact-chip__label">
+                                        <span class="contact-chip__icon">📞</span> Телефон
+                                    </span>
+                                </label>
+                                <label class="contact-chip">
+                                    <input type="checkbox" name="contact_way" value="whatsapp">
+                                    <span class="contact-chip__label">
+                                        <span class="contact-chip__icon">💬</span> WhatsApp
+                                    </span>
+                                </label>
+                                <label class="contact-chip">
+                                    <input type="checkbox" name="contact_way" value="telegram">
+                                    <span class="contact-chip__label">
+                                        <span class="contact-chip__icon">✈️</span> Telegram
+                                    </span>
+                                </label>
+                                <label class="contact-chip">
+                                    <input type="checkbox" name="contact_way" value="email">
+                                    <span class="contact-chip__label">
+                                        <span class="contact-chip__icon">📧</span> Email
+                                    </span>
+                                </label>
+                                <label class="contact-chip">
+                                    <input type="checkbox" name="contact_way" value="viber">
+                                    <span class="contact-chip__label">
+                                        <span class="contact-chip__icon">📱</span> Viber
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field-section">
+                            <div class="field-section__title">Удобное время для звонка</div>
+                            <div class="fields-row fields-row--2">
+                                <div class="field">
+                                    <label class="field-label">С</label>
+                                    <select class="field-select" id="timeFrom">
+                                        <option value="">Не важно</option>
+                                        <option>9:00</option><option>10:00</option><option>11:00</option>
+                                        <option>12:00</option><option>13:00</option><option>14:00</option>
+                                        <option>15:00</option><option>16:00</option><option>17:00</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label class="field-label">До</label>
+                                    <select class="field-select" id="timeTo">
+                                        <option value="">Не важно</option>
+                                        <option>11:00</option><option>12:00</option><option>13:00</option>
+                                        <option>14:00</option><option>15:00</option><option>16:00</option>
+                                        <option>17:00</option><option>18:00</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; justify-content:flex-end; margin-top:32px;">
+                            <button class="btn btn--primary btn--large" style="width:auto;" onclick="goStep(2)">
+                                Далее: детали проекта →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="form-body" id="formStep2" style="display:none;">
+                        <div class="field-section">
+                            <div class="field-section__title">Интересующая услуга / продукция</div>
+                            <div class="field" style="margin-bottom:16px;">
+                                <label class="field-label">Основная категория <span class="req">*</span></label>
+                                <select class="field-select" id="fieldService" onchange="updateServiceHint(this.value)">
+                                    <option value="">— Выберите из списка —</option>
+                                    <optgroup label="Услуги">
+                                        <option value="sign">Изготовление вывески под ключ</option>
+                                        <option value="laser">Лазерная резка</option>
+                                        <option value="cnc">Фрезеровка ЧПУ</option>
+                                        <option value="print">Широкоформатная печать</option>
+                                        <option value="mount">Монтажные работы</option>
+                                        <option value="design">Разработка дизайна / визуализация</option>
+                                    </optgroup>
+                                    <optgroup label="Продукция">
+                                        <option value="letters">Объёмные буквы</option>
+                                        <option value="lightbox">Световые короба (лайтбоксы)</option>
+                                        <option value="panel">Световые панели</option>
+                                        <option value="neon">Неон / LED-неон</option>
+                                        <option value="navigation">Навигационные системы</option>
+                                        <option value="interior">Интерьерные конструкции</option>
+                                        <option value="facade">Фасадное оформление</option>
+                                    </optgroup>
+                                    <option value="other">Другое / несколько позиций</option>
+                                </select>
+                                <div id="serviceHint" style="font-size:12px; color:rgba(0,196,184,.7); margin-top:8px; display:none; padding:10px 14px; background:rgba(0,196,184,.05); border-radius:6px; line-height:1.55;"></div>
+                            </div>
+
+                            <div class="field">
+                                <label class="field-label">Дополнительные категории <span class="field-hint">(можно несколько)</span></label>
+                                <div class="service-grid">
+                                    <label class="service-check">
+                                        <input type="checkbox" name="service_extra" value="letters">
+                                        <span class="service-check__label">
+                                            <span class="service-check__box"></span>
+                                            <span><div class="service-check__name">Объёмные буквы</div><div class="service-check__desc">Акрил, металл, ПВХ, дерево</div></span>
+                                        </span>
+                                    </label>
+                                    <label class="service-check">
+                                        <input type="checkbox" name="service_extra" value="lightbox">
+                                        <span class="service-check__label">
+                                            <span class="service-check__box"></span>
+                                            <span><div class="service-check__name">Световые короба</div><div class="service-check__desc">Лайтбоксы, баннерные конструкции</div></span>
+                                        </span>
+                                    </label>
+                                    <label class="service-check">
+                                        <input type="checkbox" name="service_extra" value="laser">
+                                        <span class="service-check__label">
+                                            <span class="service-check__box"></span>
+                                            <span><div class="service-check__name">Лазерная резка</div><div class="service-check__desc">Акрил, металл, дерево, ПВХ</div></span>
+                                        </span>
+                                    </label>
+                                    <label class="service-check">
+                                        <input type="checkbox" name="service_extra" value="neon">
+                                        <span class="service-check__label">
+                                            <span class="service-check__box"></span>
+                                            <span><div class="service-check__name">Неон / LED-неон</div><div class="service-check__desc">Любая форма и цвет</div></span>
+                                        </span>
+                                    </label>
+                                    <label class="service-check">
+                                        <input type="checkbox" name="service_extra" value="print">
+                                        <span class="service-check__label">
+                                            <span class="service-check__box"></span>
+                                            <span><div class="service-check__name">Широкоформатная печать</div><div class="service-check__desc">Баннеры, плакаты, наклейки</div></span>
+                                        </span>
+                                    </label>
+                                    <label class="service-check">
+                                        <input type="checkbox" name="service_extra" value="mount">
+                                        <span class="service-check__label">
+                                            <span class="service-check__box"></span>
+                                            <span><div class="service-check__name">Монтаж</div><div class="service-check__desc">Выезд, замер, установка</div></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field-section">
+                            <div class="field-section__title">Параметры проекта</div>
+                            <div class="fields-row fields-row--3" style="margin-bottom:16px;">
+                                <div class="field">
+                                    <label class="field-label">Город объекта</label>
+                                    <input type="text" class="field-input" id="fieldCity" placeholder="Москва">
+                                </div>
+                                <div class="field">
+                                    <label class="field-label">Срок реализации</label>
+                                    <select class="field-select">
+                                        <option value="">Не ограничен</option>
+                                        <option>Срочно (1–3 дня)</option>
+                                        <option>До 1 недели</option>
+                                        <option>До 2 недель</option>
+                                        <option>До месяца</option>
+                                        <option>Более месяца</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label class="field-label">Количество точек</label>
+                                    <input type="number" class="field-input" placeholder="1" min="1">
+                                </div>
+                            </div>
+
+                            <div class="field" style="margin-bottom:16px;">
+                                <label class="field-label">Бюджет проекта</label>
+                                <div class="budget-slider">
+                                    <input type="range" id="budgetRange" min="5000" max="500000" step="5000" value="50000" oninput="updateBudget(this.value)">
+                                    <div class="budget-labels">
+                                        <span>от 5 000 ₽</span>
+                                        <span>до 500 000 ₽</span>
+                                    </div>
+                                    <div class="budget-current" id="budgetDisplay">до 50 000 ₽</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field-section">
+                            <div class="field-section__title">Комментарий к проекту</div>
+                            <div class="field">
+                                <label class="field-label">Подробное описание <span class="req">*</span></label>
+                                <textarea class="field-textarea" id="fieldComment" placeholder="Расскажите о задаче: что нужно сделать, из каких материалов, какие размеры, есть ли готовый макет/логотип, особые требования...&#10;&#10;Чем подробнее — тем точнее получится расчёт." style="min-height:160px;"></textarea>
+                                <span class="field-error-msg">Пожалуйста, опишите задачу</span>
+                            </div>
+                            <div style="text-align:right; font-size:11px; color:rgba(255,255,255,.2); margin-top:6px;" id="charCount">0 / 1000</div>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; margin-top:32px; gap:12px;">
+                            <button class="btn btn--outline" style="width:auto;" onclick="goStep(1)">← Назад</button>
+                            <button class="btn btn--primary btn--large" style="width:auto;" onclick="goStep(3)">
+                                Далее: файлы и отправка →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="form-body" id="formStep3" style="display:none;">
+                        <div class="field-section">
+                            <div class="field-section__title">Прикрепить файлы</div>
+                            <div class="file-upload" id="fileDropZone">
+                                <input type="file" multiple accept=".ai,.eps,.svg,.pdf,.dxf,.cdr,.jpg,.jpeg,.png,.zip" id="fileInput" onchange="handleFiles(this.files)">
+                                <div class="file-upload__icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 15V3M8 7l4-4 4 4M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </div>
+                                <div class="file-upload__title">Перетащите файлы сюда или нажмите для выбора</div>
+                                <div class="file-upload__desc">Принимаем: AI, EPS, SVG, PDF, DXF, CDR, JPG, PNG, ZIP<br>Максимальный размер: 50 МБ</div>
+                                <div class="file-upload__list" id="fileList"></div>
+                            </div>
+                        </div>
+
+                        <div class="field-section">
+                            <div class="field-section__title">Источник обращения</div>
+                            <div class="field">
+                                <label class="field-label">Как вы о нас узнали?</label>
+                                <select class="field-select">
+                                    <option value="">— Не указывать —</option>
+                                    <option>Поисковик (Google, Яндекс)</option>
+                                    <option>Рекомендация знакомых / коллег</option>
+                                    <option>Социальные сети</option>
+                                    <option>Увидел нашу вывеску / объект</option>
+                                    <option>Уже работали с вами</option>
+                                    <option>Другой источник</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field-section" style="margin-bottom:0;">
+                            <div class="agreement-block">
+                                <div class="agree-item">
+                                    <input type="checkbox" id="agreePrivacy" required>
+                                    <label for="agreePrivacy">
+                                        Я согласен с <a href="privacy.html">политикой конфиденциальности</a> и даю согласие на обработку моих персональных данных в соответствии с 152-ФЗ <span style="color:var(--color-primary);">*</span>
+                                    </label>
+                                </div>
+                                <div class="agree-item">
+                                    <input type="checkbox" id="agreeNews">
+                                    <label for="agreeNews">Я хочу получать информацию об акциях, новинках и полезных статьях (не чаще 1 раза в месяц)</label>
+                                </div>
+                            </div>
+
+                            <button class="form-submit-btn" id="submitBtn" onclick="submitForm()">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M18 2L2 9l6 3 3 6 7-16z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                Отправить заявку
+                            </button>
+                        </div>
+
+                        <div style="display:flex; justify-content:flex-start; margin-top:20px;">
+                            <button class="btn btn--outline" style="width:auto;" onclick="goStep(2)">← Назад</button>
+                        </div>
+                    </div>
+
+                    <!-- Success -->
+                    <div class="form-success" id="formSuccess">
+                        <div class="form-success__icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M8 20l8 8 16-16" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <h2 style="font-size:28px; font-weight:700; color:#fff; margin-bottom:12px;">Заявка отправлена!</h2>
+                        <p style="font-size:16px; color:rgba(255,255,255,.5); line-height:1.7; max-width:440px; margin:0 auto 32px;">Менеджер свяжется с вами в течение 15 минут в рабочее время (пн–пт 9:00–18:00). Проверьте мессенджеры — возможно, напишем туда.</p>
+                        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                            <a href="portfolio.html" class="btn btn--outline" style="width:auto;">Посмотреть наши работы</a>
+                            <a href="index.html" class="btn btn--primary" style="width:auto;">На главную</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="request-sidebar">
+                <div class="sidebar-card">
+                    <div class="sidebar-card__title">Почему мы</div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-item__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M5 8l2.5 2.5 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <div>
+                            <div class="benefit-item__title">Ответ за 15 минут</div>
+                            <div class="benefit-item__text">В рабочее время. Не оставляем заявки без ответа.</div>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-item__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2l1.5 3.5H14l-3.5 2.5 1.5 4L8 10l-4 2 1.5-4L2 5.5h4.5L8 2z" stroke="currentColor" stroke-width="1.3"/></svg></div>
+                        <div>
+                            <div class="benefit-item__title">Собственное производство</div>
+                            <div class="benefit-item__text">800 м² цеха в Москве. Контроль на каждом этапе.</div>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-item__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M5 4V3a3 3 0 016 0v1" stroke="currentColor" stroke-width="1.3"/></svg></div>
+                        <div>
+                            <div class="benefit-item__title">Гарантия 1 год</div>
+                            <div class="benefit-item__text">На изделие, подсветку и монтаж. Выезд при гарантийном случае — 48 ч.</div>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-item__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M4 5.5h6a1.5 1.5 0 010 3H5a1.5 1.5 0 000 3H11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+                        <div>
+                            <div class="benefit-item__title">Прозрачное ценообразование</div>
+                            <div class="benefit-item__text">Цена из КП = итоговая цена. Никаких скрытых платежей.</div>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-item__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9 5H7a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.4"/><rect x="7" y="2" width="4" height="4" rx=".5" stroke="currentColor" stroke-width="1.3"/></svg></div>
+                        <div>
+                            <div class="benefit-item__title">Официальные документы</div>
+                            <div class="benefit-item__text">Договор, счёт, акт, УПД. Работаем с НДС.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="sidebar-card__title">Связаться напрямую</div>
+                    <div class="contact-card">
+                        <div class="contact-card__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.1 1.5a.85.85 0 00-1.27-.08L1.6 2.65c-.6.6-.83 1.47-.56 2.22a22 22 0 005.22 8.27 22 22 0 008.27 5.22c.75.27 1.62.04 2.22-.56l1.22-1.22a.85.85 0 00-.08-1.27l-2.9-2.25a.85.85 0 00-.72-.15l-2.73.68a2.45 2.45 0 01-2.33-.58L7.2 10.01a2.45 2.45 0 01-.58-2.33l.68-2.73a.85.85 0 00-.15-.72L4.1 1.5z" stroke="currentColor" stroke-width="1.3" fill="none"/></svg></div>
+                        <div>
+                            <div class="contact-card__label">Телефон</div>
+                            <a href="tel:+74951234567" class="contact-card__val">+7 (495) 123-45-67</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-card__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 5.5l7 4.5 7-4.5M3.5 14h11a1.5 1.5 0 001.5-1.5V5.5A1.5 1.5 0 0014.5 4h-11A1.5 1.5 0 002 5.5v7A1.5 1.5 0 003.5 14z" stroke="currentColor" stroke-width="1.3" fill="none"/></svg></div>
+                        <div>
+                            <div class="contact-card__label">Email</div>
+                            <a href="mailto:info@narrativ.ru" class="contact-card__val">info@narrativ.ru</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-card__icon" style="font-size:16px;">💬</div>
+                        <div>
+                            <div class="contact-card__label">WhatsApp / Telegram</div>
+                            <a href="#" class="contact-card__val">@narrativ_msk</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-card__icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.3"/><path d="M9 5v4l2.5 2.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+                        <div>
+                            <div class="contact-card__label">Часы работы</div>
+                            <div class="contact-card__val">Пн–Пт: 9:00–18:00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-card" style="background:rgba(0,196,184,.04); border-color:rgba(0,196,184,.2);">
+                    <div style="font-size:13px; color:rgba(255,255,255,.5); line-height:1.65; margin-bottom:16px;">Нужен срочный расчёт? Позвоните напрямую — ответим сразу.</div>
+                    <a href="tel:+74951234567" class="btn btn--primary" style="display:block; text-align:center;">
+                        Позвонить сейчас
+                    </a>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__column footer__column--brand"><div class="footer__logo"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></div><p class="footer__description">Производство наружной и интерьерной рекламы. Полный цикл — от идеи до монтажа.</p></div>
+            <div class="footer__column"><h4 class="footer__heading">Услуги</h4><ul class="footer__links"><li><a href="service.html">Изготовление вывесок</a></li><li><a href="#">Фрезеровка</a></li><li><a href="#">Лазерная резка</a></li></ul></div>
+            <div class="footer__column"><h4 class="footer__heading">Продукция</h4><ul class="footer__links"><li><a href="catalog-cat.html">Объемные буквы</a></li><li><a href="#">Световые короба</a></li></ul></div>
+            <div class="footer__column"><h4 class="footer__heading">Компания</h4><ul class="footer__links"><li><a href="about.html">О нас</a></li><li><a href="portfolio.html">Портфолио</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
+            <div class="footer__column"><h4 class="footer__heading">Контакты</h4><ul class="footer__contacts"><li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z" stroke="currentColor" fill="none"/></svg><a href="tel:+74951234567">+7 (495) 123-45-67</a></li></ul></div>
+        </div>
+        <div class="footer__bottom"><div class="footer__copyright">© 2026 Нарратив. Все права защищены.</div><div class="footer__legal"><a href="privacy.html">Политика конфиденциальности</a></div></div>
+    </div>
+</footer>
+
+<div class="modal" id="callbackModal">
+    <div class="modal__overlay" onclick="closeCallbackModal()"></div>
+    <div class="modal__content">
+        <button class="modal__close" onclick="closeCallbackModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <h3 class="modal__title">Заказать звонок</h3>
+        <form class="form" onsubmit="submitCallback(event)">
+            <div class="form__group"><input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required></div>
+            <div class="form__checkbox"><input type="checkbox" id="agree-modal" required><label for="agree-modal">Согласен на обработку персональных данных</label></div>
+            <button type="submit" class="btn btn--primary btn--large">Заказать звонок</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    let currentStep = 1;
+
+    const serviceHints = {
+        sign: 'Полный цикл: замер, дизайн, производство, монтаж. Укажите тип объекта и приблизительный размер вывески.',
+        laser: 'Лазерная резка акрила, металла, дерева, ПВХ. Укажите материал, толщину и количество деталей.',
+        cnc: 'Фрезеровка ЧПУ 2D и 3D. Подходит для крупных форматов. Укажите материал и размеры.',
+        print: 'Широкоформатная печать на баннерной ткани, ПВХ, самоклейке. Укажите формат и тираж.',
+        mount: 'Монтаж готовой конструкции. Укажите тип фасада и высоту размещения.',
+        design: 'Разработка дизайна вывески с визуализацией на фасаде. Пришлите логотип и фото фасада.',
+        letters: 'Акрил, нержавейка, алюминий, ПВХ, дерево. Укажите шрифт или пришлите логотип, размер букв.',
+        lightbox: 'Двусторонние и односторонние лайтбоксы. Укажите размер, тип лицевой (ткань/акрил).',
+        panel: 'Тонкие световые панели для интерьеров. Укажите размер и способ крепления.',
+        neon: 'LED-неон любой формы. Пришлите эскиз или логотип, укажите цвет свечения.',
+        navigation: 'Комплексные системы навигации. Укажите тип объекта (ТЦ, офис, медцентр) и этажность.',
+        interior: 'Брендирование офисов, ресепшн, переговорных. Укажите площадь и концепцию.',
+        facade: 'Комплексное оформление фасада. Пришлите фото здания и логотип.',
+        other: 'Опишите задачу в комментарии — разберёмся и предложим решение.',
+    };
+
+    function updateServiceHint(val) {
+        const hint = document.getElementById('serviceHint');
+        if (val && serviceHints[val]) {
+            hint.textContent = '💡 ' + serviceHints[val];
+            hint.style.display = 'block';
+        } else {
+            hint.style.display = 'none';
+        }
+    }
+
+    function goStep(step) {
+        // Validate step 1
+        if (step > 1 && currentStep === 1) {
+            const name = document.getElementById('fieldName');
+            const phone = document.getElementById('fieldPhone');
+            const email = document.getElementById('fieldEmail');
+            let valid = true;
+
+            if (!name.value.trim()) { name.classList.add('error'); valid = false; } else name.classList.remove('error');
+            if (!phone.value.trim() || phone.value.length < 10) { phone.classList.add('error'); valid = false; } else phone.classList.remove('error');
+            if (!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) { email.classList.add('error'); valid = false; } else email.classList.remove('error');
+
+            if (!valid) return;
+        }
+
+        // Validate step 2
+        if (step > 2 && currentStep === 2) {
+            const service = document.getElementById('fieldService');
+            const comment = document.getElementById('fieldComment');
+            let valid = true;
+
+            if (!service.value) { service.classList.add('error'); valid = false; } else service.classList.remove('error');
+            if (!comment.value.trim()) { comment.classList.add('error'); valid = false; } else comment.classList.remove('error');
+
+            if (!valid) return;
+        }
+
+        currentStep = step;
+        updateStepUI();
+    }
+
+    function updateStepUI() {
+        // Show/hide panels
+        document.getElementById('formStep1').style.display = currentStep === 1 ? 'block' : 'none';
+        document.getElementById('formStep2').style.display = currentStep === 2 ? 'block' : 'none';
+        document.getElementById('formStep3').style.display = currentStep === 3 ? 'block' : 'none';
+
+        // Update tabs
+        [1,2,3].forEach(i => {
+            const tab = document.getElementById('step' + i + 'tab');
+            tab.classList.remove('active', 'done');
+            if (i === currentStep) tab.classList.add('active');
+            if (i < currentStep) tab.classList.add('done');
+        });
+
+        // Progress
+        const widths = { 1: '33%', 2: '66%', 3: '100%' };
+        document.getElementById('progressFill').style.width = widths[currentStep];
+
+        // Scroll to top of form
+        document.getElementById('requestForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function updateBudget(val) {
+        const num = parseInt(val);
+        document.getElementById('budgetDisplay').textContent = 'до ' + num.toLocaleString('ru') + ' ₽';
+    }
+
+    // Comment counter
+    const commentField = document.getElementById('fieldComment');
+    if (commentField) {
+        commentField.addEventListener('input', function() {
+            document.getElementById('charCount').textContent = this.value.length + ' / 1000';
+            if (this.value.length > 1000) this.value = this.value.substring(0, 1000);
+        });
+    }
+
+    function handleFiles(files) {
+        const list = document.getElementById('fileList');
+        Array.from(files).forEach(file => {
+            const item = document.createElement('div');
+            item.className = 'file-item';
+            const size = file.size > 1024*1024
+                ? (file.size / (1024*1024)).toFixed(1) + ' МБ'
+                : Math.round(file.size / 1024) + ' КБ';
+            item.innerHTML = `
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2h6l3 3v7a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2"/><path d="M9 2v3h3" stroke="currentColor" stroke-width="1.2"/></svg>
+                <span class="file-item__name">${file.name}</span>
+                <span style="color:rgba(255,255,255,.3); font-size:11px;">${size}</span>
+                <span class="file-item__remove" onclick="this.parentElement.remove()">×</span>
+            `;
+            list.appendChild(item);
+        });
+    }
+
+    // Drag & drop
+    const dropZone = document.getElementById('fileDropZone');
+    if (dropZone) {
+        dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.style.borderColor = 'rgba(0,196,184,.6)'; });
+        dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = ''; });
+        dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.style.borderColor = ''; handleFiles(e.dataTransfer.files); });
+    }
+
+    function submitForm() {
+        const agreePrivacy = document.getElementById('agreePrivacy');
+        if (!agreePrivacy.checked) {
+            agreePrivacy.parentElement.style.color = '#ef4444';
+            agreePrivacy.style.borderColor = 'rgba(239,68,68,.5)';
+            return;
+        }
+
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="animation:spin 1s linear infinite"><path d="M10 3a7 7 0 11-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Отправляем...';
+
+        setTimeout(() => {
+            document.getElementById('formStep3').style.display = 'none';
+            document.getElementById('formSuccess').classList.add('visible');
+            document.querySelector('.form-steps').style.display = 'none';
+            document.querySelector('.form-progress').style.display = 'none';
+            document.getElementById('requestForm').scrollIntoView({ behavior: 'smooth' });
+        }, 1400);
+    }
+
+    const style = document.createElement('style');
+    style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+    document.head.appendChild(style);
+</script>
+</body>
+</html>

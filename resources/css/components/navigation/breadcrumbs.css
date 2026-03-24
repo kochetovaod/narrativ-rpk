@@ -1,0 +1,28 @@
+/* ==========================================
+   Breadcrumbs
+   ========================================== */
+
+.page-hero__breadcrumb {
+   font-size: 14px;
+   color: rgba(255, 255, 255);
+   margin-bottom: 20px;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   flex-wrap: wrap;
+   font-weight: 400;
+   text-shadow: 1px 1px 10px black;
+}
+
+.page-hero__breadcrumb span a {
+   color: rgba(255, 255, 255, 0.9);
+   transition: color 0.3s;
+}
+
+.page-hero__breadcrumb a:hover {
+   color: var(--color-primary);
+}
+
+.page-hero__breadcrumb span {
+   color: rgba(255, 255, 255, 0.9);
+}

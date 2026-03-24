@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты — Нарратив</title>
+    <meta name="description" content="Контакты производственной компании Нарратив. Адрес, телефон, email, карта проезда.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inner-pages.css">
+    <style>
+        /* Contact form */
+        .contact-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 20px;
+        }
+
+        .contact-form-block {
+            padding: 48px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(184,134,11,0.2);
+            border-radius: 12px;
+        }
+
+        .contact-form-block h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .contact-form-block p {
+            font-size: 15px;
+            color: var(--color-text-dim);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .contacts-info-block h2 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 900px) {
+            .contact-split { grid-template-columns: 1fr; }
+        }
+
+        .work-hours {
+            margin-top: 32px;
+            padding: 24px;
+            background: rgba(0,196,184,0.05);
+            border: 1px solid rgba(0,196,184,0.2);
+            border-radius: 8px;
+        }
+
+        .work-hours h4 {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 16px;
+        }
+
+        .work-hours__row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 14px;
+        }
+
+        .work-hours__row:last-child { border-bottom: none; }
+
+        .work-hours__day { color: var(--color-text-dim); }
+        .work-hours__time { color: #fff; font-weight: 500; }
+        .work-hours__closed { color: rgba(255,255,255,0.3); font-style: italic; }
+
+        .messenger-btns {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .messenger-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .messenger-btn--whatsapp {
+            background: rgba(37, 211, 102, 0.1);
+            color: #25d366;
+            border: 1px solid rgba(37, 211, 102, 0.3);
+        }
+
+        .messenger-btn--whatsapp:hover {
+            background: rgba(37, 211, 102, 0.2);
+        }
+
+        .messenger-btn--telegram {
+            background: rgba(0, 136, 204, 0.1);
+            color: #0088cc;
+            border: 1px solid rgba(0, 136, 204, 0.3);
+        }
+
+        .messenger-btn--telegram:hover {
+            background: rgba(0, 136, 204, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header" id="header">
+    <div class="header__container">
+        <div class="header__logo">
+            <a href="index.html"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></a>
+        </div>
+        <nav class="header__nav">
+            <ul class="nav__menu">
+                <li><a href="index.html" class="nav__link">Главная</a></li>
+                <li class="nav__dropdown">
+                    <a href="uslugi.html" class="nav__link">Услуги <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="#">Изготовление вывесок</a></li>
+                        <li><a href="#">Фрезеровка</a></li>
+                        <li><a href="#">Лазерная резка</a></li>
+                        <li><a href="#">Монтажные работы</a></li>
+                    </ul>
+                </li>
+                <li class="nav__dropdown">
+                    <a href="catalog.html" class="nav__link">Продукция <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="#">Объемные буквы</a></li>
+                        <li><a href="#">Световые короба</a></li>
+                        <li><a href="#">Тонкие световые панели</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav__link">Портфолио</a></li>
+                <li class="nav__dropdown">
+                    <a href="about.html" class="nav__link">О компании <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </li>
+                <li><a href="contacts.html" class="nav__link" style="color:var(--color-primary)">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="header__contacts">
+            <a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a>
+            <div class="header__messengers">
+                <a href="#" class="messenger-icon" aria-label="WhatsApp"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/></svg></a>
+                <a href="#" class="messenger-icon" aria-label="Telegram"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z" fill="currentColor"/></svg></a>
+            </div>
+            <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+        </div>
+        <button class="burger" id="burger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-menu__nav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="uslugi.html">Услуги</a></li>
+            <li><a href="catalog.html">Продукция</a></li>
+            <li><a href="#">Портфолио</a></li>
+            <li><a href="about.html">О компании</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+        <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+    </nav>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero__breadcrumb">
+            <a href="index.html">Главная</a>
+            <span>›</span>
+            <span>Контакты</span>
+        </div>
+        <div class="section-label">Свяжитесь с нами</div>
+        <h1 class="page-hero__title">Контакты</h1>
+        <p class="page-hero__subtitle">Мы всегда готовы ответить на ваши вопросы. Звоните, пишите или приезжайте к нам в офис.</p>
+    </div>
+</section>
+
+<!-- Map + Info -->
+<section class="section section--dark">
+    <div class="container">
+        <div class="contacts-layout">
+            <!-- Info cards -->
+            <div>
+                <div class="contacts-cards">
+                    <div class="contact-info-card">
+                        <div class="contact-info-card__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>
+                        </div>
+                        <div>
+                            <div class="contact-info-card__label">Адрес производства</div>
+                            <div class="contact-info-card__value">г. Москва, ул. Производственная, д. 15, стр. 2</div>
+                            <div class="contact-info-card__note">Бизнес-парк «Нарратив», 3-й этаж</div>
+                        </div>
+                    </div>
+                    <div class="contact-info-card">
+                        <div class="contact-info-card__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>
+                        </div>
+                        <div>
+                            <div class="contact-info-card__label">Телефон</div>
+                            <div class="contact-info-card__value"><a href="tel:+74951234567">+7 (495) 123-45-67</a></div>
+                            <div class="contact-info-card__note">Ответим в течение 15 минут</div>
+                        </div>
+                    </div>
+                    <div class="contact-info-card">
+                        <div class="contact-info-card__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>
+                        </div>
+                        <div>
+                            <div class="contact-info-card__label">E-mail</div>
+                            <div class="contact-info-card__value"><a href="mailto:info@narrativ.ru">info@narrativ.ru</a></div>
+                            <div class="contact-info-card__note">Для заявок и коммерческих предложений</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="work-hours" style="margin-top:24px;">
+                    <h4>Часы работы</h4>
+                    <div class="work-hours__row">
+                        <span class="work-hours__day">Понедельник — Пятница</span>
+                        <span class="work-hours__time">9:00 — 18:00</span>
+                    </div>
+                    <div class="work-hours__row">
+                        <span class="work-hours__day">Суббота</span>
+                        <span class="work-hours__time">10:00 — 15:00 (по записи)</span>
+                    </div>
+                    <div class="work-hours__row">
+                        <span class="work-hours__day">Воскресенье</span>
+                        <span class="work-hours__closed">Выходной</span>
+                    </div>
+                </div>
+
+                <div class="messenger-btns">
+                    <a href="https://wa.me/74951234567" class="messenger-btn messenger-btn--whatsapp">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        WhatsApp
+                    </a>
+                    <a href="https://t.me/narrativ" class="messenger-btn messenger-btn--telegram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/></svg>
+                        Telegram
+                    </a>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div>
+                <div class="contacts-map">
+                    <div class="contacts-map__placeholder">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><path d="M32 6C20.954 6 12 14.954 12 26c0 14.5 20 38 20 38s20-23.5 20-38C52 14.954 43.046 6 32 6z" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="32" cy="25" r="7" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                        <p style="font-size:16px; color:rgba(255,255,255,0.4); margin-top:8px;">г. Москва, ул. Производственная, д. 15</p>
+                        <p style="font-size:13px; color:rgba(255,255,255,0.2); margin-top:8px;">Здесь будет Яндекс.Карта или Google Maps</p>
+                        <a href="https://yandex.ru/maps/" target="_blank" class="btn btn--outline" style="margin-top:20px; display:inline-block;">Открыть в Яндекс.Картах</a>
+                    </div>
+                </div>
+                <div style="margin-top:16px; padding:20px; background:rgba(255,255,255,0.02); border:1px solid rgba(184,134,11,0.15); border-radius:8px;">
+                    <h4 style="font-size:14px; font-weight:600; color:#fff; margin-bottom:12px;">Как добраться</h4>
+                    <p style="font-size:14px; color:var(--color-text-dim); line-height:1.7;">На метро: ст. м. Текстильщики (выход №3), далее 5 минут пешком или автобус №193 до остановки «Производственная улица».<br>На автомобиле: со стороны МКАД (Каширское шоссе), въезд на территорию по пропуску.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact form + info -->
+<section class="section section--gray">
+    <div class="container">
+        <div class="contact-split">
+            <div class="contact-form-block">
+                <h2>Написать нам</h2>
+                <p>Опишите вашу задачу — мы свяжемся в течение рабочего часа и подготовим предложение.</p>
+                <form class="form" onsubmit="submitContactForm(event)">
+                    <div class="form__group">
+                        <input type="text" class="form__input" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form__group">
+                        <input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required>
+                    </div>
+                    <div class="form__group">
+                        <input type="email" class="form__input" placeholder="E-mail">
+                    </div>
+                    <div class="form__group">
+                        <textarea class="form__textarea" placeholder="Опишите вашу задачу (тип вывески, размеры, материалы, сроки)" rows="4"></textarea>
+                    </div>
+                    <div class="form__checkbox">
+                        <input type="checkbox" id="agree-contact" required>
+                        <label for="agree-contact">Согласен на обработку персональных данных в соответствии с <a href="privacy.html" style="color:var(--color-primary)">политикой конфиденциальности</a></label>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--large">Отправить сообщение</button>
+                </form>
+            </div>
+
+            <div class="contacts-info-block">
+                <h2>Часто задаваемые вопросы</h2>
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                    <div style="padding:20px; background:rgba(255,255,255,0.02); border:1px solid rgba(184,134,11,0.1); border-radius:8px; cursor:pointer;" onclick="toggleFaq(this)">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:16px;">
+                            <span style="font-size:15px; font-weight:600; color:#fff;">Каков минимальный заказ?</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0; transition:transform 0.3s;"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                        </div>
+                        <div style="display:none; margin-top:12px; font-size:14px; color:var(--color-text-dim); line-height:1.7;">Минимальной суммы заказа нет. Мы работаем как со срочными небольшими заказами (одна буква, одна табличка), так и с масштабными проектами на несколько точек.</div>
+                    </div>
+                    <div style="padding:20px; background:rgba(255,255,255,0.02); border:1px solid rgba(184,134,11,0.1); border-radius:8px; cursor:pointer;" onclick="toggleFaq(this)">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:16px;">
+                            <span style="font-size:15px; font-weight:600; color:#fff;">Сколько стоит разработка дизайна?</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0; transition:transform 0.3s;"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                        </div>
+                        <div style="display:none; margin-top:12px; font-size:14px; color:var(--color-text-dim); line-height:1.7;">Дизайн рекламной конструкции стоит от 2 000 руб. Если у вас есть готовый брендбук или макет — адаптируем под производство бесплатно.</div>
+                    </div>
+                    <div style="padding:20px; background:rgba(255,255,255,0.02); border:1px solid rgba(184,134,11,0.1); border-radius:8px; cursor:pointer;" onclick="toggleFaq(this)">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:16px;">
+                            <span style="font-size:15px; font-weight:600; color:#fff;">Какие сроки изготовления?</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0; transition:transform 0.3s;"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                        </div>
+                        <div style="display:none; margin-top:12px; font-size:14px; color:var(--color-text-dim); line-height:1.7;">Простые изделия (таблички, плоские вывески) — от 1–3 рабочих дней. Сложные объёмные конструкции — 5–14 рабочих дней. Срочное изготовление доступно за доплату.</div>
+                    </div>
+                    <div style="padding:20px; background:rgba(255,255,255,0.02); border:1px solid rgba(184,134,11,0.1); border-radius:8px; cursor:pointer;" onclick="toggleFaq(this)">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:16px;">
+                            <span style="font-size:15px; font-weight:600; color:#fff;">Есть ли доставка в другие города?</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0; transition:transform 0.3s;"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                        </div>
+                        <div style="display:none; margin-top:12px; font-size:14px; color:var(--color-text-dim); line-height:1.7;">Да, доставляем по всей России транспортными компаниями (СДЭК, Деловые Линии, ПЭК). По Москве и МО — собственным транспортом, бесплатно при заказе от 30 000 руб.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Requisites -->
+<section class="section section--dark">
+    <div class="container">
+        <div class="contacts-requisites">
+            <h3>Реквизиты компании</h3>
+            <div class="requisites-grid">
+                <div class="requisite-item">
+                    <div class="requisite-item__label">Полное наименование</div>
+                    <div class="requisite-item__value">ООО «Нарратив»</div>
+                </div>
+                <div class="requisite-item">
+                    <div class="requisite-item__label">ИНН</div>
+                    <div class="requisite-item__value">7712345678</div>
+                </div>
+                <div class="requisite-item">
+                    <div class="requisite-item__label">КПП</div>
+                    <div class="requisite-item__value">771201001</div>
+                </div>
+                <div class="requisite-item">
+                    <div class="requisite-item__label">ОГРН</div>
+                    <div class="requisite-item__value">1127746123456</div>
+                </div>
+                <div class="requisite-item">
+                    <div class="requisite-item__label">Расчётный счёт</div>
+                    <div class="requisite-item__value">40702810123450101234</div>
+                </div>
+                <div class="requisite-item">
+                    <div class="requisite-item__label">Банк</div>
+                    <div class="requisite-item__value">АО «Сбербанк России»</div>
+                </div>
+            </div>
+            <div class="contacts-download">
+                <a href="#" class="btn btn--outline btn--small">Скачать карточку компании (.vcf)</a>
+                <a href="#" class="btn btn--outline btn--small">Скачать реквизиты (.pdf)</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__column footer__column--brand">
+                <div class="footer__logo"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></div>
+                <p class="footer__description">Производство наружной и интерьерной рекламы. Полный цикл — от идеи до монтажа.</p>
+                <div class="footer__social">
+                    <a href="#" class="social-icon" aria-label="WhatsApp"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15c-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/></svg></a>
+                </div>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Услуги</h4>
+                <ul class="footer__links">
+                    <li><a href="#">Изготовление вывесок</a></li>
+                    <li><a href="#">Фрезеровка</a></li>
+                    <li><a href="#">Лазерная резка</a></li>
+                    <li><a href="#">Монтажные работы</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Продукция</h4>
+                <ul class="footer__links">
+                    <li><a href="#">Объемные буквы</a></li>
+                    <li><a href="#">Световые короба</a></li>
+                    <li><a href="#">Световые панели</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Компания</h4>
+                <ul class="footer__links">
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="#">Портфолио</a></li>
+                    <li><a href="blog.html">Блог</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Контакты</h4>
+                <ul class="footer__contacts">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z" stroke="currentColor" fill="none"/></svg><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 5.5l5.5 3.5 5.5-3.5M3 13h10a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0013 3H3a1.5 1.5 0 00-1.5 1.5v7A1.5 1.5 0 003 13z" stroke="currentColor" fill="none"/></svg><a href="mailto:info@narrativ.ru">info@narrativ.ru</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="footer__copyright">© 2026 Нарратив. Все права защищены.</div>
+            <div class="footer__legal">
+                <a href="privacy.html">Политика конфиденциальности</a>
+                <span class="footer__separator">•</span>
+                <a href="#">Карта сайта</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div class="modal" id="callbackModal">
+    <div class="modal__overlay" onclick="closeCallbackModal()"></div>
+    <div class="modal__content">
+        <button class="modal__close" onclick="closeCallbackModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <h3 class="modal__title">Заказать звонок</h3>
+        <p class="modal__subtitle">Оставьте свой номер, и мы перезвоним вам в течение 15 минут</p>
+        <form class="form" onsubmit="submitCallback(event)">
+            <div class="form__group"><input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required></div>
+            <div class="form__checkbox">
+                <input type="checkbox" id="agree-modal" required>
+                <label for="agree-modal">Согласен на обработку персональных данных</label>
+            </div>
+            <button type="submit" class="btn btn--primary btn--large">Заказать звонок</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+function toggleFaq(el) {
+    const answer = el.querySelector('div:last-child');
+    const arrow = el.querySelector('svg');
+    const isOpen = answer.style.display === 'block';
+    answer.style.display = isOpen ? 'none' : 'block';
+    arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
+}
+
+function submitContactForm(e) {
+    e.preventDefault();
+    alert('Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в течение рабочего часа.');
+    e.target.reset();
+}
+</script>
+</body>
+</html>

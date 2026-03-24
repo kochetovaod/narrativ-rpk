@@ -1,0 +1,116 @@
+/* resources/css/app.css */
+@import "tailwindcss";
+
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../**/*.js";
+
+@theme {
+    /* Цветовая палитра */
+    --color-primary: #00c4b8;
+    --color-bg-dark: #000000;
+    --color-bg-footer: #1f1f1f;
+    --color-text-white: #ffffff;
+    --color-text-dim: #e0e0e0;
+    --color-accent-soft: rgba(8, 183, 183, 0.6);
+
+    /* Шрифты */
+    --font-family: 'Montserrat', Arial, sans-serif;
+
+    /* Переходы */
+    --transition: all 0.3s ease;
+
+    /* Z-index слои */
+    --z-header: 1000;
+    --z-mobile-menu: 999;
+    --z-modal: 2000;
+    --z-sticky-cta: 900;
+
+    /* Кастомные классы */
+    --container-padding: 0 20px;
+    --container-padding-mobile: 0 15px;
+
+    /* Расширение темы Tailwind */
+    --font-family-sans: var(--font-family);
+
+    --color-primary: var(--color-primary);
+    --color-bg-dark: var(--color-bg-dark);
+    --color-bg-footer: var(--color-bg-footer);
+    --color-text-white: var(--color-text-white);
+    --color-text-dim: var(--color-text-dim);
+    --color-accent-soft: var(--color-accent-soft);
+
+    --animate-fade-in: fadeIn 0.5s ease-in;
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+}
+
+/* Базовые стили, которые нельзя заменить Tailwind */
+@layer base {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: var(--font-family);
+        background-color: var(--color-bg-dark);
+        color: var(--color-text-white);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-family: inherit;
+    }
+
+    ul {
+        list-style: none;
+    }
+}
+
+/* Кастомные утилиты */
+@utility container {
+    max-width: 1400px;
+    margin-inline: auto;
+    padding-inline: 20px;
+
+    @media (max-width: 768px) {
+        padding-inline: 15px;
+    }
+}
+
+/* Медиа-запросы для бургер-меню */
+@custom-media --mobile (max-width: 768px);
+@custom-media --tablet (max-width: 1024px);
+
+/* Импорт компонентов */
+@import "./components/**/*.css" layer(components);

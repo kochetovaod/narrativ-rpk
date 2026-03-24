@@ -1,0 +1,52 @@
+.steps-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    position: relative;
+    margin-top: 60px;
+}
+
+.steps-divider {
+    position: absolute;
+    top: 36px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(184, 134, 11, 0.4), transparent);
+    z-index: 0;
+}
+
+.step-item {
+    text-align: center;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.step-number {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(0, 196, 184, 0.1);
+    border: 1px solid rgba(184, 134, 11, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.step-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.step-description {
+    font-size: 13px;
+    color: var(--color-text-dim);
+    line-height: 1.6;
+}

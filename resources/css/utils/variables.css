@@ -1,0 +1,24 @@
+/* ==========================================
+   CSS Variables
+   ========================================== */
+:root {
+    /* Colors */
+    --color-primary: #00c4b8;
+    --color-bg-dark: #000000;
+    --color-bg-footer: #1f1f1f;
+    --color-text-white: #ffffff;
+    --color-text-dim: #e0e0e0;
+    --color-accent-soft: rgba(8, 183, 183, 0.6);
+
+    /* Typography */
+    --font-family: 'Montserrat', Arial, sans-serif;
+
+    /* Transitions */
+    --transition: all 0.3s ease;
+
+    /* Z-index layers */
+    --z-header: 1000;
+    --z-mobile-menu: 999;
+    --z-modal: 2000;
+    --z-sticky-cta: 900;
+}

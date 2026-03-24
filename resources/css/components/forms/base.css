@@ -1,0 +1,325 @@
+/* ==========================================
+   Base Forms
+   ========================================== */
+.contact-form {
+    padding: 100px 0;
+    background: var(--color-bg-dark);
+}
+
+.contact-form__wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(31, 31, 31, 0.5);
+    padding: 60px;
+    border-radius: 12px;
+    border: 1px solid rgba(184, 134, 11, 0.2);
+}
+
+.contact-form__title {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.contact-form__subtitle {
+    font-size: 16px;
+    color: var(--color-text-dim);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form__group {
+    margin-bottom: 20px;
+}
+
+.form__input,
+.form__textarea {
+    width: 100%;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(184, 134, 11, 0.3);
+    border-radius: 8px;
+    color: var(--color-text-white);
+    font-size: 15px;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.form__input:focus,
+.form__textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.form__input::placeholder,
+.form__textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.form__textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form__checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.form__checkbox input[type="checkbox"] {
+    margin-top: 4px;
+    cursor: pointer;
+}
+
+.form__checkbox label {
+    font-size: 13px;
+    color: var(--color-text-dim);
+    cursor: pointer;
+}
+
+/* ==========================================
+   Landing Page Form
+   ========================================== */
+.form-section {
+    padding: 100px 0;
+    background: #0d0d0d;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.form-box {
+    background: rgba(255, 255, 255, .02);
+    border: 1px solid rgba(184, 134, 11, .15);
+    border-radius: 16px;
+    padding: 44px 40px;
+}
+
+.form-box__title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.form-box__sub {
+    font-size: 14px;
+    color: var(--color-text-dim);
+    margin-bottom: 32px;
+    line-height: 1.6;
+}
+
+.form-field {
+    margin-bottom: 16px;
+}
+
+.form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: rgba(255, 255, 255, .4);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, .04);
+    border: 1.5px solid rgba(184, 134, 11, .2);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color .3s;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: var(--color-primary);
+    background: rgba(0, 196, 184, .03);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: rgba(255, 255, 255, .2);
+}
+
+.form-select option {
+    background: #111;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.form-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--color-primary);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .25s;
+    margin-top: 8px;
+}
+
+.form-submit:hover {
+    background: #00b3a8;
+    transform: translateY(-1px);
+}
+
+.form-note {
+    font-size: 12px;
+    color: rgba(255, 255, 255, .25);
+    margin-top: 12px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* Contact Info Cards */
+.contacts-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contact-info-card {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 24px;
+    background: rgba(255, 255, 255, .02);
+    border: 1px solid rgba(184, 134, 11, .15);
+    border-radius: 8px;
+    transition: all .3s;
+}
+
+.contact-info-card:hover {
+    border-color: rgba(184, 134, 11, .4);
+    background: rgba(0, 196, 184, .03);
+}
+
+.contact-info-card__icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(0, 196, 184, .1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-primary);
+}
+
+.contact-info-card__label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 6px;
+}
+
+.contact-info-card__value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.contact-info-card__value a {
+    transition: color .3s;
+}
+
+.contact-info-card__value a:hover {
+    color: var(--color-primary);
+}
+
+.contact-info-card__note {
+    font-size: 13px;
+    color: var(--color-text-dim);
+}
+
+/* Requisites */
+.contacts-requisites {
+    padding: 40px;
+    background: rgba(255, 255, 255, .02);
+    border: 1px solid rgba(184, 134, 11, .15);
+    border-radius: 8px;
+}
+
+.contacts-requisites h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 24px;
+}
+
+.requisites-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.requisite-item__label {
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.requisite-item__value {
+    font-size: 15px;
+    color: var(--color-text-dim);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact-form__wrapper {
+        padding: 40px 30px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-box {
+        padding: 28px 20px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .requisites-grid {
+        grid-template-columns: 1fr;
+    }
+}

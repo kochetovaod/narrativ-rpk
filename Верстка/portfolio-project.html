@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вывеска для сети кофеен «Бодрость» — Нарратив</title>
+    <meta name="description" content="Кейс: изготовление и монтаж объёмных букв с торцевой LED-подсветкой для 12 кофеен сети «Бодрость» в Москве и МО.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inner-pages.css">
+    <style>
+        /* ── Project hero ── */
+        .project-hero {
+            position: relative;
+            height: 75vh;
+            min-height: 540px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .project-hero__bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 8s ease;
+        }
+
+        .project-hero:hover .project-hero__bg { transform: scale(1.04); }
+
+        .project-hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.3) 55%, transparent 100%);
+        }
+
+        .project-hero__content {
+            position: relative;
+            z-index: 2;
+            padding: 60px 0;
+            width: 100%;
+        }
+
+        .project-hero__tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .project-tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 100px;
+        }
+
+        .project-tag--cat  { background: var(--color-primary); color: #000; }
+        .project-tag--city { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.15); }
+
+        .project-hero__title {
+            font-size: clamp(28px, 4vw, 56px);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.15;
+            max-width: 860px;
+            margin-bottom: 24px;
+        }
+
+        .project-hero__stats {
+            display: flex;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+
+        .project-hero-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-hero-stat__label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 4px;
+        }
+
+        .project-hero-stat__val {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* ── Main layout ── */
+        .project-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* ── Project body ── */
+        .project-body h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+            margin: 48px 0 16px;
+            padding-top: 12px;
+        }
+
+        .project-body h2:first-child { margin-top: 0; }
+
+        .project-body p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.85;
+            margin-bottom: 20px;
+        }
+
+        .project-body ul {
+            margin: 16px 0 24px;
+            padding: 0;
+        }
+
+        .project-body ul li {
+            padding: 9px 0 9px 24px;
+            position: relative;
+            font-size: 15px;
+            color: rgba(255,255,255,0.6);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .project-body ul li:last-child { border-bottom: none; }
+
+        .project-body ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        /* ── Photo gallery ── */
+        .project-gallery {
+            display: grid;
+            gap: 12px;
+            margin: 36px 0;
+        }
+
+        .project-gallery--2col { grid-template-columns: 1fr 1fr; }
+        .project-gallery--3col { grid-template-columns: repeat(3, 1fr); }
+
+        .project-gallery__item {
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: zoom-in;
+            position: relative;
+        }
+
+        .project-gallery__item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .project-gallery__item:hover img { transform: scale(1.04); }
+        .project-gallery__item--tall { aspect-ratio: 3/4; }
+        .project-gallery__item--wide { aspect-ratio: 16/9; }
+        .project-gallery__item--sq   { aspect-ratio: 1; }
+
+        .gallery-zoom-hint {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-gallery__item:hover .gallery-zoom-hint { opacity: 1; }
+
+        .gallery-zoom-hint svg { color: #fff; }
+
+        /* ── Process timeline ── */
+        .project-process {
+            position: relative;
+            padding-left: 32px;
+            border-left: 2px solid rgba(184,134,11,0.2);
+            margin: 12px 0;
+        }
+
+        .process-step {
+            position: relative;
+            padding: 0 0 32px 24px;
+        }
+
+        .process-step:last-child { padding-bottom: 0; }
+
+        .process-step::before {
+            content: '';
+            position: absolute;
+            left: -39px;
+            top: 6px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            border: 3px solid #000;
+            box-shadow: 0 0 0 2px rgba(0,196,184,0.3);
+        }
+
+        .process-step__num {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 6px;
+        }
+
+        .process-step__title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .process-step__text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.65;
+        }
+
+        .process-step__duration {
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(0,196,184,0.6);
+            background: rgba(0,196,184,0.06);
+            border-radius: 100px;
+            padding: 4px 12px;
+        }
+
+        /* ── Blockquote / result ── */
+        .project-result {
+            margin: 36px 0;
+            padding: 32px 36px;
+            background: rgba(0,196,184,0.04);
+            border: 1px solid rgba(0,196,184,0.2);
+            border-radius: 10px;
+        }
+
+        .project-result__label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .project-result__text {
+            font-size: 17px;
+            color: #fff;
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        .project-result__author {
+            margin-top: 16px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ── Sidebar ── */
+        .project-sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .project-sidebar__card {
+            padding: 28px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(184,134,11,0.15);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .project-sidebar__title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 20px;
+        }
+
+        .project-spec {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 11px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            gap: 12px;
+        }
+
+        .project-spec:last-child { border-bottom: none; padding-bottom: 0; }
+        .project-spec:first-child { padding-top: 0; }
+
+        .project-spec__key {
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+            flex-shrink: 0;
+        }
+
+        .project-spec__val {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            text-align: right;
+        }
+
+        /* ── Related projects ── */
+        .related-project {
+            display: block;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+
+        .related-project:last-child { margin-bottom: 0; }
+
+        .related-project img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s;
+        }
+
+        .related-project:hover img { transform: scale(1.05); }
+
+        .related-project__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 14px 16px;
+        }
+
+        .related-project__cat {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 4px;
+        }
+
+        .related-project__title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.35;
+        }
+
+        /* ── Image zoom modal ── */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0,0,0,0.95);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+
+        .zoom-modal.open { display: flex; }
+
+        .zoom-modal img {
+            max-width: 92vw;
+            max-height: 92vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+        }
+
+        .zoom-modal__close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.08);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1024px) {
+            .project-layout { grid-template-columns: 1fr; }
+            .project-sidebar { position: static; }
+        }
+
+        @media (max-width: 768px) {
+            .project-hero { height: 60vh; min-height: 420px; }
+            .project-gallery--3col { grid-template-columns: 1fr 1fr; }
+            .project-hero__stats { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header" id="header">
+    <div class="header__container">
+        <div class="header__logo">
+            <a href="index.html"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></a>
+        </div>
+        <nav class="header__nav">
+            <ul class="nav__menu">
+                <li><a href="index.html" class="nav__link">Главная</a></li>
+                <li class="nav__dropdown">
+                    <a href="uslugi.html" class="nav__link">Услуги <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="service.html">Изготовление вывесок</a></li>
+                        <li><a href="#">Фрезеровка</a></li>
+                        <li><a href="#">Лазерная резка</a></li>
+                    </ul>
+                </li>
+                <li class="nav__dropdown">
+                    <a href="catalog.html" class="nav__link">Продукция <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="catalog-cat.html">Объемные буквы</a></li>
+                        <li><a href="#">Световые короба</a></li>
+                    </ul>
+                </li>
+                <li><a href="portfolio.html" class="nav__link" style="color:var(--color-primary)">Портфолио</a></li>
+                <li class="nav__dropdown">
+                    <a href="about.html" class="nav__link">О компании <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="equipment.html">Оборудование</a></li>
+                    </ul>
+                </li>
+                <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="header__contacts">
+            <a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a>
+            <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+        </div>
+        <button class="burger" id="burger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-menu__nav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="uslugi.html">Услуги</a></li>
+            <li><a href="catalog.html">Продукция</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="about.html">О компании</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+        <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+    </nav>
+</div>
+
+<!-- Project hero -->
+<div class="project-hero">
+    <img class="project-hero__bg" src="мост/Реализация.png" alt="Вывеска для сети кофеен Бодрость" onerror="this.parentElement.style.background='#111'">
+    <div class="project-hero__overlay"></div>
+    <div class="project-hero__content">
+        <div class="container">
+            <div class="page-hero__breadcrumb" style="margin-bottom:16px;">
+                <a href="index.html">Главная</a><span>›</span>
+                <a href="portfolio.html">Портфолио</a><span>›</span>
+                <span>Кофейня «Бодрость»</span>
+            </div>
+            <div class="project-hero__tags">
+                <span class="project-tag project-tag--cat">Объёмные буквы</span>
+                <span class="project-tag project-tag--city">Москва и МО</span>
+                <span class="project-tag project-tag--city">2025</span>
+            </div>
+            <h1 class="project-hero__title">Вывеска для сети кофеен «Бодрость» — 12 точек под ключ</h1>
+            <div class="project-hero__stats">
+                <div class="project-hero-stat">
+                    <span class="project-hero-stat__label">Точек</span>
+                    <span class="project-hero-stat__val">12</span>
+                </div>
+                <div class="project-hero-stat">
+                    <span class="project-hero-stat__label">Срок</span>
+                    <span class="project-hero-stat__val">14 дней</span>
+                </div>
+                <div class="project-hero-stat">
+                    <span class="project-hero-stat__label">Буквы</span>
+                    <span class="project-hero-stat__val">384 шт.</span>
+                </div>
+                <div class="project-hero-stat">
+                    <span class="project-hero-stat__label">Материал</span>
+                    <span class="project-hero-stat__val">Акрил + нерж.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<section class="section section--dark">
+    <div class="container">
+        <div class="project-layout">
+
+            <article class="project-body">
+
+                <h2>О проекте</h2>
+                <p>Сеть кофеен «Бодрость» открывала 12 новых точек одновременно в Москве и Московской области. Задача: единый визуальный стиль вывески для всех точек, изготовление и монтаж в сжатые сроки — до открытия оставалось 14 рабочих дней.</p>
+                <p>Вывеска должна была работать в разных условиях: часть точек располагалась в торговых центрах, часть — в отдельно стоящих зданиях с разными фасадными материалами. Это потребовало разработки единого дизайна с гибкой системой крепления.</p>
+
+                <!-- Gallery: main shots -->
+                <div class="project-gallery project-gallery--2col">
+                    <div class="project-gallery__item project-gallery__item--wide" onclick="zoomImg(this)">
+                        <img src="мост/Реализация.png" alt="Реализация вывески" onerror="this.parentElement.style.background='#111'">
+                        <div class="gallery-zoom-hint"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="14" cy="14" r="8" stroke="white" stroke-width="2"/><path d="M20 20l6 6" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M10 14h8M14 10v8" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                    </div>
+                    <div class="project-gallery__item project-gallery__item--wide" onclick="zoomImg(this)">
+                        <img src="мост/Чертеж.png" alt="Чертёж" onerror="this.parentElement.style.background='#111'">
+                        <div class="gallery-zoom-hint"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="14" cy="14" r="8" stroke="white" stroke-width="2"/><path d="M20 20l6 6" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M10 14h8M14 10v8" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                    </div>
+                </div>
+
+                <h2>Задача и решение</h2>
+                <p>Клиент пришёл с логотипом и брендбуком. Нам предстояло адаптировать шрифтовую вывеску под 4 разных типа фасадов и обеспечить идентичность восприятия на всех точках.</p>
+
+                <p>Ключевые решения, которые мы приняли:</p>
+                <ul>
+                    <li>Единый материал для всей партии: литой молочный акрил 8 мм — даёт мягкое равномерное свечение по торцу.</li>
+                    <li>Подсветка — LED-лента Samsung 2835, 12V, 6000K — яркая, холодная, соответствует фирменному стилю бренда.</li>
+                    <li>Металлические борта из нержавеющей стали 1,5 мм — защита от механических повреждений и долговечность на улице.</li>
+                    <li>Разработали 4 варианта монтажной системы под разные фасады: плитка, вентилируемый фасад, окрашенный бетон, витражное стекло.</li>
+                </ul>
+
+                <!-- Gallery: process -->
+                <div class="project-gallery project-gallery--3col">
+                    <div class="project-gallery__item project-gallery__item--sq" onclick="zoomImg(this)">
+                        <img src="Продукция/Объемные буквы.jpeg" alt="Изготовление" onerror="this.parentElement.style.background='#111'">
+                        <div class="gallery-zoom-hint"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="14" cy="14" r="8" stroke="white" stroke-width="2"/><path d="M20 20l6 6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+                    </div>
+                    <div class="project-gallery__item project-gallery__item--sq" onclick="zoomImg(this)">
+                        <img src="Продукция/Объемные буквы.jpeg" alt="Сборка" onerror="this.parentElement.style.background='#111'" style="filter:hue-rotate(20deg)">
+                        <div class="gallery-zoom-hint"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="14" cy="14" r="8" stroke="white" stroke-width="2"/><path d="M20 20l6 6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+                    </div>
+                    <div class="project-gallery__item project-gallery__item--sq" onclick="zoomImg(this)">
+                        <img src="Продукция/Объемные буквы.jpeg" alt="Монтаж" onerror="this.parentElement.style.background='#111'" style="filter:brightness(0.8)">
+                        <div class="gallery-zoom-hint"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="14" cy="14" r="8" stroke="white" stroke-width="2"/><path d="M20 20l6 6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+                    </div>
+                </div>
+
+                <h2>Этапы работы</h2>
+                <div class="project-process">
+                    <div class="process-step">
+                        <div class="process-step__num">Этап 01</div>
+                        <div class="process-step__title">Замер и проектирование</div>
+                        <div class="process-step__text">Выезд технолога на 3 пилотных объекта. Съёмка фасадов, изучение конструктива. Разработка монтажных схем для каждого типа фасада. Согласование с клиентом и управляющими компаниями ТЦ.</div>
+                        <span class="process-step__duration">2 дня</span>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-step__num">Этап 02</div>
+                        <div class="process-step__title">Производство букв</div>
+                        <div class="process-step__text">Лазерная резка лицевых панелей из акрила, фрезеровка бортов из нержавейки, монтаж LED-ленты и блоков питания. Параллельное производство всех 12 комплектов.</div>
+                        <span class="process-step__duration">8 дней</span>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-step__num">Этап 03</div>
+                        <div class="process-step__title">Тест и упаковка</div>
+                        <div class="process-step__text">Каждый комплект прошёл проверку: равномерность подсветки, точность геометрии, герметизация. Маркировка и упаковка по точкам.</div>
+                        <span class="process-step__duration">1 день</span>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-step__num">Этап 04</div>
+                        <div class="process-step__title">Монтаж на 12 объектах</div>
+                        <div class="process-step__text">Одновременный монтаж 4 бригадами. Каждая точка — 1 рабочий день. Подключение питания, финальная проверка, фотофиксация для клиента.</div>
+                        <span class="process-step__duration">3 дня</span>
+                    </div>
+                </div>
+
+                <!-- Result quote -->
+                <div class="project-result">
+                    <div class="project-result__label">Отзыв клиента</div>
+                    <p class="project-result__text">«Работали с Нарративом впервые и остались более чем довольны. Уложились в жёсткий дедлайн, качество на всех 12 точках одинаковое. Через полгода — ни одного обращения по гарантии. Уже планируем следующий этап расширения сети»</p>
+                    <div class="project-result__author">— Дмитрий Алексеев, управляющий партнёр сети «Бодрость»</div>
+                </div>
+
+                <!-- Final gallery -->
+                <div class="project-gallery" style="grid-template-columns: 2fr 1fr; gap: 12px;">
+                    <div class="project-gallery__item" style="aspect-ratio:16/9;" onclick="zoomImg(this)">
+                        <img src="мост/Реализация.png" alt="Финальный результат" onerror="this.parentElement.style.background='#111'">
+                        <div class="gallery-zoom-hint"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="14" cy="14" r="8" stroke="white" stroke-width="2"/><path d="M20 20l6 6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <div class="project-gallery__item" style="aspect-ratio:1;" onclick="zoomImg(this)">
+                            <img src="Продукция/Объемные буквы.jpeg" alt="Детали" onerror="this.parentElement.style.background='#111'">
+                            <div class="gallery-zoom-hint"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="14" cy="14" r="8" stroke="white" stroke-width="2"/><path d="M20 20l6 6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+                        </div>
+                        <div class="project-gallery__item" style="aspect-ratio:1;" onclick="zoomImg(this)">
+                            <img src="Продукция/Объемные буквы.jpeg" alt="Ночное фото" onerror="this.parentElement.style.background='#111'" style="filter:brightness(0.7)">
+                            <div class="gallery-zoom-hint"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="14" cy="14" r="8" stroke="white" stroke-width="2"/><path d="M20 20l6 6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div style="display:flex; justify-content:space-between; margin-top:52px; padding-top:32px; border-top:1px solid rgba(255,255,255,0.08); gap:16px; flex-wrap:wrap;">
+                    <a href="portfolio.html" class="btn btn--outline" style="width:auto;">← Все проекты</a>
+                    <a href="portfolio-project.html" class="btn btn--outline" style="width:auto;">Следующий проект →</a>
+                </div>
+
+            </article>
+
+            <!-- Sidebar -->
+            <aside class="project-sidebar">
+                <div class="project-sidebar__card">
+                    <div class="project-sidebar__title">Детали проекта</div>
+                    <div class="project-spec"><span class="project-spec__key">Клиент</span><span class="project-spec__val">Сеть «Бодрость»</span></div>
+                    <div class="project-spec"><span class="project-spec__key">Город</span><span class="project-spec__val">Москва, МО</span></div>
+                    <div class="project-spec"><span class="project-spec__key">Год</span><span class="project-spec__val">2025</span></div>
+                    <div class="project-spec"><span class="project-spec__key">Количество объектов</span><span class="project-spec__val">12 точек</span></div>
+                    <div class="project-spec"><span class="project-spec__key">Срок производства</span><span class="project-spec__val">14 рабочих дней</span></div>
+                    <div class="project-spec"><span class="project-spec__key">Материал лицевой</span><span class="project-spec__val">Литой акрил 8 мм</span></div>
+                    <div class="project-spec"><span class="project-spec__key">Борта</span><span class="project-spec__val">Нержавейка 1,5 мм</span></div>
+                    <div class="project-spec"><span class="project-spec__key">Подсветка</span><span class="project-spec__val">LED 2835, 6000K</span></div>
+                    <div class="project-spec"><span class="project-spec__key">Гарантия</span><span class="project-spec__val">1 год</span></div>
+                </div>
+
+                <div class="project-sidebar__card" style="background:rgba(0,196,184,0.04); border-color:rgba(0,196,184,0.2);">
+                    <div class="project-sidebar__title">Нужен похожий проект?</div>
+                    <p style="font-size:13px; color:rgba(255,255,255,0.5); line-height:1.65; margin-bottom:16px;">Расскажите о вашей задаче — рассчитаем стоимость и сроки за 1 день.</p>
+                    <button class="btn btn--primary" style="width:100%;" onclick="openCallbackModal()">Обсудить проект</button>
+                </div>
+
+                <div class="project-sidebar__card">
+                    <div class="project-sidebar__title">Похожие проекты</div>
+                    <a href="portfolio-project.html" class="related-project">
+                        <img src="Продукция/Объемные буквы.jpeg" alt="Буквы для банка" onerror="this.parentElement.style.background='#111'">
+                        <div class="related-project__overlay">
+                            <div class="related-project__cat">Объёмные буквы</div>
+                            <div class="related-project__title">Нержавейка с гало для банка</div>
+                        </div>
+                    </a>
+                    <a href="portfolio-project.html" class="related-project">
+                        <img src="Продукция/Световые короба.jpeg" alt="Лайтбоксы для аптеки" onerror="this.parentElement.style.background='#111'">
+                        <div class="related-project__overlay">
+                            <div class="related-project__cat">Световые короба</div>
+                            <div class="related-project__title">Лайтбоксы для аптечной сети</div>
+                        </div>
+                    </a>
+                    <a href="portfolio-project.html" class="related-project">
+                        <img src="мост/Чертеж.png" alt="Фасад ТЦ" onerror="this.parentElement.style.background='#111'">
+                        <div class="related-project__overlay">
+                            <div class="related-project__cat">Фасадное</div>
+                            <div class="related-project__title">Полное фасадное оформление ТЦ</div>
+                        </div>
+                    </a>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__column footer__column--brand">
+                <div class="footer__logo"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></div>
+                <p class="footer__description">Производство наружной и интерьерной рекламы. Полный цикл — от идеи до монтажа.</p>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Услуги</h4>
+                <ul class="footer__links">
+                    <li><a href="service.html">Изготовление вывесок</a></li>
+                    <li><a href="#">Фрезеровка</a></li>
+                    <li><a href="#">Лазерная резка</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Продукция</h4>
+                <ul class="footer__links">
+                    <li><a href="catalog-cat.html">Объемные буквы</a></li>
+                    <li><a href="#">Световые короба</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Компания</h4>
+                <ul class="footer__links">
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="portfolio.html">Портфолио</a></li>
+                    <li><a href="blog.html">Блог</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Контакты</h4>
+                <ul class="footer__contacts">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z" stroke="currentColor" fill="none"/></svg><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 5.5l5.5 3.5 5.5-3.5M3 13h10a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0013 3H3a1.5 1.5 0 00-1.5 1.5v7A1.5 1.5 0 003 13z" stroke="currentColor" fill="none"/></svg><a href="mailto:info@narrativ.ru">info@narrativ.ru</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="footer__copyright">© 2026 Нарратив. Все права защищены.</div>
+            <div class="footer__legal">
+                <a href="privacy.html">Политика конфиденциальности</a>
+                <span class="footer__separator">•</span>
+                <a href="#">Карта сайта</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Zoom modal -->
+<div class="zoom-modal" id="zoomModal" onclick="closeZoom()">
+    <button class="zoom-modal__close">×</button>
+    <img id="zoomImg" src="" alt="">
+</div>
+
+<!-- Callback modal -->
+<div class="modal" id="callbackModal">
+    <div class="modal__overlay" onclick="closeCallbackModal()"></div>
+    <div class="modal__content">
+        <button class="modal__close" onclick="closeCallbackModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <h3 class="modal__title">Заказать звонок</h3>
+        <p class="modal__subtitle">Оставьте свой номер, и мы перезвоним вам в течение 15 минут</p>
+        <form class="form" onsubmit="submitCallback(event)">
+            <div class="form__group"><input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required></div>
+            <div class="form__checkbox">
+                <input type="checkbox" id="agree-modal" required>
+                <label for="agree-modal">Согласен на обработку персональных данных</label>
+            </div>
+            <button type="submit" class="btn btn--primary btn--large">Заказать звонок</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    function zoomImg(el) {
+        const src = el.querySelector('img').src;
+        document.getElementById('zoomImg').src = src;
+        document.getElementById('zoomModal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeZoom() {
+        document.getElementById('zoomModal').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeZoom(); });
+</script>
+</body>
+</html>

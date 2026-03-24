@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нарратив - Производство наружной рекламы</title>
+    <meta name="description"
+        content="Полный спектр услуг по производству наружной и интерьерной рекламы. От идеи до реализации.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header__container">
+            <div class="header__logo">
+                <img src="logo for dark bg.png" alt="Нарратив" class="logo">
+            </div>
+
+            <nav class="header__nav">
+                <ul class="nav__menu">
+                    <li><a href="#" class="nav__link">Главная</a></li>
+                    <li class="nav__dropdown">
+                        <a href="#" class="nav__link">Услуги <span class="arrow">▼</span></a>
+                        <ul class="dropdown__menu">
+                            <li><a href="#">Изготовление вывесок</a></li>
+                            <li><a href="#">Фрезеровка</a></li>
+                            <li><a href="#">Лазерная резка</a></li>
+                            <li><a href="#">Интерьерная печать</a></li>
+                            <li><a href="#">УФ-печать</a></li>
+                            <li><a href="#">Плоттерная резка</a></li>
+                            <li><a href="#">Дизайн и проектирование</a></li>
+                            <li><a href="#">Сварочные работы</a></li>
+                            <li><a href="#">Монтажные работы</a></li>
+                            <li><a href="#">Обшивка фасадов</a></li>
+                            <li><a href="#">Сервисное обслуживание</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav__dropdown">
+                        <a href="#" class="nav__link">Продукция <span class="arrow">▼</span></a>
+                        <ul class="dropdown__menu">
+                            <li><a href="#">Объемные буквы</a></li>
+                            <li><a href="#">Световые короба</a></li>
+                            <li><a href="#">Тонкие световые панели</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#portfolio" class="nav__link">Портфолио</a></li>
+                    <li class="nav__dropdown">
+                        <a href="#" class="nav__link">О компании <span class="arrow">▼</span></a>
+                        <ul class="dropdown__menu">
+                            <li><a href="#about">О нас</a></li>
+                            <li><a href="#blog">Блог</a></li>
+                            <li><a href="#equipment">Оборудование</a></li>
+                            <li><a href="#faq">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#contacts" class="nav__link">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="header__contacts">
+                <a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a>
+                <div class="header__messengers">
+                    <a href="#" class="messenger-icon whatsapp" aria-label="WhatsApp">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                                fill="currentColor" />
+                        </svg>
+                    </a>
+                    <a href="#" class="messenger-icon telegram" aria-label="Telegram">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path
+                                d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"
+                                fill="currentColor" />
+                        </svg>
+                    </a>
+                </div>
+                <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+            </div>
+
+            <button class="burger" id="burger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-menu__nav">
+            <ul>
+                <li><a href="#">Главная</a></li>
+                <li><a href="#">Услуги</a></li>
+                <li><a href="#">Продукция</a></li>
+                <li><a href="#portfolio">Портфолио</a></li>
+                <li><a href="#about">О компании</a></li>
+                <li><a href="#contacts">Контакты</a></li>
+            </ul>
+            <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+        </nav>
+    </div>
+
+    <!-- Bridge Cover Blocks (Parallax) -->
+    <section class="t-cover t-cover-bridge" id="bridge1" data-cover-bg="blueprint">
+        <div class="t-cover__carrier" data-content-cover-bg="">
+            <div class="t-cover__filter" style="background: rgba(0,0,0,0.5);"></div>
+            <div class="t-container">
+                <div class="t-cover__wrapper">
+                    <div class="t-cover__content">
+                        <h1 class="t-cover__title">От эскиза до воплощения</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="t-cover__arrow">
+            <div class="t-cover__arrow-wrapper t-cover__arrow-wrapper_animated">
+                <svg class="t-cover__arrow-svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M20 10L20 30M20 30L12 22M20 30L28 22" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="t-cover t-cover-bridge" id="bridge2" data-cover-bg="idea">
+        <div class="t-cover__carrier" data-content-cover-bg="">
+            <div class="t-cover__filter" style="background: rgba(0,0,0,0.4);"></div>
+            <div class="t-container">
+                <div class="t-cover__wrapper">
+                    <div class="t-cover__content">
+                        <h1 class="t-cover__title">Начиная с вашей идеи</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="t-cover__arrow">
+            <div class="t-cover__arrow-wrapper t-cover__arrow-wrapper_animated">
+                <svg class="t-cover__arrow-svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M20 10L20 30M20 30L12 22M20 30L28 22" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="t-cover t-cover-bridge" id="bridge3" data-cover-bg="construction">
+        <div class="t-cover__carrier" data-content-cover-bg="">
+            <div class="t-cover__filter" style="background: rgba(0,0,0,0.5);"></div>
+            <div class="t-container">
+                <div class="t-cover__wrapper">
+                    <div class="t-cover__content">
+                        <h1 class="t-cover__title">Создавая ваш образ</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="t-cover__arrow">
+            <div class="t-cover__arrow-wrapper t-cover__arrow-wrapper_animated">
+                <svg class="t-cover__arrow-svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M20 10L20 30M20 30L12 22M20 30L28 22" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="t-cover t-cover-bridge" id="bridge4" data-cover-bg="realization">
+        <div class="t-cover__carrier" data-content-cover-bg="">
+            <div class="t-cover__filter" style="background: rgba(0,0,0,0.4);"></div>
+            <div class="t-container">
+                <div class="t-cover__wrapper">
+                    <div class="t-cover__content">
+                        <h1 class="t-cover__title">Раскрывая содержание для ваших клиентов</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="t-cover__arrow">
+            <div class="t-cover__arrow-wrapper t-cover__arrow-wrapper_animated">
+                <svg class="t-cover__arrow-svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M20 10L20 30M20 30L12 22M20 30L28 22" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Slider Block -->
+    <section class="image-slider">
+        <div class="slider-container">
+            <div class="slider-track" id="sliderTrack">
+                <div class="slide">
+                    <img src="Имиджевые блоки для слайдера/опыт команды.webp" alt="15+ лет опыта" loading="lazy">
+                    <div class="slide__content">
+                        <h2 class="slide__title">15+ лет совокупного опыта команды</h2>
+                        <p class="slide__text">Столько наши мастера работают с фрезеровкой, лазером и УФ-печатью. Мы не
+                            просто делаем вывески — мы знаем материал.</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="Имиджевые блоки для слайдера/лазерная резка.webp" alt="Лазерная резка" loading="lazy">
+                    <div class="slide__content">
+                        <h2 class="slide__title">Лазерная резка с точностью до 0,1 мм</h2>
+                        <p class="slide__text">Идеальный рез на сложных формах.</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="Имиджевые блоки для слайдера/кастомные проекты.webp" alt="Кастомные проекты"
+                        loading="lazy">
+                    <div class="slide__content">
+                        <h2 class="slide__title">100% кастомных проектов</h2>
+                        <p class="slide__text">С нуля под ваш бизнес.</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="Имиджевые блоки для слайдера/полный цил в одном цехе.webp" alt="Полный цикл"
+                        loading="lazy">
+                    <div class="slide__content">
+                        <h2 class="slide__title">Полный цикл в одном цехе</h2>
+                        <p class="slide__text">От фрезеровки и печати до сварки и монтажа.</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="Имиджевые блоки для слайдера/живой свет.webp" alt="Живой свет" loading="lazy">
+                    <div class="slide__content">
+                        <h2 class="slide__title">Уже 30+ компаний выбрали живой свет</h2>
+                        <p class="slide__text">Добавьте к этому списку и свой бренд</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="slider-arrow slider-arrow--prev" onclick="moveSlider(-1)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </button>
+        <button class="slider-arrow slider-arrow--next" onclick="moveSlider(1)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </button>
+        <div class="slider-dots" id="sliderDots"></div>
+    </section>
+
+    <!-- Services Block -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Популярные услуги</h2>
+            <div class="services__grid">
+                <a href="#" class="service-card">
+                    <img src="Услуги/Изготовление вывесок.webp" alt="Изготовление вывесок" loading="lazy">
+                    <div class="service-card__overlay">
+                        <h3 class="service-card__title">Изготовление вывесок</h3>
+                    </div>
+                </a>
+                <a href="#" class="service-card">
+                    <img src="Услуги/Фрезеровка.jpg" alt="Фрезеровка" loading="lazy">
+                    <div class="service-card__overlay">
+                        <h3 class="service-card__title">Фрезеровка</h3>
+                    </div>
+                </a>
+                <a href="#" class="service-card">
+                    <img src="Услуги/Лазерная резка.jpg" alt="Лазерная резка" loading="lazy">
+                    <div class="service-card__overlay">
+                        <h3 class="service-card__title">Лазерная резка</h3>
+                    </div>
+                </a>
+                <a href="#" class="service-card">
+                    <img src="Услуги/Интерьерная печать.webp" alt="Интерьерная печать" loading="lazy">
+                    <div class="service-card__overlay">
+                        <h3 class="service-card__title">Интерьерная печать</h3>
+                    </div>
+                </a>
+                <a href="#" class="service-card">
+                    <img src="Услуги/УФ-печать.webp" alt="УФ-печать" loading="lazy">
+                    <div class="service-card__overlay">
+                        <h3 class="service-card__title">УФ-печать</h3>
+                    </div>
+                </a>
+                <a href="#" class="service-card">
+                    <img src="Услуги/Плоттерная резка.jpg" alt="Плоттерная резка" loading="lazy">
+                    <div class="service-card__overlay">
+                        <h3 class="service-card__title">Плоттерная резка</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="services__more">
+                <a href="#" class="btn btn--outline">Все услуги</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Block -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Типы продукции</h2>
+            <div class="products__slider">
+                <div class="products__track" id="productsTrack">
+                    <div class="product-card">
+                        <div class="product-card__image">
+                            <img src="Продукция/Объемные буквы.jpeg" alt="Объемные буквы" loading="lazy">
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Объемные буквы</h3>
+                            <p class="product-card__desc">Различные варианты подсветки и исполнения</p>
+                            <a href="#" class="btn btn--small">В каталог</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-card__image">
+                            <img src="Продукция/Световые короба.jpeg" alt="Световые короба" loading="lazy">
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Световые короба</h3>
+                            <p class="product-card__desc">От стандартных до фигурных решений</p>
+                            <a href="#" class="btn btn--small">В каталог</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-card__image">
+                            <img src="Продукция/Тонкие световые панели.jpeg" alt="Тонкие световые панели"
+                                loading="lazy">
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">Тонкие световые панели</h3>
+                            <p class="product-card__desc">Кристалайт и другие современные решения</p>
+                            <a href="#" class="btn btn--small">В каталог</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="products__arrows">
+                <button class="slider-arrow slider-arrow--prev" onclick="moveProductsSlider(-1)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+                <button class="slider-arrow slider-arrow--next" onclick="moveProductsSlider(1)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Block -->
+    <section class="equipment" id="equipment">
+        <div class="container">
+            <h2 class="section-title">Мы работаем на современном оборудовании</h2>
+            <p class="equipment__intro">Наше производство оснащено передовым оборудованием ведущих мировых
+                производителей. Это позволяет
+                нам реализовывать проекты любой сложности с высочайшим качеством и соблюдать строгие сроки
+                изготовления.</p>
+            <div class="equipment__grid">
+                <div class="equipment__card">
+                    <div class="equipment__card-image">
+                        <img src="Оборудование/Фрезерно-гравировальный станок Suda VG2030 - 3000х2000мм.jpg"
+                            alt="Фрезерно-гравировальный станок Suda VG2030" loading="lazy">
+                    </div>
+                    <div class="equipment__card-content">
+                        <h3 class="equipment__card-title">Фрезерно-гравировальный станок Suda VG2030</h3>
+                        <p class="equipment__card-desc">Рабочее поле 3000×2000 мм для крупных конструкций без швов.
+                            Высокоточные направляющие и ШВП для идеальной геометрии букв. Мощный шпиндель 3 кВт для
+                            работы с пластиком, композитом и деревом.</p>
+                    </div>
+                </div>
+                <div class="equipment__card">
+                    <div class="equipment__card-image">
+                        <img src="Оборудование/Фрезерно-гравировальный станок ЧПУ НТ-1325 (3,2кВт) - 2500х1250мм.webp"
+                            alt="Фрезерный центр НТ-1325" loading="lazy">
+                    </div>
+                    <div class="equipment__card-content">
+                        <h3 class="equipment__card-title">Фрезерный центр НТ-1325</h3>
+                        <p class="equipment__card-desc">Шпиндель 5,5 кВт с воздушным охлаждением для обработки
+                            алюминия, жесткого пластика и МДФ. Прецизионные направляющие HIWIN и вакуумный стол с
+                            Т-пазами для надежной фиксации заготовок.</p>
+                    </div>
+                </div>
+                <div class="equipment__card">
+                    <div class="equipment__card-image">
+                        <img src="Оборудование/Широкоформатный лазерный станок 1300х900мм.png" alt="Лазерный комплекс"
+                            loading="lazy">
+                    </div>
+                    <div class="equipment__card-content">
+                        <h3 class="equipment__card-title">Лазерный комплекс Wattsan NC-C1390</h3>
+                        <p class="equipment__card-desc">Мощная трубка 130-160 Вт с емкостной головой и автофокусом.
+                            Рабочее поле 1300×900 мм. Резка металла и точность ±0,05 мм для идеальных контуров и
+                            сложных элементов.</p>
+                    </div>
+                </div>
+                <div class="equipment__card">
+                    <div class="equipment__card-image">
+                        <img src="Оборудование/Печатный станок «Mimaki»  JV 33-160 BS.jpg"
+                            alt="Сольвентный плоттер Mimaki" loading="lazy">
+                    </div>
+                    <div class="equipment__card-content">
+                        <h3 class="equipment__card-title">Сольвентный плоттер Mimaki JV33-160</h3>
+                        <p class="equipment__card-desc">Ширина печати до 1610 мм, разрешение до 1440 dpi.
+                            Пьезоструйная технология с переменным размером капли для сочной, детализированной
+                            графики. Стойкие сольвентные чернила.</p>
+                    </div>
+                </div>
+                <div class="equipment__card">
+                    <div class="equipment__card-image">
+                        <img src="Оборудование/Рулонный ламинатор GMP Excelam Q1670RS, горячее ламинирование, 1600мм.jpg"
+                            alt="Ламинатор GMP Excelam" loading="lazy">
+                    </div>
+                    <div class="equipment__card-content">
+                        <h3 class="equipment__card-title">Ламинатор GMP Excelam Q1670RS</h3>
+                        <p class="equipment__card-desc">Горячее и холодное ламинирование пленками 25-500 мкм. Ширина
+                            до 1670 мм. Инфракрасные нагреватели с точным контролем температуры для идеальной защиты
+                            изображений.</p>
+                    </div>
+                </div>
+                <div class="equipment__card">
+                    <div class="equipment__card-image">
+                        <div class="equipment__placeholder-card">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path
+                                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                </path>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            </svg>
+                            <span>UV DTF принтер</span>
+                        </div>
+                    </div>
+                    <div class="equipment__card-content">
+                        <h3 class="equipment__card-title">UV DTF принтер AinkJet AJ-600E Pro</h3>
+                        <p class="equipment__card-desc">Рулонный принтер шириной 60 см для печати на любых
+                            поверхностях. Современная технология UV DTF для создания ярких и стойких изображений.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Block -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <h2 class="section-title">Примеры выполненных работ</h2>
+            <div class="portfolio__grid">
+                <div class="portfolio-item portfolio-item--large">
+                    <div class="portfolio-item__image">
+                        <div class="portfolio-placeholder">
+                            <svg width="100%" height="100%" viewBox="0 0 600 400" fill="none"
+                                preserveAspectRatio="xMidYMid slice">
+                                <rect width="600" height="400" fill="#1f1f1f" />
+                                <text x="300" y="200" text-anchor="middle" fill="#b8860b" font-family="Montserrat"
+                                    font-size="18">Проект 1</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="portfolio-item__overlay">
+                        <h3 class="portfolio-item__title">Вывеска ресторана</h3>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-item__image">
+                        <div class="portfolio-placeholder">
+                            <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none"
+                                preserveAspectRatio="xMidYMid slice">
+                                <rect width="400" height="400" fill="#2a2a2a" />
+                                <text x="200" y="200" text-anchor="middle" fill="#b8860b" font-family="Montserrat"
+                                    font-size="16">Проект 2</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="portfolio-item__overlay">
+                        <h3 class="portfolio-item__title">Световые буквы</h3>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-item__image">
+                        <div class="portfolio-placeholder">
+                            <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none"
+                                preserveAspectRatio="xMidYMid slice">
+                                <rect width="400" height="400" fill="#2a2a2a" />
+                                <text x="200" y="200" text-anchor="middle" fill="#b8860b" font-family="Montserrat"
+                                    font-size="16">Проект 3</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="portfolio-item__overlay">
+                        <h3 class="portfolio-item__title">Неоновая вывеска</h3>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-item__image">
+                        <div class="portfolio-placeholder">
+                            <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none"
+                                preserveAspectRatio="xMidYMid slice">
+                                <rect width="400" height="400" fill="#2a2a2a" />
+                                <text x="200" y="200" text-anchor="middle" fill="#b8860b" font-family="Montserrat"
+                                    font-size="16">Проект 4</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="portfolio-item__overlay">
+                        <h3 class="portfolio-item__title">Фасадная вывеска</h3>
+                    </div>
+                </div>
+                <div class="portfolio-item portfolio-item--large">
+                    <div class="portfolio-item__image">
+                        <div class="portfolio-placeholder">
+                            <svg width="100%" height="100%" viewBox="0 0 600 400" fill="none"
+                                preserveAspectRatio="xMidYMid slice">
+                                <rect width="600" height="400" fill="#1f1f1f" />
+                                <text x="300" y="200" text-anchor="middle" fill="#b8860b" font-family="Montserrat"
+                                    font-size="18">Проект 5</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="portfolio-item__overlay">
+                        <h3 class="portfolio-item__title">Комплексное оформление</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio__more">
+                <a href="#" class="btn btn--outline">Смотреть все проекты</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Block -->
+    <section class="blog" id="blog">
+        <div class="container">
+            <h2 class="section-title">Блог</h2>
+            <div class="blog__grid">
+                <article class="blog-card">
+                    <div class="blog-card__image">
+                        <div class="blog-placeholder">
+                            <svg width="100%" height="100%" viewBox="0 0 400 250" fill="none"
+                                preserveAspectRatio="xMidYMid slice">
+                                <rect width="400" height="250" fill="#2a2a2a" />
+                                <text x="200" y="125" text-anchor="middle" fill="#b8860b" font-family="Montserrat"
+                                    font-size="16">Статья</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="blog-card__content">
+                        <time class="blog-card__date">15 февраля 2026</time>
+                        <h3 class="blog-card__title">Как выбрать подсветку для вывески</h3>
+                        <p class="blog-card__excerpt">Разбираемся в типах подсветки и их применении для разных видов
+                            наружной рекламы...</p>
+                        <a href="#" class="blog-card__link">
+                            Читать статью
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card__image">
+                        <div class="blog-placeholder">
+                            <svg width="100%" height="100%" viewBox="0 0 400 250" fill="none"
+                                preserveAspectRatio="xMidYMid slice">
+                                <rect width="400" height="250" fill="#2a2a2a" />
+                                <text x="200" y="125" text-anchor="middle" fill="#b8860b" font-family="Montserrat"
+                                    font-size="16">Статья</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="blog-card__content">
+                        <time class="blog-card__date">10 февраля 2026</time>
+                        <h3 class="blog-card__title">Тренды в дизайне вывесок 2026</h3>
+                        <p class="blog-card__excerpt">Обзор актуальных трендов в оформлении фасадов и витрин...</p>
+                        <a href="#" class="blog-card__link">
+                            Читать статью
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-card__image">
+                        <div class="blog-placeholder">
+                            <svg width="100%" height="100%" viewBox="0 0 400 250" fill="none"
+                                preserveAspectRatio="xMidYMid slice">
+                                <rect width="400" height="250" fill="#2a2a2a" />
+                                <text x="200" y="125" text-anchor="middle" fill="#b8860b" font-family="Montserrat"
+                                    font-size="16">Статья</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="blog-card__content">
+                        <time class="blog-card__date">5 февраля 2026</time>
+                        <h3 class="blog-card__title">Лазерная резка: возможности технологии</h3>
+                        <p class="blog-card__excerpt">Рассказываем о преимуществах лазерной резки в производстве
+                            вывесок...</p>
+                        <a href="#" class="blog-card__link">
+                            Читать статью
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Block -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">Частые вопросы</h2>
+            <div class="faq__list">
+                <div class="faq-item">
+                    <button class="faq-item__question" onclick="toggleFaq(this)">
+                        <span>Сколько времени занимает изготовление вывески?</span>
+                        <svg class="faq-item__icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="faq-item__answer">
+                        <p>Срок изготовления зависит от сложности проекта. Стандартные вывески мы производим за 5-7
+                            рабочих дней. Сложные объемные конструкции могут занять до 14 дней. Точный срок мы
+                            озвучиваем после согласования проекта.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-item__question" onclick="toggleFaq(this)">
+                        <span>Предоставляете ли вы гарантию на свои работы?</span>
+                        <svg class="faq-item__icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="faq-item__answer">
+                        <p>Да, мы предоставляем гарантию на все виды работ сроком от 12 месяцев. На световое
+                            оборудование гарантия составляет 24 месяца. Также мы предлагаем сервисное обслуживание
+                            установленных вывесок.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-item__question" onclick="toggleFaq(this)">
+                        <span>Можете ли вы разработать дизайн вывески?</span>
+                        <svg class="faq-item__icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="faq-item__answer">
+                        <p>Конечно! У нас работают профессиональные дизайнеры, которые создадут уникальный дизайн
+                            вывески с учетом особенностей вашего бизнеса и требований к наружной рекламе. Мы предоставим
+                            несколько вариантов на выбор.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-item__question" onclick="toggleFaq(this)">
+                        <span>Занимаетесь ли вы монтажом вывесок?</span>
+                        <svg class="faq-item__icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="faq-item__answer">
+                        <p>Да, мы предлагаем полный цикл услуг: от разработки дизайна до монтажа и подключения. Наши
+                            специалисты имеют все необходимые допуски для работы на высоте и с электрооборудованием.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-item__question" onclick="toggleFaq(this)">
+                        <span>Как рассчитывается стоимость?</span>
+                        <svg class="faq-item__icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="faq-item__answer">
+                        <p>Стоимость зависит от размера вывески, используемых материалов, типа подсветки и сложности
+                            монтажа. Для точного расчета отправьте нам техническое задание или позвоните — мы подготовим
+                            коммерческое предложение в течение 24 часов.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Block -->
+    <section class="contact-form">
+        <div class="container">
+            <div class="contact-form__wrapper">
+                <div class="contact-form__content">
+                    <h2 class="contact-form__title">Рассчитайте стоимость вашего проекта прямо сейчас</h2>
+                    <p class="contact-form__subtitle">Оставьте заявку, и наш менеджер свяжется с вами в течение 15 минут
+                    </p>
+                </div>
+                <form class="form" id="contactForm" onsubmit="submitForm(event)">
+                    <div class="form__group">
+                        <input type="text" class="form__input" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form__group">
+                        <input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required>
+                    </div>
+                    <div class="form__group">
+                        <textarea class="form__textarea" placeholder="Комментарий (необязательно)" rows="3"></textarea>
+                    </div>
+                    <div class="form__checkbox">
+                        <input type="checkbox" id="agree" required>
+                        <label for="agree">Согласен на обработку персональных данных</label>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--large">Получить расчет</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacts">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__column">
+                    <div class="footer__logo">
+                        <img src="logo for light bg.png" alt="Нарратив" class="logo">
+                    </div>
+                    <p class="footer__description">Производство и установка наружной рекламы. Полный цикл от идеи до
+                        реализации.</p>
+                    <div class="footer__social">
+                        <a href="#" class="social-icon" aria-label="WhatsApp">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                                    fill="currentColor" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Telegram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"
+                                    fill="currentColor" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+                                    fill="currentColor" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer__column">
+                    <h4 class="footer__heading">Услуги</h4>
+                    <ul class="footer__links">
+                        <li><a href="#">Изготовление вывесок</a></li>
+                        <li><a href="#">Фрезеровка</a></li>
+                        <li><a href="#">Лазерная резка</a></li>
+                        <li><a href="#">Интерьерная печать</a></li>
+                        <li><a href="#">УФ-печать</a></li>
+                        <li><a href="#">Монтажные работы</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__column">
+                    <h4 class="footer__heading">Продукция</h4>
+                    <ul class="footer__links">
+                        <li><a href="#">Объемные буквы</a></li>
+                        <li><a href="#">Световые короба</a></li>
+                        <li><a href="#">Световые панели</a></li>
+                        <li><a href="#">Неоновые вывески</a></li>
+                        <li><a href="#">Акрилайты</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__column">
+                    <h4 class="footer__heading">Компания</h4>
+                    <ul class="footer__links">
+                        <li><a href="#about">О нас</a></li>
+                        <li><a href="#portfolio">Портфолио</a></li>
+                        <li><a href="#blog">Блог</a></li>
+                        <li><a href="#equipment">Оборудование</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__column">
+                    <h4 class="footer__heading">Контакты</h4>
+                    <ul class="footer__contacts">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path
+                                    d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z"
+                                    stroke="currentColor" fill="none" />
+                            </svg>
+                            <a href="tel:+74951234567">+7 (495) 123-45-67</a>
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path
+                                    d="M1.5 5.5l5.5 3.5 5.5-3.5M3 13h10a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0013 3H3a1.5 1.5 0 00-1.5 1.5v7A1.5 1.5 0 003 13z"
+                                    stroke="currentColor" fill="none" />
+                            </svg>
+                            <a href="mailto:info@narrative.ru">info@narrative.ru</a>
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path
+                                    d="M8 14.5c-3.59 0-6.5-2.91-6.5-6.5S4.41 1.5 8 1.5s6.5 2.91 6.5 6.5-2.91 6.5-6.5 6.5z"
+                                    stroke="currentColor" fill="none" />
+                                <path d="M8 5v3l2 2" stroke="currentColor" fill="none" />
+                            </svg>
+                            <span>Пн-Пт: 9:00 - 18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <div class="footer__copyright">
+                    © 2026 Нарратив. Все права защищены.
+                </div>
+                <div class="footer__legal">
+                    <a href="#">Политика конфиденциальности</a>
+                    <span class="footer__separator">•</span>
+                    <a href="#">Карта сайта</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Callback Modal -->
+    <div class="modal" id="callbackModal">
+        <div class="modal__overlay" onclick="closeCallbackModal()"></div>
+        <div class="modal__content">
+            <button class="modal__close" onclick="closeCallbackModal()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+            <h3 class="modal__title">Заказать звонок</h3>
+            <p class="modal__subtitle">Оставьте свой номер, и мы перезвоним вам в течение 15 минут</p>
+            <form class="form" onsubmit="submitCallback(event)">
+                <div class="form__group">
+                    <input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required>
+                </div>
+                <div class="form__checkbox">
+                    <input type="checkbox" id="agree-modal" required>
+                    <label for="agree-modal">Согласен на обработку персональных данных</label>
+                </div>
+                <button type="submit" class="btn btn--primary btn--large">Заказать звонок</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

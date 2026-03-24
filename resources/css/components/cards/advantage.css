@@ -1,0 +1,101 @@
+/* ==========================================
+   Advantage Cards
+   ========================================== */
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.advantage-card {
+    padding: 36px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(184, 134, 11, 0.15);
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.advantage-card:hover {
+    background: rgba(0, 196, 184, 0.03);
+    border-color: rgba(184, 134, 11, 0.4);
+    transform: translateY(-4px);
+}
+
+.advantage-card__icon {
+    width: 56px;
+    height: 56px;
+    background: rgba(0, 196, 184, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    color: var(--color-primary);
+}
+
+.advantage-card__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.advantage-card__text {
+    font-size: 14px;
+    color: var(--color-text-dim);
+    line-height: 1.7;
+}
+
+/* Stats Grid */
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2px;
+    background: rgba(184, 134, 11, 0.2);
+    border: 1px solid rgba(184, 134, 11, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 80px 0;
+}
+
+.about-stat {
+    background: #0d0d0d;
+    padding: 50px 30px;
+    text-align: center;
+}
+
+.about-stat__num {
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -2px;
+}
+
+.about-stat__label {
+    font-size: 14px;
+    color: var(--color-text-dim);
+    line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .advantages-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .advantages-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-stat__num {
+        font-size: 48px;
+    }
+}

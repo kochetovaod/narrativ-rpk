@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Частые вопросы (FAQ) — Нарратив</title>
+    <meta name="description" content="Ответы на частые вопросы о производстве вывесок, сроках, ценах, монтаже и гарантии от компании Нарратив.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inner-pages.css">
+    <style>
+        /* ── Category nav ── */
+        .faq-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 56px;
+            align-items: start;
+        }
+
+        .faq-nav {
+            position: sticky;
+            top: 100px;
+        }
+
+        .faq-nav__search {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .faq-nav__search input {
+            width: 100%;
+            padding: 12px 16px 12px 40px;
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(184,134,11,.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color .3s;
+            box-sizing: border-box;
+        }
+
+        .faq-nav__search input:focus { border-color: var(--color-primary); }
+        .faq-nav__search input::placeholder { color: rgba(255,255,255,.25); }
+
+        .faq-nav__search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255,255,255,.25);
+            pointer-events: none;
+        }
+
+        .faq-nav__list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .faq-nav__item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all .25s;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255,255,255,.45);
+        }
+
+        .faq-nav__item:hover {
+            background: rgba(255,255,255,.03);
+            border-color: rgba(184,134,11,.15);
+            color: #fff;
+        }
+
+        .faq-nav__item.active {
+            background: rgba(0,196,184,.08);
+            border-color: rgba(0,196,184,.25);
+            color: var(--color-primary);
+        }
+
+        .faq-nav__item-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 7px;
+            background: rgba(255,255,255,.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background .25s;
+        }
+
+        .faq-nav__item.active .faq-nav__item-icon,
+        .faq-nav__item:hover .faq-nav__item-icon {
+            background: rgba(0,196,184,.12);
+        }
+
+        .faq-nav__count {
+            margin-left: auto;
+            font-size: 11px;
+            background: rgba(255,255,255,.06);
+            border-radius: 100px;
+            padding: 2px 8px;
+            color: rgba(255,255,255,.3);
+        }
+
+        .faq-nav__item.active .faq-nav__count {
+            background: rgba(0,196,184,.15);
+            color: var(--color-primary);
+        }
+
+        /* ── FAQ categories & items ── */
+        .faq-section {
+            margin-bottom: 64px;
+            scroll-margin-top: 110px;
+        }
+
+        .faq-section__header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .faq-section__icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(0,196,184,.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--color-primary);
+        }
+
+        .faq-section__title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .faq-section__count {
+            margin-left: auto;
+            font-size: 12px;
+            color: rgba(255,255,255,.25);
+            flex-shrink: 0;
+        }
+
+        /* ── Accordion ── */
+        .faq-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .faq-item {
+            border: 1px solid rgba(184,134,11,.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: border-color .3s;
+        }
+
+        .faq-item.open {
+            border-color: rgba(0,196,184,.3);
+        }
+
+        .faq-item.hidden-by-search {
+            display: none;
+        }
+
+        .faq-q {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 20px 24px;
+            cursor: pointer;
+            background: rgba(255,255,255,.02);
+            transition: background .25s;
+            user-select: none;
+        }
+
+        .faq-q:hover { background: rgba(255,255,255,.04); }
+        .faq-item.open .faq-q { background: rgba(0,196,184,.04); }
+
+        .faq-q__text {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.45;
+            flex: 1;
+        }
+
+        .faq-q__text mark {
+            background: rgba(0,196,184,.2);
+            color: var(--color-primary);
+            border-radius: 3px;
+            padding: 0 2px;
+        }
+
+        .faq-q__icon {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(0,196,184,.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            transition: transform .35s ease, background .25s;
+            margin-top: 2px;
+        }
+
+        .faq-item.open .faq-q__icon {
+            transform: rotate(45deg);
+            background: rgba(0,196,184,.18);
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .4s ease, padding .35s ease;
+            padding: 0 24px;
+        }
+
+        .faq-item.open .faq-a {
+            max-height: 600px;
+            padding: 4px 24px 24px;
+        }
+
+        .faq-a__inner {
+            font-size: 14px;
+            color: rgba(255,255,255,.6);
+            line-height: 1.8;
+            border-top: 1px solid rgba(255,255,255,.06);
+            padding-top: 16px;
+        }
+
+        .faq-a__inner p { margin-bottom: 12px; }
+        .faq-a__inner p:last-child { margin-bottom: 0; }
+
+        .faq-a__inner ul {
+            margin: 10px 0;
+            padding: 0;
+        }
+
+        .faq-a__inner ul li {
+            padding: 6px 0 6px 22px;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,.04);
+        }
+
+        .faq-a__inner ul li:last-child { border-bottom: none; }
+
+        .faq-a__inner ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-size: 12px;
+        }
+
+        .faq-a__cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-primary);
+            cursor: pointer;
+            transition: gap .3s;
+        }
+
+        .faq-a__cta:hover { gap: 12px; }
+
+        /* ── No results ── */
+        .faq-no-results {
+            display: none;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .faq-no-results.visible { display: block; }
+
+        .faq-no-results__icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: rgba(255,255,255,.2);
+        }
+
+        /* ── Didn't find block ── */
+        .faq-ask {
+            margin-top: 20px;
+            padding: 40px;
+            background: rgba(255,255,255,.02);
+            border: 1px solid rgba(184,134,11,.15);
+            border-radius: 14px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .faq-ask__title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .faq-ask__text {
+            font-size: 14px;
+            color: rgba(255,255,255,.45);
+            line-height: 1.7;
+        }
+
+        .faq-ask__btns {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 200px;
+        }
+
+        @media (max-width: 1024px) {
+            .faq-layout { grid-template-columns: 1fr; }
+            .faq-nav { position: static; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .faq-nav__search { grid-column: 1 / -1; }
+        }
+
+        @media (max-width: 640px) {
+            .faq-nav { grid-template-columns: 1fr 1fr; }
+            .faq-ask { grid-template-columns: 1fr; }
+            .faq-ask__btns { flex-direction: row; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header" id="header">
+    <div class="header__container">
+        <div class="header__logo">
+            <a href="index.html"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></a>
+        </div>
+        <nav class="header__nav">
+            <ul class="nav__menu">
+                <li><a href="index.html" class="nav__link">Главная</a></li>
+                <li class="nav__dropdown"><a href="uslugi.html" class="nav__link">Услуги <span class="arrow">▼</span></a><ul class="dropdown__menu"><li><a href="service.html">Изготовление вывесок</a></li><li><a href="#">Фрезеровка</a></li><li><a href="#">Лазерная резка</a></li></ul></li>
+                <li class="nav__dropdown"><a href="catalog.html" class="nav__link">Продукция <span class="arrow">▼</span></a><ul class="dropdown__menu"><li><a href="catalog-cat.html">Объемные буквы</a></li><li><a href="#">Световые короба</a></li></ul></li>
+                <li><a href="portfolio.html" class="nav__link">Портфолио</a></li>
+                <li class="nav__dropdown"><a href="about.html" class="nav__link">О компании <span class="arrow">▼</span></a><ul class="dropdown__menu"><li><a href="about.html">О нас</a></li><li><a href="blog.html">Блог</a></li><li><a href="equipment.html">Оборудование</a></li></ul></li>
+                <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="header__contacts">
+            <a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a>
+            <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+        </div>
+        <button class="burger" id="burger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-menu__nav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="uslugi.html">Услуги</a></li>
+            <li><a href="catalog.html">Продукция</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="about.html">О компании</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+        <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+    </nav>
+</div>
+
+<!-- Hero -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero__breadcrumb">
+            <a href="index.html">Главная</a><span>›</span><span>FAQ</span>
+        </div>
+        <div class="section-label">Частые вопросы</div>
+        <h1 class="page-hero__title">Всё, что вы хотели узнать</h1>
+        <p class="page-hero__subtitle">Собрали ответы на 30+ вопросов о производстве, ценах, сроках, монтаже и гарантии. Не нашли своё — спросите напрямую.</p>
+    </div>
+</section>
+
+<section class="section section--dark">
+    <div class="container">
+        <div class="faq-layout">
+
+            <!-- Nav -->
+            <nav class="faq-nav" id="faqNav">
+                <div class="faq-nav__search">
+                    <span class="faq-nav__search-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+                    <input type="text" placeholder="Поиск по вопросам..." id="faqSearch" oninput="searchFaq(this.value)">
+                </div>
+
+                <div class="faq-nav__list" id="faqNavList">
+                    <div class="faq-nav__item active" onclick="scrollToSection('general', this)">
+                        <div class="faq-nav__item-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 11V8a2 2 0 012-2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="12.5" r=".6" fill="currentColor"/></svg></div>
+                        Общие вопросы
+                        <span class="faq-nav__count">6</span>
+                    </div>
+                    <div class="faq-nav__item" onclick="scrollToSection('price', this)">
+                        <div class="faq-nav__item-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M5 4.5h4.5a1.5 1.5 0 010 3H6a1.5 1.5 0 000 3H11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+                        Цены и оплата
+                        <span class="faq-nav__count">5</span>
+                    </div>
+                    <div class="faq-nav__item" onclick="scrollToSection('production', this)">
+                        <div class="faq-nav__item-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/><path d="M5 4V3a3 3 0 016 0v1" stroke="currentColor" stroke-width="1.3"/></svg></div>
+                        Производство
+                        <span class="faq-nav__count">6</span>
+                    </div>
+                    <div class="faq-nav__item" onclick="scrollToSection('design', this)">
+                        <div class="faq-nav__item-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 14l3-1 8-8-2-2-8 8-1 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+                        Дизайн и макеты
+                        <span class="faq-nav__count">5</span>
+                    </div>
+                    <div class="faq-nav__item" onclick="scrollToSection('mount', this)">
+                        <div class="faq-nav__item-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v4M4 8H2M14 8h-2M8 14v-2M5.5 5.5 4 4M11.5 11.5 10 10M10 5.5l1.5-1.5M5 10l-1.5 1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.3"/></svg></div>
+                        Монтаж
+                        <span class="faq-nav__count">4</span>
+                    </div>
+                    <div class="faq-nav__item" onclick="scrollToSection('warranty', this)">
+                        <div class="faq-nav__item-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l5 2v4c0 3-2 5.5-5 6.5C5 13 3 10.5 3 7.5v-4l5-2z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+                        Гарантия и сервис
+                        <span class="faq-nav__count">5</span>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Questions -->
+            <div id="faqContent">
+                <div class="faq-no-results" id="faqNoResults">
+                    <div class="faq-no-results__icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="14" cy="14" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M21 21l7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+                    <div style="font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;">Ничего не найдено</div>
+                    <div style="font-size:14px;color:rgba(255,255,255,.4);max-width:340px;margin:0 auto;">Попробуйте другой запрос или задайте вопрос напрямую — мы ответим быстро.</div>
+                </div>
+
+                <!-- Section: Общие вопросы -->
+                <div class="faq-section" id="section-general">
+                    <div class="faq-section__header">
+                        <div class="faq-section__icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M11 15v-4a3 3 0 012-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="17" r=".8" fill="currentColor"/></svg></div>
+                        <div class="faq-section__title">Общие вопросы</div>
+                        <div class="faq-section__count">6 вопросов</div>
+                    </div>
+                    <div class="faq-accordion">
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Вы работаете с физическими лицами или только с юридическими?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Мы работаем и с физическими, и с юридическими лицами: ООО, ИП, самозанятые. Для физических лиц оформляем договор на оказание услуг, принимаем оплату наличными или переводом на карту. Для юридических — полный пакет закрывающих документов, НДС, электронный документооборот.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Работаете ли вы за пределами Москвы?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Производство находится в Москве. Доставку готовых изделий осуществляем по всей России через транспортные компании (СДЭК, Деловые линии и др.).</p><p>Монтаж — в Москве и МО нашими бригадами. В других регионах работаем через проверенных партнёров-монтажников с нашим контролем качества на всех этапах.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Насколько вы загружены? Когда вы сможете взяться за мой заказ?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Мы принимаем заказы постоянно. После первого обращения менеджер ответит в течение 15 минут и сориентирует по текущей загрузке и ближайшим доступным срокам. Как правило, запуск в производство — в течение 1–3 рабочих дней после подписания договора.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Можно ли приехать в офис или цех и обсудить проект лично?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Да, мы приветствуем личные встречи. Вы можете приехать на производство, посмотреть оборудование и образцы материалов. Запишитесь на удобное время по телефону +7 (495) 123-45-67 или напишите в мессенджер.</p><p>Адрес: г. Москва, ул. Производственная, д. 15, стр. 2. Пн–Пт: 9:00–18:00.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Берётесь ли вы за маленькие заказы (1–3 буквы)?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Да, минимального размера заказа нет. Мы делаем как единственную букву или логотип, так и крупные партии для сетей. Для небольших заказов стоимость одной буквы может быть выше из-за неделимых затрат на разработку макета и наладку оборудования — об этом честно предупредим на этапе расчёта.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Нужно ли согласовывать вывеску с городскими властями?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>В большинстве случаев — да. Наружная реклама на фасадах зданий требует согласования с местной администрацией или управляющей компанией здания. Интерьерные вывески согласования не требуют.</p><p>Мы помогаем подготовить необходимый пакет документов (эскиз, техпаспорт изделия, схему размещения) — эта услуга включена в комплексный заказ бесплатно.</p></div></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Section: Цены -->
+                <div class="faq-section" id="section-price">
+                    <div class="faq-section__header">
+                        <div class="faq-section__icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3v16M7 6.5h6.5a2.5 2.5 0 010 5H8a2.5 2.5 0 000 5H15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+                        <div class="faq-section__title">Цены и оплата</div>
+                        <div class="faq-section__count">5 вопросов</div>
+                    </div>
+                    <div class="faq-accordion">
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Почему нет фиксированного прайса на все изделия?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Стоимость вывески зависит от десятков параметров: материал, размер, толщина, тип подсветки, сложность шрифта, количество деталей, тип монтажа. Одна буква «А» высотой 200 мм и 2000 мм из акрила — совершенно разные изделия по трудоёмкости.</p><p>Мы указываем начальные цены (от …) и всегда рассчитываем точную стоимость бесплатно в течение 1 рабочего дня.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Каков порядок оплаты?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Стандартная схема: 50% предоплата перед запуском производства, 50% после монтажа и подписания акта приёма-передачи. Для небольших заказов (до 15 000 ₽) возможна 100% предоплата с соответствующей скидкой.</p><p>Принимаем наличные, банковский перевод, оплату картой. Юридическим лицам — счёт с НДС или без (в зависимости от системы налогообложения).</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Есть ли скидки за объём или постоянным клиентам?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Да. При заказе от 50 букв одной партии — скидка 10%. При заказе от 100 букв — скидка 15%. Для постоянных клиентов после 3-го заказа — персональные условия на усмотрение менеджера.</p><p>Для сетевых клиентов (несколько точек) всегда согласовываем специальные условия — свяжитесь с нами для детального обсуждения.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Входит ли монтаж в стоимость или оплачивается отдельно?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Монтаж всегда оплачивается отдельно — его стоимость зависит от высоты, типа фасада, удалённости объекта и сложности работ. Минимальная стоимость — от 3 500 ₽.</p><p>Точная стоимость монтажа указывается в коммерческом предложении после выезда технолога на замер. Выезд на замер — бесплатный.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Что произойдёт, если стоимость изменится после подписания договора?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Стоимость, зафиксированная в договоре, не меняется. Если в процессе производства возникают непредвиденные обстоятельства (например, изменение состава работ по вашей инициативе), мы согласуем дополнительное соглашение с новой суммой до начала изменений.</p></div></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Section: Производство -->
+                <div class="faq-section" id="section-production">
+                    <div class="faq-section__header">
+                        <div class="faq-section__icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="6" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M7 6V5a4 4 0 018 0v1" stroke="currentColor" stroke-width="1.4"/></svg></div>
+                        <div class="faq-section__title">Производство</div>
+                        <div class="faq-section__count">6 вопросов</div>
+                    </div>
+                    <div class="faq-accordion">
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Какой минимальный размер буквы вы делаете?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Минимальная высота объёмной буквы с подсветкой — 50 мм. Для плоских букв (без объёма) — от 20 мм. Для очень мелких надписей рекомендуем гравировку — это точнее и экономичнее.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Какие материалы вы используете?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner">
+                                <p>Работаем с широким спектром материалов:</p>
+                                <ul>
+                                    <li>Акрил (литой и экструзионный) — Plexiglas, Altuglas</li>
+                                    <li>Нержавеющая сталь (полированная, матовая, зеркальная)</li>
+                                    <li>Алюминий листовой с порошковым покрытием</li>
+                                    <li>Вспененный и листовой ПВХ</li>
+                                    <li>МДФ и натуральное дерево</li>
+                                    <li>Гибкий LED-неон</li>
+                                </ul>
+                                <p>Подбираем материал исходя из задачи, бюджета и условий эксплуатации.</p>
+                            </div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Как долго изготавливается вывеска?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner">
+                                <p>Сроки зависят от сложности:</p>
+                                <ul>
+                                    <li>Плоские буквы из ПВХ/акрила без подсветки — 2–4 дня</li>
+                                    <li>Объёмные буквы с LED-подсветкой — 5–7 дней</li>
+                                    <li>Буквы из нержавейки — 7–12 дней</li>
+                                    <li>Сложные фасадные конструкции — 14–21 день</li>
+                                    <li>Крупные партии для сетей — по согласованию</li>
+                                </ul>
+                                <p>Срок считается с момента подписания договора и утверждения макета.</p>
+                            </div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Можно ли ускорить производство?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Да, принимаем срочные заказы. Для этого заказ ставится в приоритетную очередь, может выполняться в ночную смену. Стоимость срочности — +20–30% к цене. Уточняйте возможность при оформлении заказа.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Получу ли я фото готового изделия до монтажа?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Да, обязательно. После изготовления мы отправляем фотоотчёт — готовые буквы в цеху, включая включённую подсветку. Если что-то не устраивает — устраним до выезда бригады на объект. Это стандартная часть нашего процесса приёмки.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Выдержат ли буквы российский климат — мороз, дождь, снег?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Да. Для наружных изделий используем герметик по периметру, блоки питания с защитой IP67, нержавеющий крепёж. Рабочий диапазон температур: от −40°C до +60°C. Акрил не желтеет и не трескается в таком диапазоне при правильной эксплуатации. Срок службы хорошей наружной вывески — 10–15 лет.</p></div></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Section: Дизайн -->
+                <div class="faq-section" id="section-design">
+                    <div class="faq-section__header">
+                        <div class="faq-section__icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 19l4-1.5 11-11-2.5-2.5-11 11L3 19z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14.5 6.5l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+                        <div class="faq-section__title">Дизайн и макеты</div>
+                        <div class="faq-section__count">5 вопросов</div>
+                    </div>
+                    <div class="faq-accordion">
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">В каком формате предоставить логотип или макет?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Принимаем в векторном формате: AI, EPS, SVG, PDF (с сохранёнными контурами шрифтов). Это идеальный вариант — сразу передаём на производство.</p><p>Если векторного файла нет — присылайте любое изображение хорошего качества (PNG, JPG от 300 dpi). Наши дизайнеры оцифруют его в вектор. Стоимость оцифровки — от 1 500 ₽, при заказе изделий — бесплатно.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Разрабатываете ли вы дизайн вывески с нуля?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Да. Если у вас нет логотипа или вы хотите разработать новый стиль — наш дизайнер подготовит несколько вариантов концепций вывески с учётом вашего бренда, фасада и пожеланий. Разработка дизайна — от 2 500 ₽, при размещении заказа включается в стоимость.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Показываете ли вы визуализацию вывески на фасаде до производства?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Да, это стандартный шаг перед запуском в производство. Дизайнер монтирует изображение вывески на фотографию вашего фасада, чтобы вы могли оценить итоговый вид. Вносим правки до вашего полного одобрения — без ограничений на количество итераций.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Могу ли я использовать любой шрифт?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Практически любой. Мы работаем с любым шрифтом, который можно перевести в вектор. Единственное ограничение — тонкие засечки и очень узкие элементы шрифта при маленьком размере буквы: они могут не получиться чёткими. Наш технолог подскажет, если шрифт потребует адаптации.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Предоставляете ли вы файлы после изготовления заказа?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Да. По запросу передаём векторный файл финального макета (AI или PDF) и визуализацию на фасаде в высоком разрешении. Производственные файлы (программы ЧПУ) являются нашей интеллектуальной собственностью и не передаются.</p></div></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Section: Монтаж -->
+                <div class="faq-section" id="section-mount">
+                    <div class="faq-section__header">
+                        <div class="faq-section__icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3v18M3 11h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="11" cy="11" r="3" stroke="currentColor" stroke-width="1.4"/></svg></div>
+                        <div class="faq-section__title">Монтаж</div>
+                        <div class="faq-section__count">4 вопроса</div>
+                    </div>
+                    <div class="faq-accordion">
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Как крепится вывеска к фасаду?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Способ крепления зависит от типа фасада и конструкции:</p><ul><li>На кирпич или бетон — дюбель-анкеры через шпильки</li><li>На вентилируемый фасад — через планки или кляммеры</li><li>На стекло — специальные крепежи с силиконовыми прокладками</li><li>На гипсокартон или лёгкие перегородки — закладные детали в стену</li></ul><p>Технолог выбирает оптимальный способ после осмотра объекта.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Нужно ли готовить объект к монтажу?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Как правило, от вас требуется только обеспечить доступ к объекту и наличие розетки 220V на фасаде или вблизи него (для вывесок с подсветкой). Всё остальное — наша забота. Если электропроводку нужно провести, уточните — помогаем и с этим.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Используете ли вы подъёмное оборудование для высотного монтажа?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Да. До 5 метров работаем с лестницами и строительными козлами. Выше — привлекаем автовышку или промышленных альпинистов. Стоимость высотного монтажа рассчитывается отдельно и включается в смету.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Что происходит, если при монтаже что-то повреждается?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Все монтажные работы выполняются застрахованными бригадами. В случае повреждения изделия по вине наших сотрудников — изготовим и установим замену за наш счёт. В случае повреждения фасада — компенсируем ущерб. Подробные условия — в договоре.</p></div></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Section: Гарантия -->
+                <div class="faq-section" id="section-warranty">
+                    <div class="faq-section__header">
+                        <div class="faq-section__icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l6.5 2.5v5c0 4-2.5 7.5-6.5 8.5C7 17 4.5 13.5 4.5 9.5v-5L11 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 11l2.5 2.5 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <div class="faq-section__title">Гарантия и обслуживание</div>
+                        <div class="faq-section__count">5 вопросов</div>
+                    </div>
+                    <div class="faq-accordion">
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Какая гарантия на вывески?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Гарантия 12 месяцев на всю конструкцию — акриловые панели, металлические борта, крепления. Гарантия 12 месяцев на LED-подсветку и блоки питания. Гарантия 6 месяцев на монтажные работы.</p><p>Гарантийные случаи: заводские дефекты материалов, отказ LED, нарушение герметичности. Не являются гарантийными: механические повреждения по вине третьих лиц, вандализм, форс-мажор.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Как быстро вы реагируете при гарантийных случаях?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Первичная реакция — в течение 2 рабочих часов (по рабочим дням). Выезд специалиста — в течение 48 часов после подтверждения гарантийного случая. Для критичных случаев (крупные клиенты, сетевые проекты) предусмотрено обслуживание в тот же день.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Можно ли заменить сгоревшие LED-ленты самостоятельно?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Теоретически — да, если у вас есть опыт работы с электрикой и LED. Практически — не рекомендуем, так как это может аннулировать гарантию и привести к неравномерному свечению при использовании неоригинальных компонентов. Лучше вызвать нашего специалиста — это быстро и часто бесплатно в гарантийный период.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Предоставляете ли вы техническое обслуживание после окончания гарантии?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Да. После окончания гарантийного срока мы предоставляем платное техобслуживание: замена LED-ленты, блоков питания, ремонт механических повреждений. Стоимость — по фактическим работам. Для постоянных клиентов — приоритетная запись и сниженные ставки на запчасти.</p></div></div>
+                        </div>
+
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q">
+                                <span class="faq-q__text">Даёте ли вы какой-то документ на изделие?</span>
+                                <span class="faq-q__icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                            <div class="faq-a"><div class="faq-a__inner"><p>Да. После монтажа передаём:</p><ul><li>Гарантийный талон с датой монтажа и сроками гарантии</li><li>Паспорт изделия с техническими характеристиками</li><li>Инструкцию по эксплуатации и уходу</li><li>Акт приёма-передачи работ</li></ul><p>Для юридических лиц также предоставляем полный пакет бухгалтерских документов.</p>
+                                <span class="faq-a__cta" onclick="event.stopPropagation(); openCallbackModal()">Остались вопросы? Спросите нас <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Didn't find -->
+                <div class="faq-ask">
+                    <div>
+                        <div class="faq-ask__title">Не нашли ответ на свой вопрос?</div>
+                        <p class="faq-ask__text">Задайте вопрос напрямую — менеджер ответит в течение 15 минут в рабочее время. Или заполните подробную заявку и мы свяжемся с вами сами.</p>
+                    </div>
+                    <div class="faq-ask__btns">
+                        <button class="btn btn--primary" onclick="openCallbackModal()">Задать вопрос</button>
+                        <a href="request.html" class="btn btn--outline">Оставить заявку</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__column footer__column--brand"><div class="footer__logo"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></div><p class="footer__description">Производство наружной и интерьерной рекламы. Полный цикл — от идеи до монтажа.</p></div>
+            <div class="footer__column"><h4 class="footer__heading">Услуги</h4><ul class="footer__links"><li><a href="service.html">Изготовление вывесок</a></li><li><a href="#">Фрезеровка</a></li></ul></div>
+            <div class="footer__column"><h4 class="footer__heading">Продукция</h4><ul class="footer__links"><li><a href="catalog-cat.html">Объемные буквы</a></li><li><a href="#">Световые короба</a></li></ul></div>
+            <div class="footer__column"><h4 class="footer__heading">Компания</h4><ul class="footer__links"><li><a href="about.html">О нас</a></li><li><a href="portfolio.html">Портфолио</a></li><li><a href="faq.html" style="color:var(--color-primary)">FAQ</a></li></ul></div>
+            <div class="footer__column"><h4 class="footer__heading">Контакты</h4><ul class="footer__contacts"><li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z" stroke="currentColor" fill="none"/></svg><a href="tel:+74951234567">+7 (495) 123-45-67</a></li></ul></div>
+        </div>
+        <div class="footer__bottom"><div class="footer__copyright">© 2026 Нарратив. Все права защищены.</div><div class="footer__legal"><a href="privacy.html">Политика конфиденциальности</a></div></div>
+    </div>
+</footer>
+
+<div class="modal" id="callbackModal">
+    <div class="modal__overlay" onclick="closeCallbackModal()"></div>
+    <div class="modal__content">
+        <button class="modal__close" onclick="closeCallbackModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <h3 class="modal__title">Задать вопрос</h3>
+        <p class="modal__subtitle">Оставьте номер — перезвоним в течение 15 минут</p>
+        <form class="form" onsubmit="submitCallback(event)">
+            <div class="form__group"><input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required></div>
+            <div class="form__checkbox"><input type="checkbox" id="agree-modal" required><label for="agree-modal">Согласен на обработку персональных данных</label></div>
+            <button type="submit" class="btn btn--primary btn--large">Перезвоните мне</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    function toggleFaq(el) {
+        const isOpen = el.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+        if (!isOpen) el.classList.add('open');
+    }
+
+    function scrollToSection(id, navEl) {
+        document.querySelectorAll('.faq-nav__item').forEach(i => i.classList.remove('active'));
+        navEl.classList.add('active');
+        const el = document.getElementById('section-' + id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function searchFaq(query) {
+        const q = query.toLowerCase().trim();
+        const items = document.querySelectorAll('.faq-item');
+        let found = 0;
+        items.forEach(item => {
+            const text = item.querySelector('.faq-q__text').textContent.toLowerCase();
+            const answerText = item.querySelector('.faq-a__inner') ? item.querySelector('.faq-a__inner').textContent.toLowerCase() : '';
+            const match = !q || text.includes(q) || answerText.includes(q);
+            item.classList.toggle('hidden-by-search', !match);
+            if (match) found++;
+        });
+        document.getElementById('faqNoResults').classList.toggle('visible', found === 0 && q.length > 0);
+
+        // Highlight
+        items.forEach(item => {
+            const qEl = item.querySelector('.faq-q__text');
+            if (!q) { qEl.innerHTML = qEl.textContent; return; }
+            const esc = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            qEl.innerHTML = qEl.textContent.replace(new RegExp(esc, 'gi'), m => `<mark>${m}</mark>`);
+        });
+    }
+
+    // Highlight nav on scroll
+    window.addEventListener('scroll', () => {
+        const sections = ['general','price','production','design','mount','warranty'];
+        const navItems = document.querySelectorAll('.faq-nav__item');
+        let current = 0;
+        sections.forEach((id, i) => {
+            const el = document.getElementById('section-' + id);
+            if (el && el.getBoundingClientRect().top < 140) current = i;
+        });
+        navItems.forEach((item, i) => item.classList.toggle('active', i === current));
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оборудование и технологии — Нарратив</title>
+    <meta name="description" content="Собственный производственный цех с современным ЧПУ-оборудованием: фрезерные и лазерные станки, широкоформатная и УФ-печать.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inner-pages.css">
+    <style>
+        /* Equipment cards */
+        .equipment-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(184,134,11,0.12);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .equipment-card:hover {
+            border-color: rgba(184,134,11,0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+        }
+
+        .equipment-card__image {
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            background: #0d0d0d;
+            position: relative;
+        }
+
+        .equipment-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .equipment-card:hover .equipment-card__image img {
+            transform: scale(1.04);
+        }
+
+        .equipment-card__badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #000;
+            background: var(--color-primary);
+            padding: 4px 12px;
+            border-radius: 100px;
+        }
+
+        .equipment-card__body {
+            padding: 28px 32px 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .equipment-card__num {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: rgba(0,196,184,0.5);
+            margin-bottom: 8px;
+        }
+
+        .equipment-card__title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .equipment-card__maker {
+            font-size: 13px;
+            color: var(--color-primary);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .equipment-card__desc {
+            font-size: 14px;
+            color: var(--color-text-dim);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .equipment-card__specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .spec-item {
+            padding: 10px 14px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 6px;
+        }
+
+        .spec-item__label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 4px;
+        }
+
+        .spec-item__value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Equipment grid */
+        .equipment-main-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            margin-bottom: 28px;
+        }
+
+        .equipment-side-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        /* Materials section */
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .material-card {
+            padding: 28px 24px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(184,134,11,0.12);
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: default;
+        }
+
+        .material-card:hover {
+            border-color: rgba(184,134,11,0.4);
+            background: rgba(0,196,184,0.03);
+            transform: translateY(-3px);
+        }
+
+        .material-card__icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 16px;
+            border-radius: 12px;
+            background: rgba(0,196,184,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+        }
+
+        .material-card__name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .material-card__desc {
+            font-size: 13px;
+            color: var(--color-text-dim);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .material-card__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .material-tag {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(0,196,184,0.7);
+            background: rgba(0,196,184,0.08);
+            padding: 3px 8px;
+            border-radius: 100px;
+        }
+
+        /* Tech capabilities */
+        .tech-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: rgba(184,134,11,0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(184,134,11,0.15);
+        }
+
+        .tech-item {
+            background: #0d0d0d;
+            padding: 36px 28px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            transition: background 0.3s;
+        }
+
+        .tech-item:hover {
+            background: rgba(0,196,184,0.04);
+        }
+
+        .tech-item__icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(0,196,184,0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--color-primary);
+        }
+
+        .tech-item__title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .tech-item__text {
+            font-size: 13px;
+            color: var(--color-text-dim);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1200px) {
+            .equipment-side-grid { grid-template-columns: repeat(2, 1fr); }
+            .materials-grid { grid-template-columns: repeat(2, 1fr); }
+            .tech-list { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .equipment-main-grid,
+            .equipment-side-grid,
+            .materials-grid,
+            .tech-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header" id="header">
+    <div class="header__container">
+        <div class="header__logo">
+            <a href="index.html"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></a>
+        </div>
+        <nav class="header__nav">
+            <ul class="nav__menu">
+                <li><a href="index.html" class="nav__link">Главная</a></li>
+                <li class="nav__dropdown">
+                    <a href="uslugi.html" class="nav__link">Услуги <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="#">Изготовление вывесок</a></li>
+                        <li><a href="#">Фрезеровка</a></li>
+                        <li><a href="#">Лазерная резка</a></li>
+                        <li><a href="#">Монтажные работы</a></li>
+                    </ul>
+                </li>
+                <li class="nav__dropdown">
+                    <a href="catalog.html" class="nav__link">Продукция <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="catalog-cat.html">Объемные буквы</a></li>
+                        <li><a href="#">Световые короба</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav__link">Портфолио</a></li>
+                <li class="nav__dropdown">
+                    <a href="about.html" class="nav__link" style="color:var(--color-primary)">О компании <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="equipment.html" style="color:var(--color-primary)">Оборудование</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </li>
+                <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="header__contacts">
+            <a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a>
+            <div class="header__messengers">
+                <a href="#" class="messenger-icon" aria-label="WhatsApp"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="currentColor"/></svg></a>
+            </div>
+            <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+        </div>
+        <button class="burger" id="burger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-menu__nav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="uslugi.html">Услуги</a></li>
+            <li><a href="catalog.html">Продукция</a></li>
+            <li><a href="about.html">О компании</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+        <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+    </nav>
+</div>
+
+<!-- Hero -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero__breadcrumb">
+            <a href="index.html">Главная</a><span>›</span>
+            <a href="about.html">О компании</a><span>›</span>
+            <span>Оборудование и технологии</span>
+        </div>
+        <div class="section-label">Наш цех</div>
+        <h1 class="page-hero__title">Оборудование и технологии</h1>
+        <p class="page-hero__subtitle">Производственная база площадью 800 м² с современными станками ведущих мировых брендов. Всё оборудование — собственное, без субподряда.</p>
+    </div>
+</section>
+
+<!-- Philosophy -->
+<section class="section section--dark">
+    <div class="container">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;">
+            <div>
+                <div class="section-label">Наш подход</div>
+                <h2 style="font-size:38px; font-weight:700; color:transparent; text-shadow:1px 1px 0 var(--color-primary); line-height:1.2; margin-bottom:24px;">Мы контролируем каждый этап производства</h2>
+                <p style="font-size:16px; color:var(--color-text-dim); line-height:1.8; margin-bottom:16px;">Мы намеренно не отдаём ничего на субподряд. Каждый станок в нашем цехе — это контроль над качеством, сроками и стоимостью. Нет посредников — нет искажений.</p>
+                <p style="font-size:16px; color:var(--color-text-dim); line-height:1.8; margin-bottom:16px;">Инвестируем в оборудование регулярно: за последние 3 года цех обновился на 60%. Это не только улучшение качества — это возможность браться за задачи, которые другие не могут выполнить.</p>
+                <p style="font-size:16px; color:var(--color-text-dim); line-height:1.8;">Результат: точность ±0,05 мм на лазере, рабочее поле до 3×2 метра на фрезере, цикл производства сложной конструкции от 3 дней.</p>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div style="padding:32px 24px; background:rgba(0,196,184,0.05); border:1px solid rgba(0,196,184,0.2); border-radius:8px; text-align:center;">
+                    <div style="font-size:48px; font-weight:700; color:var(--color-primary); margin-bottom:8px;">800</div>
+                    <div style="font-size:13px; color:var(--color-text-dim);">м² цеха</div>
+                </div>
+                <div style="padding:32px 24px; background:rgba(184,134,11,0.05); border:1px solid rgba(184,134,11,0.2); border-radius:8px; text-align:center;">
+                    <div style="font-size:48px; font-weight:700; color:#b8860b; margin-bottom:8px;">7</div>
+                    <div style="font-size:13px; color:var(--color-text-dim);">единиц ЧПУ-оборудования</div>
+                </div>
+                <div style="padding:32px 24px; background:rgba(184,134,11,0.05); border:1px solid rgba(184,134,11,0.2); border-radius:8px; text-align:center;">
+                    <div style="font-size:48px; font-weight:700; color:#b8860b; margin-bottom:8px;">3</div>
+                    <div style="font-size:13px; color:var(--color-text-dim);">дня минимальный срок</div>
+                </div>
+                <div style="padding:32px 24px; background:rgba(0,196,184,0.05); border:1px solid rgba(0,196,184,0.2); border-radius:8px; text-align:center;">
+                    <div style="font-size:48px; font-weight:700; color:var(--color-primary); margin-bottom:8px;">0,05</div>
+                    <div style="font-size:13px; color:var(--color-text-dim);">мм точность лазера</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main equipment -->
+<section class="section section--gray">
+    <div class="container">
+        <div class="section-label">Парк станков</div>
+        <h2 class="section-title">Фрезерное и лазерное оборудование</h2>
+
+        <div class="equipment-main-grid">
+            <div class="equipment-card">
+                <div class="equipment-card__image">
+                    <img src="Оборудование/Фрезерно-гравировальный станок Suda VG2030 - 3000х2000мм.jpg" alt="Suda VG2030" loading="lazy" onerror="this.parentElement.style.background='#111'">
+                    <span class="equipment-card__badge">Флагман</span>
+                </div>
+                <div class="equipment-card__body">
+                    <div class="equipment-card__num">01 / ФРЕЗЕРОВАНИЕ</div>
+                    <h3 class="equipment-card__title">Фрезерно-гравировальный станок Suda VG2030</h3>
+                    <div class="equipment-card__maker">Производитель: Suda CNC (Китай) · Год ввода: 2022</div>
+                    <p class="equipment-card__desc">Наш флагманский фрезерный станок с максимальным рабочим полем в цехе. Позволяет изготавливать крупные конструкции без швов, обрабатывать сложные материалы: композит, пластик, МДФ, плёнкованные панели. Высокоточные направляющие HIWIN и ШВП обеспечивают идеальную геометрию букв даже на сложных профилях.</p>
+                    <div class="equipment-card__specs">
+                        <div class="spec-item"><div class="spec-item__label">Поле обработки</div><div class="spec-item__value">3000 × 2000 мм</div></div>
+                        <div class="spec-item"><div class="spec-item__label">Мощность шпинделя</div><div class="spec-item__value">3 кВт</div></div>
+                        <div class="spec-item"><div class="spec-item__label">Точность</div><div class="spec-item__value">±0,1 мм</div></div>
+                        <div class="spec-item"><div class="spec-item__label">Материалы</div><div class="spec-item__value">ПВХ, акрил, МДФ, дерево</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="equipment-card">
+                <div class="equipment-card__image">
+                    <img src="Оборудование/Широкоформатный лазерный станок 1300х900мм.png" alt="Wattsan NC-C1390" loading="lazy" onerror="this.parentElement.style.background='#111'">
+                    <span class="equipment-card__badge">Лазер</span>
+                </div>
+                <div class="equipment-card__body">
+                    <div class="equipment-card__num">02 / ЛАЗЕРНАЯ РЕЗКА</div>
+                    <h3 class="equipment-card__title">Лазерный комплекс Wattsan NC-C1390</h3>
+                    <div class="equipment-card__maker">Производитель: Wattsan (Россия) · Год ввода: 2021</div>
+                    <p class="equipment-card__desc">Широкоформатный лазерный комплекс с мощной трубкой 130–160 Вт и ёмкостной головой автофокуса. Обеспечивает идеально полированный торец акрила (критично для торцевой подсветки), безупречную резку тонких элементов от 0,3 мм. Гравировка любой сложности — фотографии, паттерны, логотипы.</p>
+                    <div class="equipment-card__specs">
+                        <div class="spec-item"><div class="spec-item__label">Поле обработки</div><div class="spec-item__value">1300 × 900 мм</div></div>
+                        <div class="spec-item"><div class="spec-item__label">Мощность трубки</div><div class="spec-item__value">130–160 Вт</div></div>
+                        <div class="spec-item"><div class="spec-item__label">Точность</div><div class="spec-item__value">±0,05 мм</div></div>
+                        <div class="spec-item"><div class="spec-item__label">Материалы</div><div class="spec-item__value">Акрил, фанера, кожа, ткань</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="equipment-side-grid">
+            <div class="equipment-card">
+                <div class="equipment-card__image">
+                    <img src="Оборудование/Фрезерно-гравировальный станок ЧПУ НТ-1325 (3,2кВт) - 2500х1250мм.webp" alt="НТ-1325" loading="lazy" onerror="this.parentElement.style.background='#111'">
+                </div>
+                <div class="equipment-card__body">
+                    <div class="equipment-card__num">03 / ФРЕЗЕРОВАНИЕ</div>
+                    <h3 class="equipment-card__title">Фрезерный центр НТ-1325</h3>
+                    <div class="equipment-card__maker">ЧПУ-фрезер с воздушным охлаждением</div>
+                    <p class="equipment-card__desc">Шпиндель 5,5 кВт для обработки алюминия, жёсткого пластика, МДФ и ДСП. Прецизионные направляющие HIWIN и вакуумный стол с Т-пазами для надёжной фиксации крупных заготовок.</p>
+                    <div class="equipment-card__specs">
+                        <div class="spec-item"><div class="spec-item__label">Поле</div><div class="spec-item__value">2500 × 1250 мм</div></div>
+                        <div class="spec-item"><div class="spec-item__label">Шпиндель</div><div class="spec-item__value">5,5 кВт</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="equipment-card">
+                <div class="equipment-card__image" style="background:#111; display:flex; align-items:center; justify-content:center; aspect-ratio:16/10;">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" style="opacity:0.15;"><rect x="10" y="20" width="60" height="40" rx="4" stroke="white" stroke-width="2"/><path d="M20 40h40M40 30v20" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+                </div>
+                <div class="equipment-card__body">
+                    <div class="equipment-card__num">04 / УФ-ПЕЧАТЬ</div>
+                    <h3 class="equipment-card__title">УФ-принтер Mimaki UJF</h3>
+                    <div class="equipment-card__maker">Производитель: Mimaki (Япония)</div>
+                    <p class="equipment-card__desc">Прямая УФ-печать на жёстких материалах — акрил, металл, стекло, ПВХ, дерево. Разрешение до 1200 dpi, белая подложка, лак-оверпринт. Устойчивость к УФ и механическим нагрузкам.</p>
+                    <div class="equipment-card__specs">
+                        <div class="spec-item"><div class="spec-item__label">Разрешение</div><div class="spec-item__value">до 1200 dpi</div></div>
+                        <div class="spec-item"><div class="spec-item__label">Толщина</div><div class="spec-item__value">до 150 мм</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="equipment-card">
+                <div class="equipment-card__image" style="background:#111; display:flex; align-items:center; justify-content:center; aspect-ratio:16/10;">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" style="opacity:0.15;"><path d="M10 40 Q40 10 70 40 Q40 70 10 40z" stroke="white" stroke-width="2" fill="none"/><circle cx="40" cy="40" r="10" stroke="white" stroke-width="2"/></svg>
+                </div>
+                <div class="equipment-card__body">
+                    <div class="equipment-card__num">05 / ШИРОКОФОРМАТ</div>
+                    <h3 class="equipment-card__title">Широкоформатный принтер Roland</h3>
+                    <div class="equipment-card__maker">Производитель: Roland DG (Япония)</div>
+                    <p class="equipment-card__desc">Интерьерная и наружная печать на баннере, виниле, бумаге и специальных медиа шириной до 1620 мм. Сольвентные чернила — гарантия 5+ лет на улице.</p>
+                    <div class="equipment-card__specs">
+                        <div class="spec-item"><div class="spec-item__label">Ширина печати</div><div class="spec-item__value">до 1620 мм</div></div>
+                        <div class="spec-item"><div class="spec-item__label">Чернила</div><div class="spec-item__value">Eco-сольвент</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Technologies capabilities -->
+<section class="section section--dark">
+    <div class="container">
+        <div class="section-label">Технологические возможности</div>
+        <h2 class="section-title">Что мы умеем делать</h2>
+        <div class="tech-list">
+            <div class="tech-item">
+                <div class="tech-item__icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                    <div class="tech-item__title">Объёмные буквы любой сложности</div>
+                    <div class="tech-item__text">Литые, фрезерованные, гнутые. С торцевой, прямой, контражурной подсветкой или без. Любые шрифты и размеры.</div>
+                </div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-item__icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div>
+                    <div class="tech-item__title">Точная лазерная гравировка</div>
+                    <div class="tech-item__text">Фотографическое качество гравировки на акриле, металле, дереве. Глубина и контраст — по техзаданию.</div>
+                </div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-item__icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 3h18M3 9h18M3 15h12M3 21h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div>
+                    <div class="tech-item__title">Широкоформатная печать</div>
+                    <div class="tech-item__text">Баннеры, стенды, интерьерная отделка, витражная плёнка. Размеры — от стикера до полноэтажного баннера.</div>
+                </div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-item__icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22V12M12 12L4 6M12 12l8-6M4 6V18l8 4 8-4V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                    <div class="tech-item__title">3D-фрезеровка и рельеф</div>
+                    <div class="tech-item__text">Рельефные логотипы, декоративные панели, объёмные декоры интерьера. Глубина рельефа — до 50 мм.</div>
+                </div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-item__icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h18M9 21V9" stroke="currentColor" stroke-width="1.5"/></svg>
+                </div>
+                <div>
+                    <div class="tech-item__title">УФ-печать по жёстким основаниям</div>
+                    <div class="tech-item__text">Прямая печать на акриле, ПВХ, металле, стекле, керамике. Белая подложка, глянец или мат, лак-оверпринт.</div>
+                </div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-item__icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3v1m0 16v1M4.22 4.22l.71.71m13.14 13.14.71.71M3 12h1m16 0h1M4.22 19.78l.71-.71M18.36 5.64l.71-.71" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/></svg>
+                </div>
+                <div>
+                    <div class="tech-item__title">Монтаж LED-подсветки</div>
+                    <div class="tech-item__text">Проектируем и монтируем системы подсветки на базе LED-модулей и линеек Samsung, Epistar. Блоки питания — промышленные.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Materials -->
+<section class="section section--gray">
+    <div class="container">
+        <div class="section-label">Сырьё и расходники</div>
+        <h2 class="section-title">Материалы, с которыми мы работаем</h2>
+        <div class="materials-grid">
+            <div class="material-card">
+                <div class="material-card__icon">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="8" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 8V7a5 5 0 0110 0v1" stroke="currentColor" stroke-width="1.5"/></svg>
+                </div>
+                <div class="material-card__name">Акрил</div>
+                <div class="material-card__desc">Литой и экструзионный. Цветной, прозрачный, молочный. Поставщик: Altuglas, Plexiglas.</div>
+                <div class="material-card__tags">
+                    <span class="material-tag">Объёмные буквы</span>
+                    <span class="material-tag">Лайтбоксы</span>
+                    <span class="material-tag">Акрилайты</span>
+                </div>
+            </div>
+            <div class="material-card">
+                <div class="material-card__icon">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 14l10-10 10 10v10H4V14z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="material-card__name">Алюминий и сталь</div>
+                <div class="material-card__desc">Листовой и профильный алюминий, нержавеющая и оцинкованная сталь разной толщины.</div>
+                <div class="material-card__tags">
+                    <span class="material-tag">Каркасы</span>
+                    <span class="material-tag">Лицевые панели</span>
+                    <span class="material-tag">Крепёж</span>
+                </div>
+            </div>
+            <div class="material-card">
+                <div class="material-card__icon">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="4" width="20" height="20" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M9 14l4 4 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="material-card__name">Композитные панели</div>
+                <div class="material-card__desc">Алюкобонд, HPL, Alucobest. Для облицовки фасадов и крупных плоских конструкций.</div>
+                <div class="material-card__tags">
+                    <span class="material-tag">Фасады</span>
+                    <span class="material-tag">Стенды</span>
+                </div>
+            </div>
+            <div class="material-card">
+                <div class="material-card__icon">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4C8.477 4 4 8.477 4 14s4.477 10 10 10 10-4.477 10-10S19.523 4 14 4z" stroke="currentColor" stroke-width="1.5"/><path d="M9 14c0-2.761 2.239-5 5-5s5 2.239 5 5-2.239 5-5 5-5-2.239-5-5z" stroke="currentColor" stroke-width="1.5"/></svg>
+                </div>
+                <div class="material-card__name">ПВХ и ПЭТ</div>
+                <div class="material-card__desc">Листовой ПВХ разной толщины (от 1 до 10 мм), вспененный ПВХ, плёнки для плоттерной резки.</div>
+                <div class="material-card__tags">
+                    <span class="material-tag">Таблички</span>
+                    <span class="material-tag">Буквы</span>
+                    <span class="material-tag">Декор</span>
+                </div>
+            </div>
+            <div class="material-card">
+                <div class="material-card__icon">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M8 4v20M14 8v16M20 4v20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M4 12h20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div class="material-card__name">МДФ и дерево</div>
+                <div class="material-card__desc">МДФ, фанера, массив дерева для интерьерных декоров, рельефных панелей, нестандартных конструкций.</div>
+                <div class="material-card__tags">
+                    <span class="material-tag">Интерьер</span>
+                    <span class="material-tag">Декор</span>
+                    <span class="material-tag">Навигация</span>
+                </div>
+            </div>
+            <div class="material-card">
+                <div class="material-card__icon">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6l2-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="material-card__name">Плёнки Oracal / Avery</div>
+                <div class="material-card__desc">Монтажные, декоративные, зеркальные, флуоресцентные плёнки для плоттерной резки и оклейки.</div>
+                <div class="material-card__tags">
+                    <span class="material-tag">Брендирование</span>
+                    <span class="material-tag">Витрины</span>
+                </div>
+            </div>
+            <div class="material-card">
+                <div class="material-card__icon">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="currentColor" stroke-width="1.5"/></svg>
+                </div>
+                <div class="material-card__name">LED-компоненты</div>
+                <div class="material-card__desc">Светодиодные ленты и модули Samsung, Epistar. Блоки питания Meanwell — промышленного класса.</div>
+                <div class="material-card__tags">
+                    <span class="material-tag">Подсветка</span>
+                    <span class="material-tag">Световые короба</span>
+                </div>
+            </div>
+            <div class="material-card">
+                <div class="material-card__icon">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 10l8-6 8 6v12H6V10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 22v-7h6v7" stroke="currentColor" stroke-width="1.5"/></svg>
+                </div>
+                <div class="material-card__name">Баннерная ткань</div>
+                <div class="material-card__desc">Суперсет, фронтлит, блэкаут, сетка — всё для широкоформатной печати наружного и интерьерного применения.</div>
+                <div class="material-card__tags">
+                    <span class="material-tag">Баннеры</span>
+                    <span class="material-tag">Стенды</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section section--dark">
+    <div class="container">
+        <div class="cta-block">
+            <div class="cta-block__label">Производство без посредников</div>
+            <h2 class="cta-block__title">Хотите узнать, как это работает?</h2>
+            <p class="cta-block__subtitle">Приглашаем на экскурсию в наш цех — покажем оборудование вживую, расскажем о технологиях и ответим на любые вопросы по вашему проекту.</p>
+            <div class="cta-block__btns">
+                <button class="btn btn--primary btn--large" style="width:auto;" onclick="openCallbackModal()">Записаться на экскурсию</button>
+                <a href="contacts.html" class="btn btn--outline btn--large" style="width:auto;">Наши контакты</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__column footer__column--brand">
+                <div class="footer__logo"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></div>
+                <p class="footer__description">Производство наружной и интерьерной рекламы. Полный цикл — от идеи до монтажа.</p>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Услуги</h4>
+                <ul class="footer__links">
+                    <li><a href="#">Изготовление вывесок</a></li>
+                    <li><a href="#">Фрезеровка</a></li>
+                    <li><a href="#">Лазерная резка</a></li>
+                    <li><a href="#">Монтажные работы</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Продукция</h4>
+                <ul class="footer__links">
+                    <li><a href="#">Объемные буквы</a></li>
+                    <li><a href="#">Световые короба</a></li>
+                    <li><a href="#">Световые панели</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Компания</h4>
+                <ul class="footer__links">
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="equipment.html">Оборудование</a></li>
+                    <li><a href="blog.html">Блог</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Контакты</h4>
+                <ul class="footer__contacts">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z" stroke="currentColor" fill="none"/></svg><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 5.5l5.5 3.5 5.5-3.5M3 13h10a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0013 3H3a1.5 1.5 0 00-1.5 1.5v7A1.5 1.5 0 003 13z" stroke="currentColor" fill="none"/></svg><a href="mailto:info@narrativ.ru">info@narrativ.ru</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="footer__copyright">© 2026 Нарратив. Все права защищены.</div>
+            <div class="footer__legal">
+                <a href="privacy.html">Политика конфиденциальности</a>
+                <span class="footer__separator">•</span>
+                <a href="#">Карта сайта</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div class="modal" id="callbackModal">
+    <div class="modal__overlay" onclick="closeCallbackModal()"></div>
+    <div class="modal__content">
+        <button class="modal__close" onclick="closeCallbackModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <h3 class="modal__title">Заказать звонок</h3>
+        <p class="modal__subtitle">Оставьте свой номер, и мы перезвоним вам в течение 15 минут</p>
+        <form class="form" onsubmit="submitCallback(event)">
+            <div class="form__group"><input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required></div>
+            <div class="form__checkbox">
+                <input type="checkbox" id="agree-modal" required>
+                <label for="agree-modal">Согласен на обработку персональных данных</label>
+            </div>
+            <button type="submit" class="btn btn--primary btn--large">Заказать звонок</button>
+        </form>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результаты поиска — Нарратив</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inner-pages.css">
+    <style>
+        /* Search bar hero */
+        .search-hero {
+            padding: 140px 0 60px;
+            background: linear-gradient(180deg, rgba(0,196,184,.04) 0%, transparent 100%);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .search-hero__label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 16px;
+        }
+
+        .search-hero__title {
+            font-size: clamp(24px, 3vw, 40px);
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 32px;
+        }
+
+        .search-hero__title em {
+            font-style: normal;
+            color: var(--color-primary);
+        }
+
+        /* Big search bar */
+        .search-bar {
+            display: flex;
+            gap: 0;
+            max-width: 720px;
+        }
+
+        .search-bar__input {
+            flex: 1;
+            padding: 18px 24px;
+            background: rgba(255,255,255,.04);
+            border: 1.5px solid rgba(184,134,11,.3);
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+            color: #fff;
+            font-size: 16px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color .3s;
+        }
+
+        .search-bar__input:focus { border-color: var(--color-primary); }
+        .search-bar__input::placeholder { color: rgba(255,255,255,.25); }
+
+        .search-bar__btn {
+            padding: 18px 32px;
+            background: var(--color-primary);
+            border: 1.5px solid var(--color-primary);
+            border-radius: 0 10px 10px 0;
+            color: #000;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background .25s;
+            white-space: nowrap;
+        }
+
+        .search-bar__btn:hover { background: #00b3a8; }
+
+        .search-hero__meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: rgba(255,255,255,.35);
+        }
+
+        .search-hero__meta strong { color: #fff; }
+
+        /* Suggested queries */
+        .search-suggests {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .search-suggest {
+            padding: 6px 14px;
+            border: 1px solid rgba(184,134,11,.2);
+            border-radius: 100px;
+            font-size: 12px;
+            color: rgba(255,255,255,.45);
+            cursor: pointer;
+            transition: all .25s;
+            background: transparent;
+            font-family: inherit;
+        }
+
+        .search-suggest:hover {
+            border-color: rgba(184,134,11,.5);
+            color: #fff;
+            background: rgba(0,196,184,.06);
+        }
+
+        /* Layout */
+        .search-layout {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 48px;
+            align-items: start;
+        }
+
+        /* Filter sidebar */
+        .search-filters {
+            position: sticky;
+            top: 100px;
+        }
+
+        .search-filter-block {
+            padding: 22px 24px;
+            background: rgba(255,255,255,.02);
+            border: 1px solid rgba(184,134,11,.12);
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .search-filter-block__title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.35);
+            margin-bottom: 14px;
+        }
+
+        .filter-radio {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,.04);
+        }
+
+        .filter-radio:last-child { border-bottom: none; padding-bottom: 0; }
+        .filter-radio:first-child { padding-top: 0; }
+
+        .filter-radio input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 1.5px solid rgba(255,255,255,.2);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all .2s;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .filter-radio input[type="radio"]:checked {
+            border-color: var(--color-primary);
+            background: var(--color-primary);
+            box-shadow: inset 0 0 0 3px #000;
+        }
+
+        .filter-radio__label {
+            font-size: 13px;
+            color: rgba(255,255,255,.55);
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .filter-radio__count {
+            font-size: 12px;
+            color: rgba(255,255,255,.2);
+        }
+
+        /* Results toolbar */
+        .results-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .results-count {
+            font-size: 14px;
+            color: rgba(255,255,255,.4);
+        }
+
+        .results-count strong { color: #fff; font-size: 16px; }
+
+        .results-sort {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sort-label {
+            font-size: 12px;
+            color: rgba(255,255,255,.3);
+        }
+
+        .sort-select {
+            padding: 8px 14px;
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(184,134,11,.2);
+            border-radius: 6px;
+            color: rgba(255,255,255,.6);
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .sort-select option { background: #111; }
+
+        /* Result cards */
+        .result-card {
+            padding: 28px 28px 24px;
+            background: rgba(255,255,255,.02);
+            border: 1px solid rgba(184,134,11,.1);
+            border-radius: 10px;
+            margin-bottom: 16px;
+            display: flex;
+            gap: 24px;
+            transition: all .3s;
+            text-decoration: none;
+        }
+
+        .result-card:hover {
+            border-color: rgba(184,134,11,.4);
+            background: rgba(0,196,184,.02);
+            transform: translateX(4px);
+        }
+
+        .result-card__thumb {
+            width: 100px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #111;
+        }
+
+        .result-card__thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .result-card__body { flex: 1; min-width: 0; }
+
+        .result-card__type {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 100px;
+            margin-bottom: 8px;
+        }
+
+        .result-card__type--service  { background: rgba(0,196,184,.12); color: var(--color-primary); }
+        .result-card__type--product  { background: rgba(184,134,11,.12); color: #b8860b; }
+        .result-card__type--article  { background: rgba(255,255,255,.07); color: rgba(255,255,255,.5); }
+        .result-card__type--project  { background: rgba(120,80,200,.15); color: #c084fc; }
+
+        .result-card__title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+            line-height: 1.35;
+            transition: color .25s;
+        }
+
+        .result-card:hover .result-card__title { color: var(--color-primary); }
+
+        .result-card__title mark {
+            background: rgba(0,196,184,.2);
+            color: var(--color-primary);
+            border-radius: 3px;
+            padding: 0 2px;
+        }
+
+        .result-card__excerpt {
+            font-size: 14px;
+            color: rgba(255,255,255,.45);
+            line-height: 1.65;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .result-card__excerpt mark {
+            background: rgba(0,196,184,.15);
+            color: var(--color-primary);
+            border-radius: 2px;
+            padding: 0 2px;
+        }
+
+        .result-card__footer {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .result-card__url {
+            font-size: 12px;
+            color: rgba(255,255,255,.2);
+        }
+
+        .result-card__price {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .result-card__date {
+            font-size: 12px;
+            color: rgba(255,255,255,.25);
+        }
+
+        .result-card__arrow {
+            margin-left: auto;
+            color: var(--color-primary);
+            opacity: 0;
+            transition: opacity .3s, transform .3s;
+        }
+
+        .result-card:hover .result-card__arrow {
+            opacity: 1;
+            transform: translateX(4px);
+        }
+
+        /* No results */
+        .no-results {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .no-results__icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: rgba(255,255,255,.2);
+        }
+
+        .no-results__title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .no-results__text {
+            font-size: 15px;
+            color: rgba(255,255,255,.4);
+            max-width: 400px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+
+        /* Pagination */
+        .results-pagination {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 48px;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(184,134,11,.15);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,.4);
+            cursor: pointer;
+            background: transparent;
+            font-family: inherit;
+            transition: all .25s;
+        }
+
+        .page-btn:hover, .page-btn.active {
+            background: rgba(0,196,184,.1);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .page-btn--wide { width: auto; padding: 0 16px; }
+
+        /* Popular searches */
+        .popular-block {
+            padding: 24px;
+            background: rgba(255,255,255,.02);
+            border: 1px solid rgba(184,134,11,.12);
+            border-radius: 8px;
+        }
+
+        .popular-block__title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.3);
+            margin-bottom: 16px;
+        }
+
+        .popular-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,.04);
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .popular-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .popular-item:first-child { padding-top: 0; }
+
+        .popular-item:hover .popular-item__query { color: var(--color-primary); }
+
+        .popular-item__query {
+            font-size: 13px;
+            color: rgba(255,255,255,.55);
+            transition: color .2s;
+        }
+
+        .popular-item__count {
+            font-size: 11px;
+            color: rgba(255,255,255,.2);
+        }
+
+        @media (max-width: 1024px) {
+            .search-layout { grid-template-columns: 1fr; }
+            .search-filters { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+            .search-filter-block { margin-bottom: 0; }
+        }
+
+        @media (max-width: 640px) {
+            .result-card { flex-direction: column; gap: 16px; }
+            .result-card__thumb { width: 100%; height: 160px; }
+            .search-bar { flex-direction: column; }
+            .search-bar__input { border-right: 1.5px solid rgba(184,134,11,.3); border-radius: 10px; }
+            .search-bar__btn { border-radius: 10px; justify-content: center; }
+            .search-filters { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header" id="header">
+    <div class="header__container">
+        <div class="header__logo">
+            <a href="index.html"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></a>
+        </div>
+        <nav class="header__nav">
+            <ul class="nav__menu">
+                <li><a href="index.html" class="nav__link">Главная</a></li>
+                <li class="nav__dropdown">
+                    <a href="uslugi.html" class="nav__link">Услуги <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="service.html">Изготовление вывесок</a></li>
+                        <li><a href="#">Фрезеровка</a></li>
+                        <li><a href="#">Лазерная резка</a></li>
+                    </ul>
+                </li>
+                <li class="nav__dropdown">
+                    <a href="catalog.html" class="nav__link">Продукция <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="catalog-cat.html">Объемные буквы</a></li>
+                        <li><a href="#">Световые короба</a></li>
+                    </ul>
+                </li>
+                <li><a href="portfolio.html" class="nav__link">Портфолио</a></li>
+                <li class="nav__dropdown">
+                    <a href="about.html" class="nav__link">О компании <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                    </ul>
+                </li>
+                <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="header__contacts">
+            <a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a>
+            <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+        </div>
+        <button class="burger" id="burger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-menu__nav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="uslugi.html">Услуги</a></li>
+            <li><a href="catalog.html">Продукция</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="about.html">О компании</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+        <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+    </nav>
+</div>
+
+<!-- Search hero -->
+<section class="search-hero">
+    <div class="container">
+        <div class="page-hero__breadcrumb" style="margin-bottom:20px;">
+            <a href="index.html">Главная</a><span>›</span><span>Поиск</span>
+        </div>
+        <div class="search-hero__label">Поиск по сайту</div>
+        <h1 class="search-hero__title">Результаты поиска по запросу <em id="queryDisplay">«объёмные буквы»</em></h1>
+
+        <div class="search-bar">
+            <input type="text" class="search-bar__input" id="mainSearchInput" value="объёмные буквы" placeholder="Найти услугу, товар или статью..." onkeydown="if(event.key==='Enter') doSearch()">
+            <button class="search-bar__btn" onclick="doSearch()">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.8"/><path d="M13 13l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                Найти
+            </button>
+        </div>
+
+        <div class="search-hero__meta">Найдено <strong id="totalCount">14</strong> результатов за <strong>0.08</strong> сек.</div>
+
+        <div class="search-suggests">
+            <span class="search-suggest" onclick="setQuery('световые буквы')">световые буквы</span>
+            <span class="search-suggest" onclick="setQuery('вывеска на заказ')">вывеска на заказ</span>
+            <span class="search-suggest" onclick="setQuery('лазерная резка')">лазерная резка</span>
+            <span class="search-suggest" onclick="setQuery('неон')">неон</span>
+            <span class="search-suggest" onclick="setQuery('световой короб')">световой короб</span>
+            <span class="search-suggest" onclick="setQuery('монтаж вывески')">монтаж вывески</span>
+        </div>
+    </div>
+</section>
+
+<!-- Results -->
+<section class="section section--dark">
+    <div class="container">
+        <div class="search-layout">
+
+            <!-- Main results -->
+            <div>
+                <!-- Toolbar -->
+                <div class="results-toolbar">
+                    <div class="results-count">Показано <strong>1–10</strong> из <strong>14</strong></div>
+                    <div class="results-sort">
+                        <span class="sort-label">Сортировка:</span>
+                        <select class="sort-select">
+                            <option>По релевантности</option>
+                            <option>Сначала услуги</option>
+                            <option>Сначала товары</option>
+                            <option>Сначала статьи</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div id="resultsContainer">
+
+                    <!-- Result 1 - Product -->
+                    <a href="product.html" class="result-card">
+                        <div class="result-card__thumb">
+                            <img src="Продукция/Объемные буквы.jpeg" alt="" onerror="this.parentElement.style.background='#111'">
+                        </div>
+                        <div class="result-card__body">
+                            <span class="result-card__type result-card__type--product">Товар</span>
+                            <div class="result-card__title">Акриловые <mark>объёмные буквы</mark> с торцевой LED-подсветкой</div>
+                            <div class="result-card__excerpt">Молочный или цветной акрил, LED-лента Samsung 2835. Равномерное свечение по торцу, <mark>объёмные буквы</mark> любого шрифта и размера. Гарантия 1 год.</div>
+                            <div class="result-card__footer">
+                                <span class="result-card__url">narrativ.ru/catalog/obyomnye-bukvy/akrilovye</span>
+                                <span class="result-card__price">от 1 800 ₽/буква</span>
+                                <span class="result-card__arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Result 2 - Service -->
+                    <a href="service.html" class="result-card">
+                        <div class="result-card__thumb">
+                            <img src="мост/Реализация.png" alt="" onerror="this.parentElement.style.background='#111'">
+                        </div>
+                        <div class="result-card__body">
+                            <span class="result-card__type result-card__type--service">Услуга</span>
+                            <div class="result-card__title">Изготовление вывесок с <mark>объёмными буквами</mark> на заказ</div>
+                            <div class="result-card__excerpt">Полный цикл: замер, дизайн, производство, монтаж. <mark>Объёмные буквы</mark> из акрила, металла, ПВХ. Срок от 3 дней. Бесплатный расчёт.</div>
+                            <div class="result-card__footer">
+                                <span class="result-card__url">narrativ.ru/uslugi/izgotovlenie-vyivesok</span>
+                                <span class="result-card__arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Result 3 - Category -->
+                    <a href="catalog-cat.html" class="result-card">
+                        <div class="result-card__thumb">
+                            <img src="Продукция/Объемные буквы.jpeg" alt="" style="filter:hue-rotate(30deg)" onerror="this.parentElement.style.background='#111'">
+                        </div>
+                        <div class="result-card__body">
+                            <span class="result-card__type result-card__type--product">Каталог</span>
+                            <div class="result-card__title"><mark>Объёмные буквы</mark> — каталог продукции</div>
+                            <div class="result-card__excerpt">24 варианта <mark>объёмных букв</mark>: из акрила, нержавейки, алюминия, ПВХ, дерева. Торцевая, прямая и контражурная подсветка. Фильтры по материалу и применению.</div>
+                            <div class="result-card__footer">
+                                <span class="result-card__url">narrativ.ru/catalog/obyomnye-bukvy</span>
+                                <span class="result-card__price">от 500 ₽/буква</span>
+                                <span class="result-card__arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Result 4 - Article -->
+                    <a href="blog-article.html" class="result-card">
+                        <div class="result-card__thumb">
+                            <img src="Имиджевые блоки для слайдера/лазерная резка.webp" alt="" onerror="this.parentElement.style.background='#111'">
+                        </div>
+                        <div class="result-card__body">
+                            <span class="result-card__type result-card__type--article">Статья</span>
+                            <div class="result-card__title">Акрил или ПВХ для <mark>объёмных букв</mark>: в чём разница</div>
+                            <div class="result-card__excerpt">Сравниваем два главных материала для производства <mark>объёмных букв</mark>: долговечность, стоимость, поведение при разных температурах.</div>
+                            <div class="result-card__footer">
+                                <span class="result-card__url">narrativ.ru/blog/akril-ili-pvh</span>
+                                <span class="result-card__date">20 января 2026</span>
+                                <span class="result-card__arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Result 5 - Portfolio -->
+                    <a href="portfolio-project.html" class="result-card">
+                        <div class="result-card__thumb">
+                            <img src="мост/Реализация.png" alt="" style="filter:brightness(.85)" onerror="this.parentElement.style.background='#111'">
+                        </div>
+                        <div class="result-card__body">
+                            <span class="result-card__type result-card__type--project">Портфолио</span>
+                            <div class="result-card__title">Кейс: <mark>объёмные буквы</mark> для сети кофеен «Бодрость» — 12 точек</div>
+                            <div class="result-card__excerpt">Изготовление и монтаж <mark>объёмных букв</mark> из акрила с торцевой подсветкой для 12 кофеен Москвы и МО за 14 рабочих дней.</div>
+                            <div class="result-card__footer">
+                                <span class="result-card__url">narrativ.ru/portfolio/bodrost</span>
+                                <span class="result-card__date">2025 год</span>
+                                <span class="result-card__arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Result 6 - Product -->
+                    <a href="product.html" class="result-card">
+                        <div class="result-card__thumb">
+                            <img src="Продукция/Объемные буквы.jpeg" alt="" style="filter:hue-rotate(180deg) brightness(.9)" onerror="this.parentElement.style.background='#111'">
+                        </div>
+                        <div class="result-card__body">
+                            <span class="result-card__type result-card__type--product">Товар</span>
+                            <div class="result-card__title"><mark>Объёмные буквы</mark> из нержавеющей стали с гало-подсветкой</div>
+                            <div class="result-card__excerpt">Полированная или матовая нержавейка с контражурной подсветкой. Ореол на стене. Срок службы 15+ лет, защита от коррозии и вандализма.</div>
+                            <div class="result-card__footer">
+                                <span class="result-card__url">narrativ.ru/catalog/obyomnye-bukvy/nerzhaveyushchaya-stal</span>
+                                <span class="result-card__price">от 4 200 ₽/буква</span>
+                                <span class="result-card__arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Result 7 - Article -->
+                    <a href="blog-article.html" class="result-card">
+                        <div class="result-card__thumb" style="background:#111; display:flex; align-items:center; justify-content:center;">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="opacity:.3"><path d="M6 8h20M6 14h14M6 20h18M6 26h10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+                        </div>
+                        <div class="result-card__body">
+                            <span class="result-card__type result-card__type--article">Статья</span>
+                            <div class="result-card__title">Лазерная резка vs фрезеровка при производстве <mark>объёмных букв</mark></div>
+                            <div class="result-card__excerpt">Когда использовать лазер, а когда фрезу — подробное сравнение технологий с примерами из производства <mark>объёмных букв</mark>.</div>
+                            <div class="result-card__footer">
+                                <span class="result-card__url">narrativ.ru/blog/lazer-vs-freza</span>
+                                <span class="result-card__date">19 февраля 2026</span>
+                                <span class="result-card__arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Result 8 - FAQ -->
+                    <a href="faq.html" class="result-card">
+                        <div class="result-card__thumb" style="background:rgba(0,196,184,.06); border:1px solid rgba(0,196,184,.15); display:flex; align-items:center; justify-content:center;">
+                            <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="14" stroke="#00c4b8" stroke-width="1.5"/><path d="M18 26v-9.5A2.5 2.5 0 0120.5 14" stroke="#00c4b8" stroke-width="1.5" stroke-linecap="round"/><circle cx="18" cy="28.5" r="1" fill="#00c4b8"/></svg>
+                        </div>
+                        <div class="result-card__body">
+                            <span class="result-card__type result-card__type--article">FAQ</span>
+                            <div class="result-card__title">Часто задаваемые вопросы об <mark>объёмных буквах</mark></div>
+                            <div class="result-card__excerpt">Сколько стоят <mark>объёмные буквы</mark>? Какой минимальный размер? Сколько прослужат? Можно ли согласовать вывеску самостоятельно? — отвечаем на всё.</div>
+                            <div class="result-card__footer">
+                                <span class="result-card__url">narrativ.ru/faq#obyomnye-bukvy</span>
+                                <span class="result-card__arrow"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+
+                <!-- Pagination -->
+                <div class="results-pagination">
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn page-btn--wide">Следующая →</button>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="search-filters">
+                <div class="search-filter-block">
+                    <div class="search-filter-block__title">Раздел сайта</div>
+                    <label class="filter-radio"><input type="radio" name="section" checked><span class="filter-radio__label">Все разделы</span><span class="filter-radio__count">14</span></label>
+                    <label class="filter-radio"><input type="radio" name="section"><span class="filter-radio__label">Товары</span><span class="filter-radio__count">6</span></label>
+                    <label class="filter-radio"><input type="radio" name="section"><span class="filter-radio__label">Услуги</span><span class="filter-radio__count">2</span></label>
+                    <label class="filter-radio"><input type="radio" name="section"><span class="filter-radio__label">Статьи</span><span class="filter-radio__count">3</span></label>
+                    <label class="filter-radio"><input type="radio" name="section"><span class="filter-radio__label">Портфолио</span><span class="filter-radio__count">2</span></label>
+                    <label class="filter-radio"><input type="radio" name="section"><span class="filter-radio__label">FAQ</span><span class="filter-radio__count">1</span></label>
+                </div>
+
+                <div class="popular-block">
+                    <div class="popular-block__title">Популярные запросы</div>
+                    <div class="popular-item" onclick="setQuery('световые короба')">
+                        <span class="popular-item__query">световые короба</span>
+                        <span class="popular-item__count">↑ 324</span>
+                    </div>
+                    <div class="popular-item" onclick="setQuery('объёмные буквы')">
+                        <span class="popular-item__query">объёмные буквы</span>
+                        <span class="popular-item__count">↑ 289</span>
+                    </div>
+                    <div class="popular-item" onclick="setQuery('вывеска на заказ')">
+                        <span class="popular-item__query">вывеска на заказ</span>
+                        <span class="popular-item__count">↑ 241</span>
+                    </div>
+                    <div class="popular-item" onclick="setQuery('неон')">
+                        <span class="popular-item__query">неон</span>
+                        <span class="popular-item__count">↑ 188</span>
+                    </div>
+                    <div class="popular-item" onclick="setQuery('лазерная резка')">
+                        <span class="popular-item__query">лазерная резка</span>
+                        <span class="popular-item__count">↑ 152</span>
+                    </div>
+                    <div class="popular-item" onclick="setQuery('фрезеровка')">
+                        <span class="popular-item__query">фрезеровка</span>
+                        <span class="popular-item__count">↑ 94</span>
+                    </div>
+                </div>
+
+                <div style="margin-top:16px; padding:24px; background:rgba(0,196,184,.04); border:1px solid rgba(0,196,184,.2); border-radius:8px; text-align:center;">
+                    <div style="font-size:13px; color:rgba(255,255,255,.5); line-height:1.65; margin-bottom:16px;">Не нашли нужное? Наш менеджер ответит на любой вопрос.</div>
+                    <button class="btn btn--primary" style="width:100%; font-size:14px;" onclick="openCallbackModal()">Задать вопрос</button>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__column footer__column--brand">
+                <div class="footer__logo"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></div>
+                <p class="footer__description">Производство наружной и интерьерной рекламы. Полный цикл — от идеи до монтажа.</p>
+            </div>
+            <div class="footer__column"><h4 class="footer__heading">Услуги</h4><ul class="footer__links"><li><a href="service.html">Изготовление вывесок</a></li><li><a href="#">Фрезеровка</a></li><li><a href="#">Лазерная резка</a></li></ul></div>
+            <div class="footer__column"><h4 class="footer__heading">Продукция</h4><ul class="footer__links"><li><a href="catalog-cat.html">Объемные буквы</a></li><li><a href="#">Световые короба</a></li></ul></div>
+            <div class="footer__column"><h4 class="footer__heading">Компания</h4><ul class="footer__links"><li><a href="about.html">О нас</a></li><li><a href="portfolio.html">Портфолио</a></li><li><a href="blog.html">Блог</a></li></ul></div>
+            <div class="footer__column"><h4 class="footer__heading">Контакты</h4><ul class="footer__contacts"><li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z" stroke="currentColor" fill="none"/></svg><a href="tel:+74951234567">+7 (495) 123-45-67</a></li></ul></div>
+        </div>
+        <div class="footer__bottom">
+            <div class="footer__copyright">© 2026 Нарратив. Все права защищены.</div>
+            <div class="footer__legal"><a href="privacy.html">Политика конфиденциальности</a></div>
+        </div>
+    </div>
+</footer>
+
+<div class="modal" id="callbackModal">
+    <div class="modal__overlay" onclick="closeCallbackModal()"></div>
+    <div class="modal__content">
+        <button class="modal__close" onclick="closeCallbackModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <h3 class="modal__title">Заказать звонок</h3>
+        <p class="modal__subtitle">Оставьте свой номер, и мы перезвоним в течение 15 минут</p>
+        <form class="form" onsubmit="submitCallback(event)">
+            <div class="form__group"><input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required></div>
+            <div class="form__checkbox"><input type="checkbox" id="agree-modal" required><label for="agree-modal">Согласен на обработку персональных данных</label></div>
+            <button type="submit" class="btn btn--primary btn--large">Заказать звонок</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    function doSearch() {
+        const q = document.getElementById('mainSearchInput').value.trim();
+        if (q) {
+            document.getElementById('queryDisplay').textContent = '«' + q + '»';
+        }
+    }
+
+    function setQuery(q) {
+        document.getElementById('mainSearchInput').value = q;
+        document.getElementById('queryDisplay').textContent = '«' + q + '»';
+    }
+</script>
+</body>
+</html>

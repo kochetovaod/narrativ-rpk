@@ -1,0 +1,112 @@
+/* ==========================================
+   Modal (Callback)
+   ========================================== */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+}
+
+.modal__content {
+    position: relative;
+    background: var(--color-bg-footer);
+    padding: 50px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    border: 1px solid rgba(184, 134, 11, 0.3);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-white);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.modal__close:hover {
+    color: var(--color-primary);
+    transform: rotate(90deg);
+}
+
+.modal__title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.modal__subtitle {
+    font-size: 14px;
+    color: var(--color-text-dim);
+    margin-bottom: 30px;
+}
+
+/* Success Modal */
+.modal--success .modal__content {
+    text-align: center;
+}
+
+.modal__icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(0, 196, 184, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    color: var(--color-primary);
+}
+
+.modal__message {
+    font-size: 16px;
+    color: var(--color-text-dim);
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .modal__content {
+        padding: 30px 20px;
+    }
+
+    .modal__title {
+        font-size: 24px;
+    }
+}

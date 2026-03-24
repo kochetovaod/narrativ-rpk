@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Объёмные буквы — каталог продукции — Нарратив</title>
+    <meta name="description" content="Объёмные буквы из акрила, металла и пластика на заказ. Торцевая, прямая и контражурная подсветка. Расчёт стоимости — бесплатно.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inner-pages.css">
+    <style>
+        /* ===== PRODUCT GRID ===== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .product-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(184,134,11,0.12);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.35s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            border-color: rgba(184,134,11,0.5);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 48px rgba(0,0,0,0.4);
+        }
+
+        .product-card__image {
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            background: #0c0c0c;
+            position: relative;
+        }
+
+        .product-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-card__image img {
+            transform: scale(1.06);
+        }
+
+        .product-card__labels {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .product-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 100px;
+        }
+
+        .product-label--new {
+            background: var(--color-primary);
+            color: #000;
+        }
+
+        .product-label--popular {
+            background: rgba(184,134,11,0.9);
+            color: #000;
+        }
+
+        .product-card__quick {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: all 0.3s;
+        }
+
+        .product-card:hover .product-card__quick {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quick-view-btn {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 7px 14px;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid rgba(184,134,11,0.4);
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .quick-view-btn:hover {
+            background: var(--color-primary);
+            color: #000;
+            border-color: var(--color-primary);
+        }
+
+        .product-card__body {
+            padding: 22px 24px 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card__type {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .product-card__title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+
+        .product-card__desc {
+            font-size: 13px;
+            color: var(--color-text-dim);
+            line-height: 1.65;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+
+        .product-card__params {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .param-tag {
+            font-size: 11px;
+            color: rgba(255,255,255,0.45);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            padding: 4px 8px;
+        }
+
+        .product-card__footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .product-card__price {
+            font-size: 13px;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .product-card__price strong {
+            display: block;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .product-card__order {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.3s;
+        }
+
+        .product-card:hover .product-card__order { gap: 10px; }
+
+        /* ===== FILTERS SIDEBAR ===== */
+        .cat-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .filters-panel {
+            position: sticky;
+            top: 100px;
+        }
+
+        .filter-block {
+            padding: 22px 24px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(184,134,11,0.12);
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .filter-block__title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .filter-block__title span {
+            font-size: 14px;
+            color: rgba(255,255,255,0.2);
+            font-weight: 400;
+            letter-spacing: 0;
+            transition: transform 0.3s;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-option:hover .filter-option__label { color: #fff; }
+
+        .filter-option input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .filter-option input[type="checkbox"]:checked {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .filter-option input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 9px;
+            border: 2px solid #000;
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+        }
+
+        .filter-option__label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.55);
+            transition: color 0.2s;
+            flex: 1;
+        }
+
+        .filter-option__count {
+            font-size: 12px;
+            color: rgba(255,255,255,0.2);
+        }
+
+        .filter-range {
+            margin-top: 8px;
+        }
+
+        .filter-range input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .filter-range input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            cursor: pointer;
+        }
+
+        .filter-range__labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+            margin-top: 8px;
+        }
+
+        .filter-apply-btn {
+            width: 100%;
+            padding: 13px;
+            background: transparent;
+            border: 1px solid rgba(184,134,11,0.3);
+            border-radius: 6px;
+            color: var(--color-primary);
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 4px;
+        }
+
+        .filter-apply-btn:hover {
+            background: rgba(0,196,184,0.08);
+            border-color: var(--color-primary);
+        }
+
+        /* Toolbar */
+        .cat-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .cat-toolbar__count {
+            font-size: 14px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .cat-toolbar__count strong {
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .cat-toolbar__right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .sort-select {
+            padding: 9px 16px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(184,134,11,0.2);
+            border-radius: 6px;
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+            font-family: inherit;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .sort-select option { background: #111; }
+
+        .view-toggle {
+            display: flex;
+            gap: 4px;
+        }
+
+        .view-btn {
+            width: 36px;
+            height: 36px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: rgba(255,255,255,0.3);
+            transition: all 0.2s;
+        }
+
+        .view-btn.active, .view-btn:hover {
+            background: rgba(0,196,184,0.08);
+            border-color: rgba(184,134,11,0.4);
+            color: var(--color-primary);
+        }
+
+        /* ===== CATEGORY INTRO ===== */
+        .cat-intro {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 0;
+        }
+
+        .cat-intro__features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .cat-feature {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 16px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            border: 1px solid rgba(184,134,11,0.1);
+        }
+
+        .cat-feature__icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(0,196,184,0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--color-primary);
+        }
+
+        .cat-feature__title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .cat-feature__text {
+            font-size: 12px;
+            color: var(--color-text-dim);
+            line-height: 1.5;
+        }
+
+        /* ===== LIGHT TYPES ===== */
+        .light-types {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .light-type-card {
+            padding: 28px 20px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(184,134,11,0.12);
+            border-radius: 10px;
+            text-align: center;
+            cursor: default;
+            transition: all 0.3s;
+        }
+
+        .light-type-card:hover {
+            border-color: rgba(184,134,11,0.4);
+            background: rgba(0,196,184,0.03);
+        }
+
+        .light-type-card__icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .light-type-card__title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .light-type-card__desc {
+            font-size: 12px;
+            color: var(--color-text-dim);
+            line-height: 1.6;
+        }
+
+        /* ===== QUICK VIEW MODAL ===== */
+        .quick-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+        }
+
+        .quick-modal.open { display: flex; }
+
+        .quick-modal__overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(6px);
+        }
+
+        .quick-modal__box {
+            position: relative;
+            z-index: 1;
+            margin: auto;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #0f0f0f;
+            border: 1px solid rgba(184,134,11,0.3);
+            border-radius: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .quick-modal__img {
+            border-radius: 16px 0 0 16px;
+            overflow: hidden;
+            min-height: 400px;
+            background: #111;
+        }
+
+        .quick-modal__img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .quick-modal__info {
+            padding: 40px 36px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quick-modal__close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            border-radius: 50%;
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .quick-modal__close:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        .quick-modal__type { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 10px; }
+        .quick-modal__title { font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 14px; line-height: 1.25; }
+        .quick-modal__desc { font-size: 14px; color: var(--color-text-dim); line-height: 1.7; margin-bottom: 24px; flex: 1; }
+
+        .quick-modal__specs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px; }
+        .quick-spec { padding: 10px 14px; background: rgba(0,0,0,0.4); border-radius: 6px; }
+        .quick-spec__label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); margin-bottom: 4px; }
+        .quick-spec__val { font-size: 13px; font-weight: 600; color: #fff; }
+
+        .quick-modal__price { margin-bottom: 20px; }
+        .quick-modal__price-from { font-size: 12px; color: rgba(255,255,255,0.3); }
+        .quick-modal__price-val { font-size: 28px; font-weight: 700; color: #fff; }
+        .quick-modal__price-unit { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+        @media (max-width: 1200px) {
+            .cat-layout { grid-template-columns: 1fr; }
+            .filters-panel { position: static; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .filter-block { margin-bottom: 0; }
+            .light-types { grid-template-columns: repeat(2, 1fr); }
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .cat-intro { grid-template-columns: 1fr; }
+            .cat-intro__features { grid-template-columns: 1fr; }
+            .product-grid { grid-template-columns: 1fr; }
+            .light-types { grid-template-columns: 1fr 1fr; }
+            .quick-modal__box { grid-template-columns: 1fr; max-width: 420px; }
+            .quick-modal__img { min-height: 240px; border-radius: 16px 16px 0 0; }
+            .filters-panel { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header" id="header">
+    <div class="header__container">
+        <div class="header__logo">
+            <a href="index.html"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></a>
+        </div>
+        <nav class="header__nav">
+            <ul class="nav__menu">
+                <li><a href="index.html" class="nav__link">Главная</a></li>
+                <li class="nav__dropdown">
+                    <a href="uslugi.html" class="nav__link">Услуги <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="#">Изготовление вывесок</a></li>
+                        <li><a href="#">Фрезеровка</a></li>
+                        <li><a href="#">Лазерная резка</a></li>
+                        <li><a href="#">Монтажные работы</a></li>
+                    </ul>
+                </li>
+                <li class="nav__dropdown">
+                    <a href="catalog.html" class="nav__link" style="color:var(--color-primary)">Продукция <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="catalog-cat.html" style="color:var(--color-primary)">Объемные буквы</a></li>
+                        <li><a href="#">Световые короба</a></li>
+                        <li><a href="#">Световые панели</a></li>
+                        <li><a href="#">Неон</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="nav__link">Портфолио</a></li>
+                <li class="nav__dropdown">
+                    <a href="about.html" class="nav__link">О компании <span class="arrow">▼</span></a>
+                    <ul class="dropdown__menu">
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="equipment.html">Оборудование</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </li>
+                <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="header__contacts">
+            <a href="tel:+74951234567" class="header__phone">+7 (495) 123-45-67</a>
+            <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+        </div>
+        <button class="burger" id="burger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-menu__nav">
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="uslugi.html">Услуги</a></li>
+            <li><a href="catalog.html">Продукция</a></li>
+            <li><a href="about.html">О компании</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+        <button class="btn btn--primary" onclick="openCallbackModal()">Заказать звонок</button>
+    </nav>
+</div>
+
+<!-- Hero -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero__breadcrumb">
+            <a href="index.html">Главная</a><span>›</span>
+            <a href="catalog.html">Каталог</a><span>›</span>
+            <span>Объёмные буквы</span>
+        </div>
+        <div class="section-label">Каталог продукции</div>
+        <h1 class="page-hero__title">Объёмные буквы</h1>
+        <p class="page-hero__subtitle">Изготовление на собственном производстве. Любые шрифты, размеры и материалы. Подсветка, монтаж, гарантия 1 год.</p>
+    </div>
+</section>
+
+<!-- Category intro -->
+<section class="section section--dark" style="padding-bottom:60px;">
+    <div class="container">
+        <div class="cat-intro">
+            <div>
+                <div class="section-label">О категории</div>
+                <h2 style="font-size:34px; font-weight:700; color:#fff; line-height:1.25; margin-bottom:20px;">Буквы, которые работают<br>на ваш бренд</h2>
+                <p style="font-size:15px; color:var(--color-text-dim); line-height:1.8; margin-bottom:16px;">Объёмные буквы — это классика наружной рекламы, которая не теряет актуальности. Они читаются днём и ночью, работают на узнаваемость бренда и вписываются в любую архитектуру.</p>
+                <p style="font-size:15px; color:var(--color-text-dim); line-height:1.8; margin-bottom:28px;">Мы делаем буквы полного цикла: от разработки дизайна и согласования с владельцем здания до монтажа и гарантийного обслуживания.</p>
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <button class="btn btn--primary" onclick="openCallbackModal()">Рассчитать стоимость</button>
+                    <a href="#catalog" class="btn btn--outline">Смотреть каталог</a>
+                </div>
+            </div>
+            <div class="cat-intro__features">
+                <div class="cat-feature">
+                    <div class="cat-feature__icon">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l1.5 4.5H16l-3.7 2.7 1.4 4.3-3.7-2.7-3.7 2.7 1.4-4.3L4 6.5h4.5L10 2z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div>
+                        <div class="cat-feature__title">Любой материал</div>
+                        <div class="cat-feature__text">Акрил, металл, ПВХ, дерево — выбираем под ваш бюджет и задачу</div>
+                    </div>
+                </div>
+                <div class="cat-feature">
+                    <div class="cat-feature__icon">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.4"/><path d="M10 6v4l3 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                    </div>
+                    <div>
+                        <div class="cat-feature__title">Срок от 3 дней</div>
+                        <div class="cat-feature__text">Срочные заказы принимаем, производство собственное</div>
+                    </div>
+                </div>
+                <div class="cat-feature">
+                    <div class="cat-feature__icon">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div>
+                        <div class="cat-feature__title">Гарантия 1 год</div>
+                        <div class="cat-feature__text">На всю продукцию, включая LED-подсветку и монтаж</div>
+                    </div>
+                </div>
+                <div class="cat-feature">
+                    <div class="cat-feature__icon">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10h14M10 3l7 7-7 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div>
+                        <div class="cat-feature__title">Монтаж «под ключ»</div>
+                        <div class="cat-feature__text">Выезд, замер, согласование, монтаж — всё включено</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Light types -->
+<section class="section section--gray">
+    <div class="container">
+        <div class="section-label">Варианты подсветки</div>
+        <h2 class="section-title" style="margin-bottom:40px;">Типы освещения</h2>
+        <div class="light-types">
+            <div class="light-type-card">
+                <div class="light-type-card__icon" style="background:rgba(0,196,184,0.08);">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="12" width="24" height="8" rx="4" stroke="#00c4b8" stroke-width="1.8"/><path d="M10 8v3M16 6v3M22 8v3M10 21v3M16 22v3M22 21v3" stroke="#00c4b8" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div class="light-type-card__title">Торцевая подсветка</div>
+                <div class="light-type-card__desc">LED-лента скрыта внутри буквы. Свет выходит по торцу. Эффект мягкого свечения профиля.</div>
+            </div>
+            <div class="light-type-card">
+                <div class="light-type-card__icon" style="background:rgba(184,134,11,0.08);">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 6v4M8.93 9.93l2.83 2.83M6 17h4M8.93 24.07l2.83-2.83M16 22v4M23.07 24.07l-2.83-2.83M26 17h-4M23.07 9.93l-2.83 2.83" stroke="#b8860b" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="17" r="4" stroke="#b8860b" stroke-width="1.5"/></svg>
+                </div>
+                <div class="light-type-card__title">Прямая подсветка</div>
+                <div class="light-type-card__desc">Лицевая сторона буквы прозрачная или молочная, LED светит прямо через неё.</div>
+            </div>
+            <div class="light-type-card">
+                <div class="light-type-card__icon" style="background:rgba(255,255,255,0.04);">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="10" width="24" height="12" rx="3" stroke="white" stroke-width="1.5" stroke-opacity=".4"/><path d="M16 22v6M10 28h12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-opacity=".4"/><path d="M8 10c0-4 3.5-7 8-7s8 3 8 7" stroke="#00c4b8" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div class="light-type-card__title">Контражурная</div>
+                <div class="light-type-card__desc">Буква непрозрачная, подсветка направлена на стену за ней. Создаёт ореол-гало вокруг знака.</div>
+            </div>
+            <div class="light-type-card">
+                <div class="light-type-card__icon" style="background:rgba(255,255,255,0.03);">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="12" rx="2" stroke="white" stroke-width="1.5" stroke-opacity=".3"/><path d="M6 16h20" stroke="white" stroke-width="1.2" stroke-opacity=".2"/></svg>
+                </div>
+                <div class="light-type-card__title">Без подсветки</div>
+                <div class="light-type-card__desc">Классическое решение для интерьеров или бюджетных проектов. Хорошо работает при хорошем внешнем освещении.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Catalog with filters -->
+<section class="section section--dark" id="catalog">
+    <div class="container">
+        <div class="section-label">Товары раздела</div>
+        <h2 class="section-title" style="margin-bottom:40px;">Каталог объёмных букв</h2>
+
+        <div class="cat-layout">
+            <!-- Filters -->
+            <aside class="filters-panel">
+                <div class="filter-block">
+                    <div class="filter-block__title" onclick="toggleFilter(this)">Материал <span>▾</span></div>
+                    <div class="filter-block__body">
+                        <label class="filter-option"><input type="checkbox" checked><span class="filter-option__label">Акрил</span><span class="filter-option__count">18</span></label>
+                        <label class="filter-option"><input type="checkbox"><span class="filter-option__label">Металл (нержавейка)</span><span class="filter-option__count">7</span></label>
+                        <label class="filter-option"><input type="checkbox"><span class="filter-option__label">Алюминий</span><span class="filter-option__count">9</span></label>
+                        <label class="filter-option"><input type="checkbox"><span class="filter-option__label">ПВХ</span><span class="filter-option__count">6</span></label>
+                        <label class="filter-option"><input type="checkbox"><span class="filter-option__label">Дерево/МДФ</span><span class="filter-option__count">4</span></label>
+                    </div>
+                </div>
+                <div class="filter-block">
+                    <div class="filter-block__title" onclick="toggleFilter(this)">Подсветка <span>▾</span></div>
+                    <div class="filter-block__body">
+                        <label class="filter-option"><input type="checkbox" checked><span class="filter-option__label">Торцевая</span><span class="filter-option__count">12</span></label>
+                        <label class="filter-option"><input type="checkbox"><span class="filter-option__label">Прямая</span><span class="filter-option__count">9</span></label>
+                        <label class="filter-option"><input type="checkbox"><span class="filter-option__label">Контражурная</span><span class="filter-option__count">5</span></label>
+                        <label class="filter-option"><input type="checkbox"><span class="filter-option__label">Без подсветки</span><span class="filter-option__count">8</span></label>
+                    </div>
+                </div>
+                <div class="filter-block">
+                    <div class="filter-block__title" onclick="toggleFilter(this)">Применение <span>▾</span></div>
+                    <div class="filter-block__body">
+                        <label class="filter-option"><input type="checkbox"><span class="filter-option__label">Наружная реклама</span><span class="filter-option__count">24</span></label>
+                        <label class="filter-option"><input type="checkbox"><span class="filter-option__label">Интерьер</span><span class="filter-option__count">14</span></label>
+                        <label class="filter-option"><input type="checkbox"><span class="filter-option__label">Фасад здания</span><span class="filter-option__count">10</span></label>
+                    </div>
+                </div>
+                <div class="filter-block">
+                    <div class="filter-block__title" onclick="toggleFilter(this)">Цена (за букву) <span>▾</span></div>
+                    <div class="filter-block__body">
+                        <div class="filter-range">
+                            <input type="range" min="500" max="15000" value="8000" id="priceRange" oninput="updatePriceLabel(this.value)">
+                            <div class="filter-range__labels">
+                                <span>от 500 ₽</span>
+                                <span id="priceLabel">до 8 000 ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="filter-apply-btn">Применить фильтры</button>
+            </aside>
+
+            <!-- Products -->
+            <div>
+                <div class="cat-toolbar">
+                    <div class="cat-toolbar__count">Найдено: <strong>24</strong> товара</div>
+                    <div class="cat-toolbar__right">
+                        <select class="sort-select">
+                            <option>По популярности</option>
+                            <option>По цене: дешевле</option>
+                            <option>По цене: дороже</option>
+                            <option>Сначала новые</option>
+                        </select>
+                        <div class="view-toggle">
+                            <button class="view-btn active" title="Сетка">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.4"/></svg>
+                            </button>
+                            <button class="view-btn" title="Список">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 4h9M5 8h9M5 12h9M2 4h.5M2 8h.5M2 12h.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-grid" id="productGrid">
+
+                    <!-- Card 1 -->
+                    <div class="product-card" onclick="openQuick('Акриловые буквы с торцевой подсветкой', 'Акрил', 'Торцевая LED', 'Классическое решение для наружных вывесок. Молочный акрил рассеивает свет равномерно, создавая мягкое, хорошо заметное свечение по торцу буквы. Отличная читаемость в ночное время.', 'от 1 800 ₽/буква')">
+                        <div class="product-card__image">
+                            <img src="Продукция/Объемные буквы.jpeg" alt="Акриловые буквы с торцевой подсветкой" loading="lazy" onerror="this.parentElement.style.background='#111'">
+                            <div class="product-card__labels">
+                                <span class="product-label product-label--popular">Популярное</span>
+                            </div>
+                            <div class="product-card__quick">
+                                <button class="quick-view-btn" onclick="event.stopPropagation(); openQuick('Акриловые буквы с торцевой подсветкой', 'Акрил', 'Торцевая LED', 'Классическое решение для наружных вывесок. Молочный акрил рассеивает свет равномерно.', 'от 1 800 ₽/буква')">Быстрый просмотр</button>
+                            </div>
+                        </div>
+                        <div class="product-card__body">
+                            <div class="product-card__type">Акрил · Торцевая подсветка</div>
+                            <h3 class="product-card__title">Акриловые буквы с торцевой LED-подсветкой</h3>
+                            <p class="product-card__desc">Молочный или цветной акрил, LED-лента внутри. Равномерное свечение по всему торцу.</p>
+                            <div class="product-card__params">
+                                <span class="param-tag">Наружные</span>
+                                <span class="param-tag">Интерьер</span>
+                                <span class="param-tag">Срок 3–7 дн.</span>
+                            </div>
+                            <div class="product-card__footer">
+                                <div class="product-card__price">
+                                    от <strong>1 800 ₽</strong>/буква
+                                </div>
+                                <span class="product-card__order">
+                                    Заказать
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="product-card" onclick="openQuick('Металлические буквы из нержавейки', 'Нержавеющая сталь', 'Контражурная', 'Буквы из полированной или щёточной нержавеющей стали. Высокий статус, долговечность, устойчивость к любым погодным условиям. Срок службы — 15+ лет.', 'от 4 200 ₽/буква')">
+                        <div class="product-card__image">
+                            <img src="Продукция/Объемные буквы.jpeg" alt="Металлические буквы" loading="lazy" onerror="this.parentElement.style.background='#111'" style="filter:brightness(0.85) saturate(0.5)">
+                            <div class="product-card__labels">
+                                <span class="product-label product-label--new">Новинка</span>
+                            </div>
+                            <div class="product-card__quick">
+                                <button class="quick-view-btn" onclick="event.stopPropagation();">Быстрый просмотр</button>
+                            </div>
+                        </div>
+                        <div class="product-card__body">
+                            <div class="product-card__type">Нержавейка · Контражурная</div>
+                            <h3 class="product-card__title">Буквы из нержавеющей стали с гало-эффектом</h3>
+                            <p class="product-card__desc">Полированная или матовая нержавейка с контражурной подсветкой. Ореол цвета на стене.</p>
+                            <div class="product-card__params">
+                                <span class="param-tag">Фасад</span>
+                                <span class="param-tag">Премиум</span>
+                                <span class="param-tag">Срок 7–14 дн.</span>
+                            </div>
+                            <div class="product-card__footer">
+                                <div class="product-card__price">от <strong>4 200 ₽</strong>/буква</div>
+                                <span class="product-card__order">Заказать <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="product-card" onclick="openQuick('Алюминиевые объёмные буквы', 'Алюминий', 'Прямая/Торцевая', 'Буквы из листового алюминия с порошковой покраской в любой цвет RAL. Лёгкие, жёсткие, устойчивы к коррозии. Идеальны для больших форматов.', 'от 2 600 ₽/буква')">
+                        <div class="product-card__image">
+                            <img src="Продукция/Объемные буквы.jpeg" alt="Алюминиевые буквы" loading="lazy" onerror="this.parentElement.style.background='#111'" style="filter:hue-rotate(180deg) brightness(0.8)">
+                            <div class="product-card__quick">
+                                <button class="quick-view-btn" onclick="event.stopPropagation();">Быстрый просмотр</button>
+                            </div>
+                        </div>
+                        <div class="product-card__body">
+                            <div class="product-card__type">Алюминий · Порошковое покрытие</div>
+                            <h3 class="product-card__title">Алюминиевые буквы с покраской RAL</h3>
+                            <p class="product-card__desc">Лёгкий и жёсткий алюминий в любом цвете RAL. Крупные форматы без провисания.</p>
+                            <div class="product-card__params">
+                                <span class="param-tag">Наружные</span>
+                                <span class="param-tag">Крупный формат</span>
+                                <span class="param-tag">Срок 5–10 дн.</span>
+                            </div>
+                            <div class="product-card__footer">
+                                <div class="product-card__price">от <strong>2 600 ₽</strong>/буква</div>
+                                <span class="product-card__order">Заказать <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="product-card" onclick="openQuick('Интерьерные буквы из ПВХ', 'ПВХ', 'Без подсветки', 'Лёгкие и доступные буквы из вспененного или листового ПВХ. Отличный выбор для интерьерных надписей, навигации, шоу-румов и офисов.', 'от 500 ₽/буква')">
+                        <div class="product-card__image">
+                            <img src="Продукция/Объемные буквы.jpeg" alt="ПВХ буквы" loading="lazy" onerror="this.parentElement.style.background='#111'" style="filter:brightness(0.7) sepia(0.3)">
+                            <div class="product-card__labels">
+                                <span class="product-label product-label--popular">Бюджетное</span>
+                            </div>
+                            <div class="product-card__quick">
+                                <button class="quick-view-btn" onclick="event.stopPropagation();">Быстрый просмотр</button>
+                            </div>
+                        </div>
+                        <div class="product-card__body">
+                            <div class="product-card__type">ПВХ · Без подсветки</div>
+                            <h3 class="product-card__title">Интерьерные буквы из ПВХ</h3>
+                            <p class="product-card__desc">Бюджетное решение для интерьерных надписей, навигации, шоу-румов. Покраска в любой цвет.</p>
+                            <div class="product-card__params">
+                                <span class="param-tag">Интерьер</span>
+                                <span class="param-tag">Срок 2–4 дн.</span>
+                                <span class="param-tag">Выгодно</span>
+                            </div>
+                            <div class="product-card__footer">
+                                <div class="product-card__price">от <strong>500 ₽</strong>/буква</div>
+                                <span class="product-card__order">Заказать <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="product-card" onclick="openQuick('Деревянные и МДФ-буквы', 'МДФ / Дерево', 'Без подсветки / LED', 'Буквы из МДФ или натурального дерева. Фрезеруются на ЧПУ, покрываются лаком или эмалью. Идеальны для эко-брендов, кафе, ресторанов и интерьерных инсталляций.', 'от 900 ₽/буква')">
+                        <div class="product-card__image">
+                            <img src="Продукция/Объемные буквы.jpeg" alt="Деревянные буквы" loading="lazy" onerror="this.parentElement.style.background='#111'" style="filter:brightness(0.75) sepia(0.6)">
+                            <div class="product-card__quick">
+                                <button class="quick-view-btn" onclick="event.stopPropagation();">Быстрый просмотр</button>
+                            </div>
+                        </div>
+                        <div class="product-card__body">
+                            <div class="product-card__type">МДФ / Дерево · Eco</div>
+                            <h3 class="product-card__title">Деревянные буквы и буквы из МДФ</h3>
+                            <p class="product-card__desc">Фрезеровка ЧПУ, покрытие лаком или эмалью. Тепло и уют для кафе, ресторанов, эко-брендов.</p>
+                            <div class="product-card__params">
+                                <span class="param-tag">Интерьер</span>
+                                <span class="param-tag">Эко</span>
+                                <span class="param-tag">Срок 5–8 дн.</span>
+                            </div>
+                            <div class="product-card__footer">
+                                <div class="product-card__price">от <strong>900 ₽</strong>/буква</div>
+                                <span class="product-card__order">Заказать <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="product-card" onclick="openQuick('Акрил с прямой подсветкой', 'Прозрачный акрил', 'Прямая LED', 'Прозрачный или тонированный акрил с подсветкой изнутри. Буква светится насквозь — очень яркий и эффектный результат. Популярно для ночных заведений и банков.', 'от 2 100 ₽/буква')">
+                        <div class="product-card__image">
+                            <img src="Продукция/Объемные буквы.jpeg" alt="Прозрачный акрил с подсветкой" loading="lazy" onerror="this.parentElement.style.background='#111'" style="filter:brightness(0.9) hue-rotate(40deg)">
+                            <div class="product-card__quick">
+                                <button class="quick-view-btn" onclick="event.stopPropagation();">Быстрый просмотр</button>
+                            </div>
+                        </div>
+                        <div class="product-card__body">
+                            <div class="product-card__type">Акрил · Прямая подсветка</div>
+                            <h3 class="product-card__title">Прозрачный акрил с прямой LED-подсветкой</h3>
+                            <p class="product-card__desc">Буква светится насквозь. Максимальная яркость, отличная читаемость ночью.</p>
+                            <div class="product-card__params">
+                                <span class="param-tag">Ночные заведения</span>
+                                <span class="param-tag">Максимальный эффект</span>
+                            </div>
+                            <div class="product-card__footer">
+                                <div class="product-card__price">от <strong>2 100 ₽</strong>/буква</div>
+                                <span class="product-card__order">Заказать <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" style="margin-top:48px;">
+                    <button class="pagination__btn pagination__btn--active">1</button>
+                    <button class="pagination__btn">2</button>
+                    <button class="pagination__btn">3</button>
+                    <span class="pagination__dots">…</span>
+                    <button class="pagination__btn">8</button>
+                    <button class="pagination__btn pagination__btn--next">Далее →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section section--gray">
+    <div class="container">
+        <div class="cta-block">
+            <div class="cta-block__label">Индивидуальный расчёт</div>
+            <h2 class="cta-block__title">Не нашли нужный вариант?</h2>
+            <p class="cta-block__subtitle">Опишите вашу задачу — мы изготовим буквы по любому техническому заданию. Расчёт стоимости бесплатно в течение 1 рабочего дня.</p>
+            <div class="cta-block__btns">
+                <button class="btn btn--primary btn--large" style="width:auto;" onclick="openCallbackModal()">Получить расчёт</button>
+                <a href="contacts.html" class="btn btn--outline btn--large" style="width:auto;">Связаться с нами</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Other categories -->
+<section class="section section--dark">
+    <div class="container">
+        <div class="section-label">Смотрите также</div>
+        <h2 class="section-title">Другие категории продукции</h2>
+        <div class="catalog-grid">
+            <a href="#" class="catalog-cat-card">
+                <div class="catalog-cat-card__image"><img src="Продукция/Световые короба.jpeg" alt="Световые короба" loading="lazy" onerror="this.parentElement.style.background='#111'"></div>
+                <div class="catalog-cat-card__body">
+                    <div class="catalog-cat-card__count">12 товаров</div>
+                    <h3 class="catalog-cat-card__title">Световые короба</h3>
+                    <p class="catalog-cat-card__desc">Лайтбоксы с одно- и двухсторонней подсветкой</p>
+                    <span class="catalog-cat-card__link">Перейти <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+            </a>
+            <a href="#" class="catalog-cat-card">
+                <div class="catalog-cat-card__image"><img src="Продукция/Тонкие световые панели.jpeg" alt="Световые панели" loading="lazy" onerror="this.parentElement.style.background='#111'"></div>
+                <div class="catalog-cat-card__body">
+                    <div class="catalog-cat-card__count">8 товаров</div>
+                    <h3 class="catalog-cat-card__title">Световые панели</h3>
+                    <p class="catalog-cat-card__desc">Тонкие панели для интерьерного зонирования</p>
+                    <span class="catalog-cat-card__link">Перейти <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+            </a>
+            <a href="#" class="catalog-cat-card">
+                <div class="catalog-cat-card__image"><img src="Продукция/Неоновые вывески.jpeg" alt="Неон" loading="lazy" onerror="this.parentElement.style.background='#111'"></div>
+                <div class="catalog-cat-card__body">
+                    <div class="catalog-cat-card__count">6 товаров</div>
+                    <h3 class="catalog-cat-card__title">Неон и LED-неон</h3>
+                    <p class="catalog-cat-card__desc">Гибкий LED-неон любой формы и цвета</p>
+                    <span class="catalog-cat-card__link">Перейти <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__column footer__column--brand">
+                <div class="footer__logo"><img src="logo for dark bg.png" alt="Нарратив" class="logo"></div>
+                <p class="footer__description">Производство наружной и интерьерной рекламы. Полный цикл — от идеи до монтажа.</p>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Услуги</h4>
+                <ul class="footer__links">
+                    <li><a href="#">Изготовление вывесок</a></li>
+                    <li><a href="#">Фрезеровка</a></li>
+                    <li><a href="#">Лазерная резка</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Продукция</h4>
+                <ul class="footer__links">
+                    <li><a href="catalog-cat.html" style="color:var(--color-primary)">Объемные буквы</a></li>
+                    <li><a href="#">Световые короба</a></li>
+                    <li><a href="#">Световые панели</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Компания</h4>
+                <ul class="footer__links">
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="blog.html">Блог</a></li>
+                </ul>
+            </div>
+            <div class="footer__column">
+                <h4 class="footer__heading">Контакты</h4>
+                <ul class="footer__contacts">
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.654 1.328a.678.678 0 00-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 004.168 6.608 17.569 17.569 0 006.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 00-.063-1.015l-2.307-1.794a.678.678 0 00-.58-.122l-2.19.547a1.745 1.745 0 01-1.657-.459L5.482 8.062a1.745 1.745 0 01-.46-1.657l.548-2.19a.678.678 0 00-.122-.58L3.654 1.328z" stroke="currentColor" fill="none"/></svg><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+                    <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 5.5l5.5 3.5 5.5-3.5M3 13h10a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0013 3H3a1.5 1.5 0 00-1.5 1.5v7A1.5 1.5 0 003 13z" stroke="currentColor" fill="none"/></svg><a href="mailto:info@narrativ.ru">info@narrativ.ru</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="footer__copyright">© 2026 Нарратив. Все права защищены.</div>
+            <div class="footer__legal">
+                <a href="privacy.html">Политика конфиденциальности</a>
+                <span class="footer__separator">•</span>
+                <a href="#">Карта сайта</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Quick View Modal -->
+<div class="quick-modal" id="quickModal">
+    <div class="quick-modal__overlay" onclick="closeQuick()"></div>
+    <div class="quick-modal__box">
+        <div class="quick-modal__img">
+            <img src="Продукция/Объемные буквы.jpeg" id="quickImg" alt="" onerror="this.parentElement.style.background='#111'">
+        </div>
+        <div class="quick-modal__info">
+            <button class="quick-modal__close" onclick="closeQuick()">×</button>
+            <div class="quick-modal__type" id="quickType"></div>
+            <h2 class="quick-modal__title" id="quickTitle"></h2>
+            <p class="quick-modal__desc" id="quickDesc"></p>
+            <div class="quick-modal__specs">
+                <div class="quick-spec"><div class="quick-spec__label">Материал</div><div class="quick-spec__val" id="quickMaterial"></div></div>
+                <div class="quick-spec"><div class="quick-spec__label">Подсветка</div><div class="quick-spec__val" id="quickLight"></div></div>
+                <div class="quick-spec"><div class="quick-spec__label">Гарантия</div><div class="quick-spec__val">1 год</div></div>
+                <div class="quick-spec"><div class="quick-spec__label">Монтаж</div><div class="quick-spec__val">Включён</div></div>
+            </div>
+            <div class="quick-modal__price">
+                <div class="quick-modal__price-from">Стоимость</div>
+                <span class="quick-modal__price-val" id="quickPrice"></span>
+            </div>
+            <button class="btn btn--primary btn--large" onclick="closeQuick(); openCallbackModal();">Заказать расчёт</button>
+        </div>
+    </div>
+</div>
+
+<!-- Callback modal -->
+<div class="modal" id="callbackModal">
+    <div class="modal__overlay" onclick="closeCallbackModal()"></div>
+    <div class="modal__content">
+        <button class="modal__close" onclick="closeCallbackModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <h3 class="modal__title">Заказать звонок</h3>
+        <p class="modal__subtitle">Оставьте свой номер, и мы перезвоним вам в течение 15 минут</p>
+        <form class="form" onsubmit="submitCallback(event)">
+            <div class="form__group"><input type="tel" class="form__input" placeholder="+7 (___) ___-__-__" required></div>
+            <div class="form__checkbox">
+                <input type="checkbox" id="agree-modal" required>
+                <label for="agree-modal">Согласен на обработку персональных данных</label>
+            </div>
+            <button type="submit" class="btn btn--primary btn--large">Заказать звонок</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    function toggleFilter(el) {
+        const body = el.nextElementSibling;
+        const arrow = el.querySelector('span');
+        if (body) {
+            body.style.display = body.style.display === 'none' ? 'block' : 'none';
+            arrow.style.transform = body.style.display === 'none' ? 'rotate(-90deg)' : '';
+        }
+    }
+
+    function updatePriceLabel(val) {
+        document.getElementById('priceLabel').textContent = 'до ' + Number(val).toLocaleString('ru') + ' ₽';
+    }
+
+    function openQuick(title, material, light, desc, price) {
+        document.getElementById('quickTitle').textContent = title;
+        document.getElementById('quickType').textContent = material + ' · ' + light;
+        document.getElementById('quickDesc').textContent = desc;
+        document.getElementById('quickMaterial').textContent = material;
+        document.getElementById('quickLight').textContent = light;
+        document.getElementById('quickPrice').textContent = price;
+        document.getElementById('quickModal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeQuick() {
+        document.getElementById('quickModal').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeQuick(); });
+</script>
+</body>
+</html>

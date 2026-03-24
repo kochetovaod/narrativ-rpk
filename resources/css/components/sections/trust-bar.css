@@ -1,0 +1,55 @@
+/* ==========================================
+   Trust Bar (Landing Page)
+   ========================================== */
+.trust-bar {
+    padding: 28px 0;
+    border-top: 1px solid rgba(255, 255, 255, .05);
+    border-bottom: 1px solid rgba(255, 255, 255, .05);
+    background: #080808;
+}
+
+.trust-bar__inner {
+    display: flex;
+    gap: 0;
+    justify-content: space-between;
+}
+
+.tbar-item {
+    text-align: center;
+    flex: 1;
+    padding: 0 16px;
+    border-right: 1px solid rgba(255, 255, 255, .05);
+}
+
+.tbar-item:last-child {
+    border-right: none;
+}
+
+.tbar-item__num {
+    font-size: 32px;
+    font-weight: 800;
+    color: transparent;
+    background: linear-gradient(90deg, var(--color-primary), #b8860b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.tbar-item__label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, .35);
+}
+
+@media (max-width: 640px) {
+    .trust-bar__inner {
+        grid-template-columns: repeat(2, 1fr);
+        display: grid;
+        gap: 16px;
+    }
+
+    .tbar-item {
+        border-right: none;
+    }
+}

@@ -1,0 +1,124 @@
+/* ==========================================
+   Partners / Clients
+   ========================================== */
+.partners-section {
+    padding: 80px 0;
+    background: var(--color-bg-dark);
+}
+
+.partners-track-wrapper {
+    overflow: hidden;
+    margin: 0 -20px;
+    padding: 20px 20px;
+}
+
+.partners-track {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    animation: scroll-left 25s linear infinite;
+    width: max-content;
+    will-change: transform;
+    /* Подсказка браузеру для оптимизации */
+    transform: translateZ(0);
+    /* Включение аппаратного ускорения */
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+/* @keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+} */
+
+.partner-logo {
+    height: 50px;
+    opacity: 0.4;
+    filter: grayscale(100%) brightness(2);
+    transition: all 0.3s;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+    min-width: 120px;
+}
+
+.partner-logo:hover {
+    opacity: 0.8;
+    filter: none;
+    color: var(--color-primary);
+    border-color: rgba(184, 134, 11, 0.4);
+}
+
+/* Partners Grid */
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+}
+
+.partner-grid-item {
+    aspect-ratio: 16/10;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(184, 134, 11, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: all .3s;
+}
+
+.partner-grid-item:hover {
+    border-color: rgba(184, 134, 11, 0.35);
+    background: rgba(0, 196, 184, 0.03);
+}
+
+.partner-grid-item img {
+    max-width: 80%;
+    max-height: 60%;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(2);
+    opacity: 0.5;
+    transition: all .3s;
+}
+
+.partner-grid-item:hover img {
+    filter: none;
+    opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .partners-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
