@@ -11,20 +11,28 @@ jobs:
 
     steps:
       - name: 🔑 Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
+        uses: webfactory/ssh-agent@v0.10.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: 🚀 Execute deploy commands
         run: |
           ssh -o StrictHostKeyChecking=no u3460303@31.31.196.115 << 'EOF'
+          # Добавляем PHP в PATH
+          export PATH=/opt/php/8.4/bin:$PATH
+          
+          # Переходим в директорию проекта
           cd ~/www/narrativ-rpk.ru/narrativ-rpk
-
+          
+          # Обновляем код
           git pull origin main
-
-          php84 composer install --no-dev --optimize-autoloader
-
-          php84 artisan migrate --force
-
-          php84 artisan optimize
+          
+          # Устанавливаем зависимости
+          php composer.phar install --no-dev --optimize-autoloader
+          
+          # Выполняем миграции
+          php artisan migrate --force
+          
+          # Оптимизируем
+          php artisan optimize
           EOF
