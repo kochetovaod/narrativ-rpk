@@ -18,7 +18,7 @@ jobs:
       - name: 🚀 Execute deploy commands
         run: |
           ssh -o StrictHostKeyChecking=no u3460303@31.31.196.115 << 'EOF'
-            cd ~/www/narrativ-rpk
+             cd ~/www/narrativ-rpk.ru/narrativ-rpk
 
             git pull origin main
 
