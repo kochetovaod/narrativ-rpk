@@ -18,14 +18,13 @@ jobs:
       - name: 🚀 Execute deploy commands
         run: |
           ssh -o StrictHostKeyChecking=no u3460303@31.31.196.115 << 'EOF'
-             cd ~/www/narrativ-rpk.ru/narrativ-rpk
+          cd ~/www/narrativ-rpk.ru/narrativ-rpk
 
-            git pull origin main
+          git pull origin main
 
-            php84 composer install --no-dev --optimize-autoloader
+          php84 composer install --no-dev --optimize-autoloader
 
-            php84 artisan migrate --force
+          php84 artisan migrate --force
 
-            php84 artisan optimize
-
+          php84 artisan optimize
           EOF
