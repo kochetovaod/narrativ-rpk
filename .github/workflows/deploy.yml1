@@ -1,0 +1,30 @@
+name: 🚀 Deploy Laravel via SSH
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔑 Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: 🚀 Execute deploy commands
+        run: |
+          ssh -o StrictHostKeyChecking=no u3460303@31.31.196.115 << 'EOF'
+          cd ~/www/narrativ-rpk.ru/narrativ-rpk
+
+          git pull origin main
+
+          php84 composer install --no-dev --optimize-autoloader
+
+          php84 artisan migrate --force
+
+          php84 artisan optimize
+          EOF
