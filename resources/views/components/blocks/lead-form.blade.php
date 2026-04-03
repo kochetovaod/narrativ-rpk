@@ -17,7 +17,7 @@
                 </div>
                 <div class="form__checkbox">
                     <input type="checkbox" id="agree" required>
-                    <label for="agree">Согласен на обработку персональных данных</label>
+                    <label for="agree">Согласен на обработку персональных данных.</label>
                 </div>
                 <button type="submit" class="btn btn--primary btn--large">Получить расчет</button>
             </form>
