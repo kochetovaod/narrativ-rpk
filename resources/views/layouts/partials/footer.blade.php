@@ -63,7 +63,7 @@
             <div class="footer__column">
                 <h4 class="footer__heading">Компания</h4>
                 <ul class="footer__links">
-                    <li><a href="{{ route('about') }}">О нас...</a></li>
+                    <li><a href="{{ route('about') }}">О нас</a></li>
                     <li><a href="{{ route('portfolio.index') }}">Портфолио</a></li>
                     <li><a href="{{ route('blog.index') }}">Блог</a></li>
                     <li><a href="{{ route('equipment') }}">Оборудование</a></li>
