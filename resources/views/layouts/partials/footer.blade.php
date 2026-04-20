@@ -1,17 +1,11 @@
 <footer class="footer" id="contacts">
     <!-- Декоративные картинки с тегами img -->
     <div class="footer__decor footer__decor--top-left">
-        <img src="@image('decor3')"
-            alt=""
-            aria-hidden="true"
-            loading="lazy">
+        <img src="@image('decor3')" alt="" aria-hidden="true" loading="lazy">
     </div>
 
     <div class="footer__decor footer__decor--bottom-right">
-        <img src="@image('decor4')"
-            alt=""
-            aria-hidden="true"
-            loading="lazy">
+        <img src="@image('decor4')" alt="" aria-hidden="true" loading="lazy">
     </div>
 
     <div class="container">
@@ -69,7 +63,7 @@
             <div class="footer__column">
                 <h4 class="footer__heading">Компания</h4>
                 <ul class="footer__links">
-                    <li><a href="{{ route('about') }}">О нас</a></li>
+                    <li><a href="{{ route('about') }}">О нас...</a></li>
                     <li><a href="{{ route('portfolio.index') }}">Портфолио</a></li>
                     <li><a href="{{ route('blog.index') }}">Блог</a></li>
                     <li><a href="{{ route('equipment') }}">Оборудование</a></li>
